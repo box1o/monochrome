@@ -25,6 +25,7 @@ PanelWindow {
     ShellViewModel { id: viewModel }
     readonly property var cfg: viewModel.cfg
     readonly property var appState: viewModel.appState
+    readonly property var pomodoro: appState.pomodoro
     readonly property var theme: viewModel.theme
 
     readonly property var metrics: uiMetrics
@@ -42,6 +43,11 @@ PanelWindow {
     readonly property bool wiredOn: systemService.wiredOn
     function playSound(name) { systemService.playSound(name) }
     function tr(k) { return systemService.tr(k) }
+    readonly property bool pomodoroRunning: pomodoro.running
+    readonly property string pomodoroPhase: pomodoro.phaseLabel
+    readonly property string pomodoroTime: pomodoro.timeText
+    readonly property real pomodoroProgress: pomodoro.progress
+    function togglePomodoro() { pomodoro.toggle() }
     function monCmd(n, o) { return systemService.monCmd(n, o) }
     function monMap() { return systemService.monMap() }
     function monApply(n, o) { systemService.monApply(n, o) }

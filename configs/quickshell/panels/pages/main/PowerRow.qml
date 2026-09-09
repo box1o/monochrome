@@ -42,6 +42,13 @@ RowLayout {
                     onBodyClicked: powerRow.view.sys.openSub("battery")
                 }
 
+                PomodoroCard {
+                    view: powerRow.view
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 1.25
+                    Layout.preferredHeight: powerRow.tileH
+                }
+
                 LoadCard {
 
 
