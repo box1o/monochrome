@@ -1,0 +1,167 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+readonly D_SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+
+D_FILE=''
+D_DIR=''
+
+die() {
+    printf 'ERROR: %s\n' "$*" >&2
+    exit 1
+}
+
+# Compatibility helper used by existing d.bl.sh files.
+gbl() {
+    case "${1:-}" in
+        log) printf '%s\n' "${D_SCRIPT_DIR}/d-log.lib.sh" ;;
+        d_lib) printf '%s\n' "${D_SCRIPT_DIR}/d-stub.lib.sh" ;;
+        *) return 1 ;;
+    esac
+}
+
+resolve_dfile() {
+    if [[ ! -f ./d.bl.sh && ! -d ./d.bl.sh ]]; then
+        die 'there is no ./d.bl.sh to run in this directory'
+    fi
+
+    if [[ -d ./d.bl.sh ]]; then
+        D_DIR="$(cd ./d.bl.sh && pwd -P)"
+        D_FILE="${D_DIR}"
+    else
+        D_DIR="${PWD}"
+        D_FILE="${PWD}/d.bl.sh"
+    fi
+}
+
+load_dfile() {
+    local file
+    local found=false
+
+    resolve_dfile
+
+    if [[ -d "${D_FILE}" ]]; then
+        while IFS= read -r -d '' file; do
+            # shellcheck source=/dev/null
+            source "${file}"
+            found=true
+        done < <(find "${D_FILE}" -maxdepth 1 -type f -name '*.bl.sh' -print0 | sort -z)
+        [[ "${found}" == true ]] || die "there are no *.bl.sh files in ${D_FILE}"
+    else
+        # shellcheck source=/dev/null
+        source "${D_FILE}"
+    fi
+}
+
+list_commands() {
+    compgen -A function |
+        sed -n 's/^gblcmd_//p' |
+        grep -Ev '^(descr_|autocomp_)' |
+        sort -u
+}
+
+usage() {
+    local cmd
+    local var
+
+    printf 'Usage: d command [args] [-- command args]\n\nCommands:\n'
+    while read -r cmd; do
+        var="gblcmd_descr_${cmd}"
+        printf '  %-20s %s\n' "${cmd}" "${!var:-}"
+    done < <(list_commands)
+}
+
+print_zsh_setup() {
+    cat <<'EOF'
+_d_zsh() {
+    local -a reply_arr
+    reply_arr=(${(@f)$(command d _complete ${words[@]} 2>/dev/null)})
+    compadd -- "${reply_arr[@]}"
+}
+compdef _d_zsh d
+EOF
+}
+
+print_bash_setup() {
+    cat <<'EOF'
+_d_bash() {
+    local candidates
+    candidates="$(command d _complete "${COMP_WORDS[@]}" 2>/dev/null)"
+    mapfile -t COMPREPLY < <(compgen -W "${candidates}" -- "${COMP_WORDS[COMP_CWORD]}")
+}
+complete -F _d_bash d
+EOF
+}
+
+resolve_command() {
+    local cmd="${1}"
+    local matches
+
+    if declare -F "gblcmd_${cmd}" >/dev/null 2>&1; then
+        printf '%s\n' "${cmd}"
+        return 0
+    fi
+
+    mapfile -t matches < <(list_commands | grep -F -- "${cmd}" || true)
+    ((${#matches[@]} == 1)) || die "unknown or ambiguous command: ${cmd}"
+    printf '%s\n' "${matches[0]}"
+}
+
+run_command() {
+    local cmd="${1}"
+    shift
+    cmd="$(resolve_command "${cmd}")"
+    "gblcmd_${cmd}" "$@"
+}
+
+dispatch() {
+    local cmd
+    local -a args
+
+    (($# > 0)) || {
+        usage
+        return 0
+    }
+
+    while (($# > 0)); do
+        cmd="${1}"
+        shift
+        args=()
+
+        while (($# > 0)); do
+            if [[ "${1}" == -- ]]; then
+                shift
+                break
+            fi
+            args+=("${1}")
+            shift
+        done
+
+        run_command "${cmd}" "${args[@]}"
+    done
+}
+
+case "${1:-}" in
+    _has_bl) [[ -f ./d.bl.sh || -d ./d.bl.sh ]] ;;
+    _list_commands)
+        load_dfile
+        list_commands
+        ;;
+    _complete)
+        load_dfile
+        list_commands
+        ;;
+    _print_zsh_setup) print_zsh_setup ;;
+    _print_autocomplete) print_bash_setup ;;
+    help | -h | --help | '')
+        load_dfile 2>/dev/null || true
+        usage
+        ;;
+    *)
+        load_dfile
+        dispatch "$@"
+        ;;
+esac

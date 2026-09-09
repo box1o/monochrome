@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+system::os() {
+    exec::capture uname -s
+}
+
+system::architecture() {
+    exec::capture uname -m
+}
+
+system::kernel() {
+    exec::capture uname -r
+}
+
+system::hostname() {
+    exec::capture hostname
+}
+
+system::cpu_count() {
+    exec::capture getconf _NPROCESSORS_ONLN 2>/dev/null || exec::capture nproc
+}
+
+system::memory_mb() {
+    exec::capture awk '/MemTotal:/ { print int($2 / 1024) }' /proc/meminfo
+}
+
+system::require_linux() {
+    local __operating_system__
+    __operating_system__=$(system::os) || return
+
+    if [[ "${__operating_system__}" != Linux ]]; then
+        log::error "Linux is required"
+        return 1
+    fi
+}
+
+system::distribution() {
+    if [[ ! -r /etc/os-release ]]; then
+        printf 'unknown\n'
+        return 0
+    fi
+
+    local __distribution__
+    __distribution__=$(
+        # shellcheck disable=SC1091
+        source /etc/os-release
+        printf '%s\n' "${ID:-unknown}"
+    ) || return
+
+    printf '%s\n' "${__distribution__}"
+}
+
+system::is_container() {
+    [[ -f /.dockerenv ]] && return 0
+    exec::run --quiet grep -qaE '(docker|containerd|lxc|kubepods)' /proc/1/cgroup
+}
+
+system::is_wsl() {
+    exec::run --quiet grep -qi microsoft /proc/version
+}

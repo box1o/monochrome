@@ -1,0 +1,11 @@
+{
+    "clock12": false,
+    "fontFam": "JetBrainsMono Nerd Font",
+    "fontSize": 15,
+    "iconSize": 17,
+    "mutedAlpha": 0.45,
+    "panelW": 540,
+    "pillH": 34,
+    "pillPos": "top",
+    "uiSounds": true
+}

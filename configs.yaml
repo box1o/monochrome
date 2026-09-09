@@ -1,0 +1,25 @@
+configs:
+  hypr:
+    source: configs/hypr
+    target: .config/hypr
+  kitty:
+    source: configs/kitty
+    target: .config/kitty
+  shell:
+    source: configs/shell
+    target: .config/mono/shell
+  bash:
+    source: configs/bash/bashrc
+    target: .bashrc
+  quickshell:
+    source: configs/quickshell
+    target: .config/quickshell
+  zsh:
+    source: configs/zsh/zshrc
+    target: .zshrc
+  starship:
+    source: configs/starship
+    target: .config/starship
+  nvim:
+    source: configs/nvim
+    target: .config/nvim

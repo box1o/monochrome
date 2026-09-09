@@ -1,0 +1,193 @@
+distribution: arch
+
+packages:
+  default:
+    - base-devel
+    - git
+    - curl
+    - wget
+    - jq
+    - yq
+    - openssl
+    - coreutils
+    - findutils
+    - util-linux
+    - tar
+    - unzip
+    - file
+    - xdg-utils
+    - xdg-user-dirs
+    - gum
+    - age
+    - trash-cli
+    - python
+    - pciutils
+    - inotify-tools
+    - socat
+    - zsh
+    - bash-completion
+    - starship
+    - kitty
+    - eza
+    - zoxide
+    - bat
+    - fzf
+    - fd
+    - ripgrep
+    - less
+    - tree
+    - tmux
+    - btop
+    - fastfetch
+    - neovim
+    - hyprland
+    - quickshell
+    - hyprpaper
+    - hypridle
+    - hyprlock
+    - hyprpolkitagent
+    - hyprsunset
+    - hyprcursor
+    - hyprpicker
+    - xdg-desktop-portal
+    - xdg-desktop-portal-hyprland
+    - xdg-desktop-portal-gtk
+    - qt6-declarative
+    - qt6-multimedia
+    - qt6-wayland
+    - qt6-svg
+    - qt6-imageformats
+    - networkmanager
+    - network-manager-applet
+    - bluez
+    - bluez-utils
+    - blueman
+    - pipewire
+    - pipewire-alsa
+    - pipewire-pulse
+    - pipewire-jack
+    - wireplumber
+    - pavucontrol
+    - pamixer
+    - playerctl
+    - cava
+    - brightnessctl
+    - power-profiles-daemon
+    - upower
+    - ddcutil
+    - efibootmgr
+    - udisks2
+    - udiskie
+    - gvfs
+    - gvfs-mtp
+    - gvfs-gphoto2
+    - wl-clipboard
+    - cliphist
+    - grim
+    - slurp
+    - swappy
+    - libnotify
+    - gnome-keyring
+    - seahorse
+    - ttf-jetbrains-mono-nerd
+    - noto-fonts
+    - noto-fonts-cjk
+    - noto-fonts-emoji
+    - noto-fonts-extra
+    - papirus-icon-theme
+    - adw-gtk-theme
+    - firefox
+    - nautilus
+    - loupe
+    - zathura
+    - vlc
+    - file-roller
+
+  development:
+    - clang
+    - llvm
+    - lldb
+    - gdb
+    - valgrind
+    - cmake
+    - ninja
+    - ccache
+    - bear
+    - pkgconf
+    - tree-sitter
+    - luarocks
+    - shellcheck
+    - shfmt
+    - python-pip
+    - python-pipx
+    - nodejs
+    - npm
+    - rust
+    - go
+    - jdk17-openjdk
+    - gradle
+    - dotnet-sdk
+    - github-cli
+    - lazygit
+    - azure-cli
+    - docker
+    - docker-buildx
+    - docker-compose
+    - android-tools
+    - android-udev
+    - scrcpy
+
+  nvidia-development:
+    - cuda
+    - cudnn
+
+  hardware-amd-cpu:
+    - amd-ucode
+
+  hardware-intel-cpu:
+    - intel-ucode
+
+  hardware-amd-gpu:
+    - mesa
+    - vulkan-radeon
+
+  hardware-intel-gpu:
+    - mesa
+    - vulkan-intel
+    - intel-media-driver
+
+  hardware-nvidia:
+    - nvidia-open
+    - nvidia-utils
+    - egl-wayland
+    - libva-nvidia-driver
+
+  hardware-nvidia-dkms:
+    - nvidia-open-dkms
+    - nvidia-utils
+    - egl-wayland
+    - libva-nvidia-driver
+
+  optional:
+    - chromium
+    - bitwarden
+    - telegram-desktop
+    - gnome-calculator
+    - gnome-disk-utility
+    - gparted
+    - baobab
+    - mission-center
+    - freerdp
+    - tailscale
+    - cups
+    - cups-pdf
+    - system-config-printer
+
+  aur:
+    - android-studio
+    - bibata-cursor-theme-bin
+    - localsend
+    - mpvpaper
+    - postman-bin
+    - teams-for-linux
+    - zen-browser-bin

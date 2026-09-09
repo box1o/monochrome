@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+. "$(gbl log)"
+
+gblcmd_descr_help='show project commands'
+gblcmd_help() {
+    d help
+}

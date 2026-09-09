@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+readonly __mono_runtime_lib__="${MONO_LIB_DIR:-${HOME}/.local/lib/mono}/init.sh"
+
+if [[ ! -r "${__mono_runtime_lib__}" ]]; then
+    printf 'Mono runtime library is unavailable: %s\n' "${__mono_runtime_lib__}" >&2
+    exit 1
+fi
+
+# shellcheck source=/dev/null
+source "${__mono_runtime_lib__}"
+
+mono_shell::clipboard_list() {
+    proc::require cliphist || return
+    proc::run cliphist list
+}
+
+mono_shell::clipboard_copy() {
+    local __entry_id__=${1:-}
+    validate::not_empty clipboard-entry "${__entry_id__}" || return
+    proc::require cliphist wl-copy || return
+    printf '%s\t' "${__entry_id__}" | cliphist decode | wl-copy
+}
+
+mono_shell::clipboard_wipe() {
+    proc::require cliphist || return
+    proc::run cliphist wipe
+}
+
+mono_shell::monitor_apply() {
+    local __name__=${1:-}
+    local __mode__=${2:-}
+    local __position__=${3:-}
+    local __scale__=${4:-}
+
+    [[ "${__name__}" =~ ^[A-Za-z0-9._-]+$ ]] || return 2
+    [[ "${__mode__}" =~ ^(preferred|[0-9]+x[0-9]+(@[0-9]+([.][0-9]+)?)?)$ ]] || return 2
+    [[ "${__position__}" =~ ^(auto(-(left|right|up|down))?|-?[0-9]+x-?[0-9]+)$ ]] || return 2
+    [[ "${__scale__}" =~ ^[0-9]+([.][0-9]+)?$ ]] || return 2
+
+    local __spec__="${__name__},${__mode__},${__position__},${__scale__}"
+    local __config__="${XDG_CONFIG_HOME:-${HOME}/.config}/mono/hypr/monitors.conf"
+    local __temporary__
+    __temporary__=$(temp::file mono-monitor) || return
+
+    fs::mkdir_parent "${__config__}" || return
+    [[ -f "${__config__}" ]] || fs::touch "${__config__}" || return
+    awk -v name="${__name__}" -v spec="${__spec__}" '
+        $0 ~ "^[[:space:]]*monitor[[:space:]]*=[[:space:]]*" name "," {
+            if (!written) print "monitor = " spec
+            written = 1
+            next
+        }
+        { print }
+        END { if (!written) print "monitor = " spec }
+    ' "${__config__}" >"${__temporary__}"
+    proc::run mv -- "${__temporary__}" "${__config__}"
+    proc::run hyprctl keyword monitor "${__spec__}"
+}
+
+mono_shell::main() {
+    local __domain__=${1:-}
+    local __action__=${2:-}
+    shift 2 2>/dev/null || true
+
+    case "${__domain__}:${__action__}" in
+        clipboard:list) mono_shell::clipboard_list "$@" ;;
+        clipboard:copy) mono_shell::clipboard_copy "$@" ;;
+        clipboard:wipe) mono_shell::clipboard_wipe "$@" ;;
+        monitor:apply) mono_shell::monitor_apply "$@" ;;
+        *)
+            log::error "Unsupported shell operation: ${__domain__} ${__action__}"
+            return 2
+            ;;
+    esac
+}
+
+mono_shell::main "$@"

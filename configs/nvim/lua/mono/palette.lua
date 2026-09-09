@@ -1,0 +1,17 @@
+-- Generated from themes/mono.yaml. Do not edit directly.
+return {
+    background = "#181616",
+    surface = "#2d2a2e",
+    surface_bright = "#393836",
+    foreground = "#c5c9c5",
+    muted = "#727169",
+    accent = "#c4746e",
+    red = "#c4746e",
+    green = "#8a9a7b",
+    yellow = "#c4b28a",
+    blue = "#8ba4b0",
+    magenta = "#a292a3",
+    cyan = "#8ea4a2",
+    white = "#c5c9c5",
+    black = "#0d0c0c",
+}
