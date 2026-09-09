@@ -12,7 +12,9 @@ ShellRoot {
     id: root
 
     property string password: ""
-    property bool authMode: false
+    // Show the password capsule immediately; the hidden TextInput remains
+    // focused so unlocking does not require a preliminary key press.
+    property bool authMode: true
     property bool checking: false
     property string errorText: ""
     property int attempts: 0
@@ -167,7 +169,7 @@ ShellRoot {
                     blurEnabled: true
                     blurMax: root.cfg ? root.cfg.lockBlur : 32
                     blurMultiplier: 0.85
-                    blur: root.authMode ? 1.0 : 0.0
+                    blur: root.authMode ? 0.34 : 0.18
                     Behavior on blur {
                         NumberAnimation { duration: 420; easing.type: Easing.OutCubic }
                     }
@@ -176,7 +178,7 @@ ShellRoot {
                 Rectangle {
                     anchors.fill: parent
                     color: "#000000"
-                    opacity: root.authMode ? 0.55 : 0.35
+                    opacity: root.authMode ? 0.62 : 0.48
                     Behavior on opacity { NumberAnimation { duration: 420 } }
                 }
 
@@ -252,7 +254,7 @@ ShellRoot {
                     width: root.authMode ? 420 : 150
                     height: 62
                     anchors.horizontalCenter: parent.horizontalCenter
-                    y: parent.height / 2 + 130
+                    y: parent.height / 2 + 112
                     opacity: root.authMode ? 1 : 0
                     visible: opacity > 0.01
                     scale: root.authMode ? 1 : 0.92
