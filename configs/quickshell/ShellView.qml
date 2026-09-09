@@ -48,6 +48,7 @@ PanelWindow {
     readonly property string pomodoroTime: pomodoro.timeText
     readonly property real pomodoroProgress: pomodoro.progress
     function togglePomodoro() { pomodoro.toggle() }
+    function resetPomodoro() { pomodoro.reset() }
     function monCmd(n, o) { return systemService.monCmd(n, o) }
     function monMap() { return systemService.monMap() }
     function monApply(n, o) { systemService.monApply(n, o) }

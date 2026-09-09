@@ -55,6 +55,29 @@ Rectangle {
                        ? pomodoroCardRoot.view.sys.colOn : pomodoroCardRoot.view.sys.colMuted
                 font { family: pomodoroCardRoot.view.sys.fontFam; pixelSize: 10; bold: true }
             }
+
+            Rectangle {
+                z: 2
+                Layout.preferredWidth: 22
+                Layout.preferredHeight: 22
+                radius: 7
+                color: resetMouse.containsMouse ? Qt.rgba(1, 1, 1, 0.14) : Qt.rgba(1, 1, 1, 0.07)
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "↺"
+                    color: pomodoroCardRoot.view.sys.colMuted
+                    font { family: pomodoroCardRoot.view.sys.fontFam; pixelSize: 15; bold: true }
+                }
+
+                MouseArea {
+                    id: resetMouse
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: pomodoroCardRoot.view.sys.resetPomodoro()
+                }
+            }
         }
 
         RowLayout {
@@ -86,6 +109,7 @@ Rectangle {
     }
 
     MouseArea {
+        z: -1
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         onClicked: pomodoroCardRoot.view.sys.togglePomodoro()
