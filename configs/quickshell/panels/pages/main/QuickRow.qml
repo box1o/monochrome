@@ -133,8 +133,7 @@ RowLayout {
 
                 IconBtn {
                     view: quickRowRoot.view
-                    glyph: quickRowRoot.view.sys.btAudioMode === "music"
-                           ? String.fromCodePoint(0xF02CB) : String.fromCodePoint(0xF011E)
+                    glyph: quickRowRoot.view.sys.btAudioMode === "music" ? "♫" : "☎"
                     tip: quickRowRoot.view.sys.btAudioConnected
                           ? quickRowRoot.view.sys.tr("Bluetooth") + " · " + quickRowRoot.view.sys.btAudioCodec
                           : quickRowRoot.view.sys.tr("No Bluetooth audio")

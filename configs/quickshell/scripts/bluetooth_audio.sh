@@ -41,7 +41,7 @@ status() {
         a2dp-*|*) mode=music ;;
     esac
     codec="$(codec_from_profile "$profile")"
-    printf 'connected=1\nmode=%s\ncodec=%s\n' "$mode" "$codec"
+    printf 'connected=1\nmode=%s\ncodec=%s\nprofile=%s\n' "$mode" "$codec" "$profile"
 }
 
 music_profile() {
@@ -74,6 +74,11 @@ toggle() {
         target="$(music_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No music profile is available"; return 1; }
     else
         target="$(call_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No microphone profile is available"; return 1; }
+    fi
+    # Keep a manual choice stable while Teams or another client is opening a
+    # stream.  The user can still switch back with this button.
+    if have wpctl; then
+        wpctl settings bluetooth.autoswitch-to-headset-profile false >/dev/null 2>&1 || true
     fi
     pactl set-card-profile "$card" "$target"
     status
