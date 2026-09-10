@@ -49,11 +49,20 @@ PanelWindow {
     readonly property real pomodoroProgress: pomodoro.progress
     function togglePomodoro() { pomodoro.toggle() }
     function resetPomodoro() { pomodoro.reset() }
+    function setPomodoroPreset(name) { pomodoro.setPreset(name) }
+    function setPomodoroCustom(workMinutes, breakMinutes) { pomodoro.setCustom(workMinutes, breakMinutes) }
     function monCmd(n, o) { return systemService.monCmd(n, o) }
     function monMap() { return systemService.monMap() }
     function monApply(n, o) { systemService.monApply(n, o) }
     function monReplay() { systemService.monReplay() }
     function runDetached(cmd) { systemService.runDetached(cmd) }
+    function runCapture(kind) { runDetached(panel.scriptDir + "/capture.sh " + kind) }
+    function backupConfigs() { runDetached(panel.scriptDir + "/config_backup.sh backup") }
+    function restoreConfigs() { runDetached(panel.scriptDir + "/config_backup.sh restore") }
+    readonly property bool networkConnected: appState.network.connected
+    readonly property string networkName: appState.network.name
+    readonly property string networkIp: appState.network.ip
+    function reconnectNetwork() { appState.network.reconnectNow() }
 
     ScrcpyService { id: scrcpyService; host: panel }
     readonly property var adbDevices: scrcpyService.adbDevices
@@ -266,9 +275,14 @@ PanelWindow {
 
     AudioRoutingService { id: audioRoutingService; host: panel }
     readonly property var audioSinks: audioRoutingService.audioSinks
+    readonly property var audioSources: audioRoutingService.audioSources
     readonly property var audioStreams: audioRoutingService.audioStreams
     readonly property string sinkName: audioRoutingService.sinkName
+    readonly property string sourceName: audioRoutingService.sourceName
+    readonly property var audioSource: audioRoutingService.source
     function setSink(node) { audioRoutingService.setSink(node) }
+    function setSource(node) { audioRoutingService.setSource(node) }
+    function moveAudioStream(streamId, sinkId) { audioRoutingService.moveStream(streamId, sinkId) }
 
     NotificationService { id: notificationService; host: panel }
     readonly property var trayItems: SystemTray.items

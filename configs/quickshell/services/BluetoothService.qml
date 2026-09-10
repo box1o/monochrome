@@ -69,6 +69,17 @@ Item {
             pBtAudioStatus.running = true;
         }
     }
+    Process { id: pBtAudioAuto }
+    Timer {
+        interval: 5000
+        running: true
+        repeat: true
+        onTriggered: {
+            if (!service.btAudioConnected) return;
+            pBtAudioAuto.command = [service.host.scriptDir + "/bluetooth_audio.sh", "auto"];
+            pBtAudioAuto.running = true;
+        }
+    }
 
     Process { id: pBtAudioToggle }
     function toggleBtAudio() {

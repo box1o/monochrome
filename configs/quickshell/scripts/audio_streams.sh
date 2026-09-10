@@ -4,7 +4,7 @@ set -uo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 
 usage() {
-    printf 'usage: %s list | set-volume ID PERCENT | toggle-mute ID\n' "${0##*/}" >&2
+    printf 'usage: %s list | set-volume ID PERCENT | toggle-mute ID | move ID SINK\n' "${0##*/}" >&2
 }
 
 require_id() {
@@ -27,6 +27,11 @@ case "${1:-list}" in
     toggle-mute)
         require_id "${2:-}"
         exec pactl set-sink-input-mute "$2" toggle
+        ;;
+    move)
+        require_id "${2:-}"
+        require_id "${3:-}"
+        exec pactl move-sink-input "$2" "$3"
         ;;
     *)
         usage

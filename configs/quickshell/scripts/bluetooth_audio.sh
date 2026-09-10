@@ -84,8 +84,21 @@ toggle() {
     status
 }
 
+auto() {
+    local card block target
+    card="$(card_name)"; [ -n "$card" ] || return 0
+    block="$(card_block "$card")"
+    if pactl list source-outputs 2>/dev/null | grep -qi 'bluez'; then
+        target="$(call_profile "$block")" || return 0
+    else
+        target="$(music_profile "$block")" || return 0
+    fi
+    pactl set-card-profile "$card" "$target" >/dev/null 2>&1 || true
+}
+
 case "${1:-status}" in
     status) status ;;
     toggle) toggle ;;
+    auto) auto ;;
     *) exit 2 ;;
 esac

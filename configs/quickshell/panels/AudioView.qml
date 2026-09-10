@@ -324,6 +324,34 @@ Item {
 
         }
 
+        Text {
+            Layout.fillWidth: true
+            Layout.topMargin: 2
+            text: view.sys.tr("Input device")
+            color: view.sys.colMuted
+            font { family: view.sys.fontFam; pixelSize: view.sys.fontSize - 4; bold: true; capitalization: Font.AllUppercase; letterSpacing: 1 }
+        }
+
+        Repeater {
+            model: view.sys.audioSources
+            Rectangle {
+                id: srcDev
+                required property var modelData
+                readonly property bool active: view.sys.audioSource === srcDev.modelData
+                Layout.fillWidth: true
+                Layout.preferredHeight: 42
+                radius: 11
+                color: srcDev.active ? Qt.rgba(view.sys.colOn.r, view.sys.colOn.g, view.sys.colOn.b, 0.16) : Qt.rgba(1, 1, 1, 0.05)
+                border.color: srcDev.active ? Qt.rgba(view.sys.colOn.r, view.sys.colOn.g, view.sys.colOn.b, 0.4) : view.sys.colLine
+                RowLayout { anchors.fill: parent; anchors.leftMargin: 13; anchors.rightMargin: 13; spacing: 10
+                    Text { text: "●"; color: srcDev.active ? view.sys.colOn : view.sys.colMuted; font.pixelSize: 13 }
+                    Text { Layout.fillWidth: true; text: String(srcDev.modelData.nickname || srcDev.modelData.description || srcDev.modelData.name || ""); color: srcDev.active ? view.sys.colFg : view.sys.colMuted; elide: Text.ElideRight; font { family: view.sys.fontFam; pixelSize: view.sys.fontSize - 3; bold: srcDev.active } }
+                    Text { visible: srcDev.active; text: "✓"; color: view.sys.colOn }
+                }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: view.sys.setSource(srcDev.modelData) }
+            }
+        }
+
         Repeater {
             model: view.sys.audioSinks
 
@@ -518,6 +546,23 @@ Item {
                                 pixelSize: view.sys.iconSize - 2
                             }
 
+                        }
+
+                        Text {
+                            text: "↗"
+                            color: view.sys.colMuted
+                            font { family: view.sys.fontFam; pixelSize: view.sys.fontSize }
+                            MouseArea {
+                                anchors.fill: parent; anchors.margins: -5; cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    var sinks = view.sys.audioSinks;
+                                    if (!sinks.length) return;
+                                    var current = Number(strCard.modelData.sink_id || -1), next = 0;
+                                    for (var si = 0; si < sinks.length; si++) if (Number(sinks[si].id) === current) next = (si + 1) % sinks.length;
+                                    view.sys.moveAudioStream(strCard.modelData.id, sinks[next].id);
+                                    quickRefresh.restart();
+                                }
+                            }
                         }
 
                         Text {

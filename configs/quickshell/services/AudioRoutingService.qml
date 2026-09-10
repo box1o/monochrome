@@ -15,6 +15,15 @@ Item {
         }
         return out;
     }
+    readonly property var audioSources: {
+        var out = [];
+        var all = Pipewire.nodes ? Pipewire.nodes.values : [];
+        for (var i = 0; i < all.length; i++) {
+            var n = all[i];
+            if (n && n.isSource && !n.isStream) out.push(n);
+        }
+        return out;
+    }
     readonly property var audioStreams: {
         var out = [];
         var all = Pipewire.nodes ? Pipewire.nodes.values : [];
@@ -35,8 +44,21 @@ Item {
         if (!n) return "";
         return String(n.nickname || n.description || n.name || "");
     }
+    readonly property var source: Pipewire.defaultAudioSource
+    readonly property string sourceName: {
+        var n = Pipewire.defaultAudioSource;
+        if (!n) return "";
+        return String(n.nickname || n.description || n.name || "");
+    }
     function setSink(node) {
         Pipewire.preferredDefaultAudioSink = node;
+    }
+    function setSource(node) {
+        Pipewire.preferredDefaultAudioSource = node;
+    }
+    function moveStream(streamId, sinkId) {
+        if (host && host.runDetached)
+            host.runDetached(host.scriptDir + "/audio_streams.sh move " + String(streamId) + " " + String(sinkId));
     }
 
 }

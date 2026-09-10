@@ -13,6 +13,20 @@ Item {
     property int breakSeconds: 5 * 60
     property int totalSeconds: workSeconds
     property int remainingSeconds: totalSeconds
+    property string preset: "25/5"
+    property int customWorkMinutes: 30
+    property int customBreakMinutes: 10
+    function setPreset(name) {
+        if (name === "50/10") { workSeconds = 3000; breakSeconds = 600; preset = name; }
+        else if (name === "custom") { preset = name; workSeconds = customWorkMinutes * 60; breakSeconds = customBreakMinutes * 60; reset(); return; }
+        else { workSeconds = 1500; breakSeconds = 300; preset = "25/5"; }
+        reset();
+    }
+    function setCustom(workMinutes, breakMinutes) {
+        customWorkMinutes = Math.max(1, Math.min(180, Number(workMinutes) || 30));
+        customBreakMinutes = Math.max(1, Math.min(60, Number(breakMinutes) || 10));
+        setPreset("custom");
+    }
 
     readonly property string phaseLabel: phase === "work" ? "Focus" : "Break"
     readonly property string timeText: {
@@ -77,5 +91,12 @@ Item {
                              ? service.workSeconds : service.breakSeconds;
         service.remainingSeconds = service.totalSeconds;
         service.playSound(service.phase === "work" ? "connect" : "charge");
+        notifyPhase();
     }
+    function notifyPhase() {
+        var title = phase === "work" ? "Pomodoro focus" : "Pomodoro break";
+        var body = phase === "work" ? "Break finished — focus session started" : "Focus finished — take a break";
+        notify.command = ["notify-send", "-a", "Mono", title, body]; notify.running = true;
+    }
+    Process { id: notify }
 }
