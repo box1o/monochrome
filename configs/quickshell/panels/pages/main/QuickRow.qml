@@ -132,6 +132,19 @@ RowLayout {
                 }
 
                 IconBtn {
+                    view: quickRowRoot.view
+                    glyph: quickRowRoot.view.sys.btAudioMode === "music"
+                           ? String.fromCodePoint(0xF075A) : String.fromCodePoint(0xF036C)
+                    tip: quickRowRoot.view.sys.btAudioConnected
+                          ? quickRowRoot.view.sys.tr("Bluetooth") + " · " + quickRowRoot.view.sys.btAudioCodec
+                          : quickRowRoot.view.sys.tr("No Bluetooth audio")
+                    active: quickRowRoot.view.sys.btAudioConnected
+                    activeColor: quickRowRoot.view.sys.btAudioMode === "music"
+                                 ? quickRowRoot.view.sys.colOn : quickRowRoot.view.sys.colOk
+                    onAct: quickRowRoot.view.sys.toggleBtAudio()
+                }
+
+                IconBtn {
 
 
                     view: quickRowRoot.view
