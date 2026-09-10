@@ -1,8 +1,11 @@
 import QtQuick
+import Quickshell
+import Quickshell.Io
 
 Item {
     visible: false
     id: service
+    property var config
 
     property bool running: false
     property string phase: "work"
@@ -21,6 +24,18 @@ Item {
     readonly property real progress: totalSeconds > 0
                                       ? 1 - remainingSeconds / totalSeconds : 0
 
+    Process { id: soundProcess }
+
+    function playSound(name) {
+        if (service.config && service.config.uiSounds === false) return;
+        var path = Quickshell.env("HOME") + "/.config/quickshell/sounds/" + name + ".wav";
+        soundProcess.command = ["sh", "-c",
+            "command -v pw-play >/dev/null 2>&1 && pw-play \"$1\" >/dev/null 2>&1 || "
+          + "(command -v paplay >/dev/null 2>&1 && paplay \"$1\" >/dev/null 2>&1)", "_", path];
+        soundProcess.running = false;
+        soundProcess.running = true;
+    }
+
     Timer {
         interval: 1000
         repeat: true
@@ -28,9 +43,22 @@ Item {
         onTriggered: service.tick()
     }
 
-    function start() { service.running = true; }
-    function stop() { service.running = false; }
-    function toggle() { service.running = !service.running; }
+    function start() {
+        if (service.running) return;
+        service.running = true;
+        service.playSound("connect");
+    }
+
+    function stop() {
+        if (!service.running) return;
+        service.running = false;
+        service.playSound("disconnect");
+    }
+
+    function toggle() {
+        if (service.running) service.stop();
+        else service.start();
+    }
 
     function reset() {
         service.running = false;
@@ -48,5 +76,6 @@ Item {
         service.totalSeconds = service.phase === "work"
                              ? service.workSeconds : service.breakSeconds;
         service.remainingSeconds = service.totalSeconds;
+        service.playSound(service.phase === "work" ? "connect" : "charge");
     }
 }

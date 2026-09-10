@@ -14,7 +14,7 @@ QtObject {
     readonly property ClockService clock: ClockService { config: appState.config }
     readonly property WorkspaceService workspace: WorkspaceService {}
     readonly property NetworkService network: NetworkService {}
-    readonly property PomodoroService pomodoro: PomodoroService {}
+    readonly property PomodoroService pomodoro: PomodoroService { config: appState.config }
     // NotificationServer is still owned by shell.qml until its loader is migrated.
     readonly property var notifications: null
 }
