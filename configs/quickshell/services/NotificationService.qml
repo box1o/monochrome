@@ -140,7 +140,7 @@ Item {
 
             if (service.dnd && n.urgency !== NotificationUrgency.Critical) return;
 
-            host.enqueueToast(n);
+            service.enqueueToast(n);
         }
     }
     }

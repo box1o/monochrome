@@ -100,7 +100,7 @@ Item {
         host.page = "scrcpy";
         host.expanded = true;
         host.holdOpen = true;
-        host.adbBusy = false;
+        service.adbBusy = false;
         service.scrcpyChecking = true;
         pScrcpyCheck.running = false;
         pScrcpyCheck.running = true;
