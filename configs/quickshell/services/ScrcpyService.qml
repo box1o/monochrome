@@ -16,10 +16,10 @@ Item {
         command: ["sh", "-c", "if ! command -v scrcpy >/dev/null 2>&1; then echo __SCRCPY_MISSING__; elif pgrep -x scrcpy >/dev/null 2>&1; then echo __SCRCPY_RUNNING__; fi"]
         stdout: StdioCollector {
             onStreamFinished: {
-                host.scrcpyChecking = false;
+                service.scrcpyChecking = false;
                 var status = text.trim();
                 if (status === "__SCRCPY_MISSING__") {
-                    host.adbError = host.tr("scrcpy is not installed");
+                    service.adbError = host.tr("scrcpy is not installed");
                     host.notifyScrcpyMissing();
                     return;
                 }
@@ -46,9 +46,9 @@ Item {
         stdout: StdioCollector {
             onStreamFinished: {
                 if (text.indexOf("__ADB_MISSING__") >= 0) {
-                    host.adbDevices = [];
-                    host.adbBusy = false;
-                    host.adbError = host.tr("adb is not installed");
+                    service.adbDevices = [];
+                    service.adbBusy = false;
+                    service.adbError = host.tr("adb is not installed");
                     return;
                 }
                 var found = [];
@@ -60,18 +60,18 @@ Item {
                     if (fields.length >= 2 && fields[1] === "device")
                         found.push({ serial: fields[0], label: fields[0] });
                 }
-                host.adbDevices = found;
-                host.adbBusy = false;
+                service.adbDevices = found;
+                service.adbBusy = false;
                 if (found.length === 0) {
-                    host.adbError = host.tr("No ADB devices found");
+                    service.adbError = host.tr("No ADB devices found");
                 }
             }
         }
     }
 
     function refreshAdbDevices() {
-        host.adbBusy = true;
-        host.adbError = "";
+        service.adbBusy = true;
+        service.adbError = "";
         pAdbDevices.running = false;
         pAdbDevices.running = true;
     }
@@ -101,7 +101,7 @@ Item {
         host.expanded = true;
         host.holdOpen = true;
         host.adbBusy = false;
-        host.scrcpyChecking = true;
+        service.scrcpyChecking = true;
         pScrcpyCheck.running = false;
         pScrcpyCheck.running = true;
     }
