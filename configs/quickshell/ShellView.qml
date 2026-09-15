@@ -75,6 +75,11 @@ PanelWindow {
     function notifyScrcpyMissing() { scrcpyService.notifyScrcpyMissing() }
     function openScrcpy() { scrcpyService.openScrcpy() }
 
+    readonly property bool btAudioConnected: bluetoothService.btAudioConnected
+    readonly property string btAudioMode: bluetoothService.btAudioMode
+    readonly property string btAudioCodec: bluetoothService.btAudioCodec
+    function toggleBtAudio() { bluetoothService.toggleBtAudio() }
+
     //
     //
     LayoutService { id: layoutService; host: panel }

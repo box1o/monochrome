@@ -38,6 +38,15 @@ Item {
         return -1;
     }
 
+    property bool btAudioConnected: false
+    property string btAudioMode: "music"
+    property string btAudioCodec: "-"
+    Process { id: pBtAudioStatus; command: [service.host.scriptDir + "/bluetooth_audio.sh", "status"]; stdout: StdioCollector { onStreamFinished: { var values = {}; String(text).trim().split("\n").forEach(function (line) { var p = line.split("="); if (p.length === 2) values[p[0]] = p[1]; }); service.btAudioConnected = values.connected === "1"; service.btAudioMode = values.mode || "music"; service.btAudioCodec = values.codec || "-"; } } }
+    Timer { interval: 2500; running: true; repeat: true; triggeredOnStart: true; onTriggered: { pBtAudioStatus.running = false; pBtAudioStatus.running = true; } }
+    Process { id: pBtAudioToggle }
+    function toggleBtAudio() { pBtAudioToggle.command = [service.host.scriptDir + "/bluetooth_audio.sh", "toggle"]; pBtAudioToggle.running = false; pBtAudioToggle.running = true; btAudioRefresh.restart(); }
+    Timer { id: btAudioRefresh; interval: 900; onTriggered: pBtAudioStatus.running = true }
+
     property string btToastName: ""
     property string btToastType: "earbuds"
     property bool   btToastDisconnected: false
