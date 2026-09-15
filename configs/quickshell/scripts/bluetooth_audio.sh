@@ -64,6 +64,13 @@ call_profile() {
     return 1
 }
 
+bluetooth_mic_active() {
+    local source_id
+    source_id="$(pactl list sources short 2>/dev/null | awk '$2 ~ /^bluez_input/ {print $1; exit}')"
+    [[ -n "$source_id" ]] || return 1
+    pactl list source-outputs 2>/dev/null | grep -q "^[[:space:]]*Source: ${source_id}$"
+}
+
 toggle() {
     local card block current target
     card="$(card_name)"
@@ -71,10 +78,17 @@ toggle() {
     block="$(card_block "$card")"
     current="$(active_profile "$card")"
     if [[ "$current" == headset-* || "$current" == hsp* || "$current" == hfp* ]]; then
+        if bluetooth_mic_active; then
+            notify-send -a Mono "Bluetooth audio" "Stop the Bluetooth microphone before switching to AAC"
+            return 1
+        fi
         target="$(music_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No music profile is available"; return 1; }
     else
         target="$(call_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No microphone profile is available"; return 1; }
     fi
+    # This is an explicit user choice. Keep WirePlumber from immediately
+    # replacing it while an application creates or releases audio streams.
+    wpctl settings bluetooth.autoswitch-to-headset-profile false >/dev/null 2>&1 || true
     pactl set-card-profile "$card" "$target"
     status
 }
