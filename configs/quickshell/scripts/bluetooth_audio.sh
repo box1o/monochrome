@@ -78,10 +78,6 @@ toggle() {
     block="$(card_block "$card")"
     current="$(active_profile "$card")"
     if [[ "$current" == headset-* || "$current" == hsp* || "$current" == hfp* ]]; then
-        if bluetooth_mic_active; then
-            notify-send -a Mono "Bluetooth audio" "Stop the Bluetooth microphone before switching to AAC"
-            return 1
-        fi
         target="$(music_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No music profile is available"; return 1; }
     else
         target="$(call_profile "$block")" || { notify-send -a Mono "Bluetooth audio" "No microphone profile is available"; return 1; }
