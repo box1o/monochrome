@@ -151,7 +151,7 @@ Item {
         var q = service.toastQueue.slice();
         q.push({ notif: n, at: Date.now() });
         service.toastQueue = q;
-        host.pumpToasts();
+        service.pumpToasts();
     }
 
     function pumpToasts() {
