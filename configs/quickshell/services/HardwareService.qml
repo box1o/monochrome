@@ -10,7 +10,7 @@ Item {
     property string brightBackend: "none"   // backlight | ddc | none
     property bool   hasTouchpad: false
     property bool   ddcutilPresent: false
-    property bool   keepAwake: false
+    property bool   keepAwake: true
 
     Process {
         running: service.keepAwake
