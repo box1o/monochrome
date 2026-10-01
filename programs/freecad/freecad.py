@@ -286,6 +286,8 @@ def preferences(path):
                 child.text = value
             else:
                 child.set("Value", str(int(value)))
+    for group in root.iter("FCParamGroup"):
+        group[:] = sorted(group, key=lambda item: (item.tag, item.get("Name", "")))
     ET.indent(root, space="  ")
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
