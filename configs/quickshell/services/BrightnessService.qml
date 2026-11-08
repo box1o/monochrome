@@ -73,9 +73,12 @@ QtObject {
     function readState(text) {
         const nextDevices = text.trim().split("\n").map(line => {
             const fields = line.split("\t");
-            return {id: fields[0], label: fields[1], percentage: Number(fields[2])};
-        }).filter(item => item.id && item.label && Number.isFinite(item.percentage)
-            && item.percentage >= 0 && item.percentage <= 100);
+            return {
+                id: fields[0],
+                label: fields[1],
+                percentage: Number(fields[2])
+            };
+        }).filter(item => item.id && item.label && Number.isFinite(item.percentage) && item.percentage >= 0 && item.percentage <= 100);
         const next = nextDevices.find(item => item.id === device) || nextDevices[0];
         const previous = device;
         devices = nextDevices;

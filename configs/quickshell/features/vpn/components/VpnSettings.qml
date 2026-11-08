@@ -4,6 +4,7 @@ import "../../../components/controls"
 
 Flickable {
     id: settings
+    implicitHeight: Math.max(36, contentHeight)
 
     required property QtObject source
     required property QtObject tokens
@@ -20,19 +21,23 @@ Flickable {
         spacing: 9
 
         Repeater {
-            model: [{
-                "title": "Use Tailscale DNS",
-                "key": "accept-dns",
-                "field": "dns"
-            }, {
-                "title": "Accept subnet routes",
-                "key": "accept-routes",
-                "field": "routes"
-            }, {
-                "title": "Block incoming connections",
-                "key": "shields-up",
-                "field": "shields"
-            }]
+            model: [
+                {
+                    "title": "Use Tailscale DNS",
+                    "key": "accept-dns",
+                    "field": "dns"
+                },
+                {
+                    "title": "Accept subnet routes",
+                    "key": "accept-routes",
+                    "field": "routes"
+                },
+                {
+                    "title": "Block incoming connections",
+                    "key": "shields-up",
+                    "field": "shields"
+                }
+            ]
 
             RowLayout {
                 required property var modelData

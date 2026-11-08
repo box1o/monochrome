@@ -4,6 +4,7 @@ local terminal = "kitty"
 local browser = "zen-browser --blank-window"
 local file_manager = "nautilus --new-window"
 
+hl.bind("ALT + V", hl.dsp.exec_cmd("qs ipc call clipboard toggle"))
 hl.bind("ALT + SHIFT + A", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind("ALT + SHIFT + D", hl.dsp.exec_cmd(terminal))
 hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd(browser))

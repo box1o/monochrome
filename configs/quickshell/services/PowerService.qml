@@ -9,15 +9,29 @@ QtObject {
     readonly property bool busy: requestedProfile >= 0
     readonly property int profile: PowerProfiles.profile
     readonly property var profiles: [
-        {value: PowerProfile.PowerSaver, title: "Power Saver", detail: "Lower energy use", icon: "leaf"},
-        {value: PowerProfile.Balanced, title: "Balanced", detail: "Balanced power and performance", icon: "gauge"},
-        {value: PowerProfile.Performance, title: "Performance", detail: "Maximum performance", icon: "zap"}
+        {
+            value: PowerProfile.PowerSaver,
+            title: "Power Saver",
+            detail: "Lower energy use",
+            icon: "leaf"
+        },
+        {
+            value: PowerProfile.Balanced,
+            title: "Balanced",
+            detail: "Balanced power and performance",
+            icon: "gauge"
+        },
+        {
+            value: PowerProfile.Performance,
+            title: "Performance",
+            detail: "Maximum performance",
+            icon: "zap"
+        }
     ].filter(item => item.value !== PowerProfile.Performance || PowerProfiles.hasPerformanceProfile)
     readonly property string profileName: profiles.find(item => item.value === profile)?.title || "Balanced"
-    readonly property string limitation: PowerProfiles.degradationReason === PerformanceDegradationReason.None
-        ? "" : PerformanceDegradationReason.toString(PowerProfiles.degradationReason)
+    readonly property string limitation: PowerProfiles.degradationReason === PerformanceDegradationReason.None ? "" : PerformanceDegradationReason.toString(PowerProfiles.degradationReason)
 
-    readonly property bool ready: UPower.displayDevice.ready && UPower.devices.values.some((device) => {
+    readonly property bool ready: UPower.displayDevice.ready && UPower.devices.values.some(device => {
         return device.isLaptopBattery && device.isPresent;
     })
     readonly property bool connected: !UPower.onBattery
@@ -43,7 +57,9 @@ QtObject {
 
     readonly property Connections profileChanges: Connections {
         target: PowerProfiles
-        function onProfileChanged() { power.confirmProfile(); }
+        function onProfileChanged() {
+            power.confirmProfile();
+        }
     }
 
     readonly property Timer confirmation: Timer {

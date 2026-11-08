@@ -10,13 +10,20 @@ MenuPage {
     required property QtObject model
     readonly property QtObject source: model.source
     readonly property QtObject profiles: model.profiles
-    signal backRequested()
+
+    signal backRequested
+
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
+
         RowLayout {
             Layout.fillWidth: true
+
             IconButton {
                 tokens: page.tokens
                 iconName: "chevron-left"
@@ -26,8 +33,10 @@ MenuPage {
 
             Repeater {
                 model: page.model.sections
+
                 TextButton {
                     required property string modelData
+
                     tokens: page.tokens
                     text: modelData
                     textColor: page.model.section === modelData ? page.tokens.foreground : page.tokens.muted
@@ -35,7 +44,9 @@ MenuPage {
                 }
             }
 
-            Item { Layout.fillWidth: true }
+            Item {
+                Layout.fillWidth: true
+            }
         }
 
         StatusLabel {

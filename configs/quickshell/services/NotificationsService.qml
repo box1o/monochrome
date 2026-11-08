@@ -46,6 +46,5 @@ NotificationServer {
         const entries = trackedNotifications.values;
         if (entries.length > 50)
             entries[0].dismiss();
-
     }
 }

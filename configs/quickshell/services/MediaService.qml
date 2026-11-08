@@ -7,8 +7,7 @@ QtObject {
     property bool monitoring: false
     property var preferred: null
     readonly property var players: Mpris.players.values
-    readonly property var player: players.find(item => item.isPlaying)
-        || players.find(item => item === preferred) || players[0] || null
+    readonly property var player: players.find(item => item.isPlaying) || players.find(item => item === preferred) || players[0] || null
     readonly property int trackId: player?.uniqueId ?? -1
     readonly property bool available: player !== null
     readonly property bool playing: player?.isPlaying ?? false

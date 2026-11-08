@@ -12,7 +12,7 @@ AbstractButton {
     required property QtObject tokens
     property string imageSource: ""
     readonly property bool urgent: notification.urgency === NotificationUrgency.Critical
-    signal activated()
+    signal activated
 
     implicitHeight: content.implicitHeight + 20
     padding: 0

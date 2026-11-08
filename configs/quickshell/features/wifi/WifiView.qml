@@ -21,7 +21,11 @@ MenuPage {
         }
     }
 
+    contentItem: content
+
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -44,14 +48,12 @@ MenuPage {
             error: true
         }
 
-        ListView {
+        MenuList {
             id: networks
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
             spacing: 2
             model: page.model.source.enabled ? page.model.source.networks : []
-            boundsBehavior: Flickable.StopAtBounds
             delegate: SelectableMenuItem {
                 required property var modelData
                 width: networks.width

@@ -8,9 +8,9 @@ ColumnLayout {
     required property QtObject model
     required property QtObject tokens
 
-    signal previousRequested()
-    signal nextRequested()
-    signal todayRequested()
+    signal previousRequested
+    signal nextRequested
+    signal todayRequested
 
     spacing: 8
 

@@ -10,7 +10,7 @@ PanelWindow {
     required property QtObject geometry
     required property Item notchView
 
-    signal dismissRequested()
+    signal dismissRequested
 
     // Keep the surface stable; the native grab owns temporary keyboard focus.
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand

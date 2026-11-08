@@ -15,8 +15,8 @@ Rectangle {
     property bool available: true
     readonly property color ink: radioEnabled ? tokens.background : tokens.foreground
 
-    signal toggleRequested()
-    signal openRequested()
+    signal toggleRequested
+    signal openRequested
 
     implicitHeight: 54
     radius: tokens.radius + 5

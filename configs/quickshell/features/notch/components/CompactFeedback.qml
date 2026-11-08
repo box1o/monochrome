@@ -15,11 +15,16 @@ Item {
     required property QtObject geometry
     readonly property real contentWidth: {
         switch (presentation.kind) {
-        case "connection": return connectionView.contentWidth;
-        case "month": return monthView.contentWidth;
-        case "pomodoro": return pomodoroView.contentWidth;
-        case "recording": return recordingView.contentWidth;
-        default: return 0;
+        case "connection":
+            return connectionView.contentWidth;
+        case "month":
+            return monthView.contentWidth;
+        case "pomodoro":
+            return pomodoroView.contentWidth;
+        case "recording":
+            return recordingView.contentWidth;
+        default:
+            return 0;
         }
     }
 

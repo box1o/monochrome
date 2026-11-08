@@ -9,16 +9,12 @@ MenuPage {
 
     required property QtObject model
 
-    onActiveChanged: {
-        if (active) {
-            Qt.callLater(() => {
-                if (launcher.active)
-                    search.forceActiveFocus();
-            });
-        }
-    }
+    initialFocusItem: search
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -35,17 +31,15 @@ MenuPage {
             onAccepted: launcher.model.launch()
         }
 
-        ListView {
+        MenuList {
             id: results
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
             spacing: 2
             model: launcher.model.results
             currentIndex: launcher.model.selectedIndex
             onCurrentIndexChanged: positionViewAtIndex(currentIndex, ListView.Contain)
-            boundsBehavior: Flickable.StopAtBounds
 
             Text {
                 anchors.centerIn: parent

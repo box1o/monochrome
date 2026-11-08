@@ -9,9 +9,13 @@ MenuPage {
 
     required property QtObject model
 
-    signal backRequested()
+    signal backRequested
+
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -38,15 +42,13 @@ MenuPage {
             error: true
         }
 
-        ListView {
+        MenuList {
             id: devices
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
             spacing: 2
             model: page.model.source.enabled ? page.model.source.devices : []
-            boundsBehavior: Flickable.StopAtBounds
             focus: page.active
             onCurrentIndexChanged: {
                 if (activeFocus && currentIndex >= 0 && currentIndex < count)

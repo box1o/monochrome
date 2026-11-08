@@ -13,6 +13,7 @@ FocusScope {
 
     property bool active: false
 
+    required property QtObject recording
     required property QtObject coffee
     required property QtObject notifications
     required property QtObject power
@@ -32,18 +33,20 @@ FocusScope {
     required property QtObject style
 
     signal trayRequested(var item)
-    signal phoneRequested()
-    signal sessionRequested()
-    signal notificationsRequested()
-    signal powerRequested()
-    signal vpnRequested()
-    signal brightnessRequested()
-    signal soundRequested()
-    signal wifiRequested()
-    signal bluetoothRequested()
-    signal closeRequested()
+    signal phoneRequested
+    signal sessionRequested
+    signal notificationsRequested
+    signal powerRequested
+    signal vpnRequested
+    signal brightnessRequested
+    signal soundRequested
+    signal wifiRequested
+    signal bluetoothRequested
+    signal closeRequested
 
-    implicitHeight: metrics.padding * 2 + metrics.headerHeight + 8 + overviewContent.implicitHeight
+    readonly property real overviewHeight: metrics.padding * 2 + metrics.headerHeight + 8 + overviewContent.implicitHeight
+
+    implicitHeight: navigation.calendarOpen ? metrics.padding * 2 + metrics.headerHeight + 8 + calendarPage.implicitHeight : overviewHeight
     Keys.onEscapePressed: closeRequested()
     Keys.onLeftPressed: {
         if (overview.navigation.calendarOpen)
@@ -129,6 +132,7 @@ FocusScope {
                     }
 
                     QuickActionsRow {
+                        recording: overview.recording
                         width: parent.width
                         coffee: overview.coffee
                         notifications: overview.notifications
@@ -147,6 +151,8 @@ FocusScope {
             }
 
             CalendarPage {
+                id: calendarPage
+
                 anchors.fill: parent
                 active: overview.navigation.calendarOpen
                 model: calendar

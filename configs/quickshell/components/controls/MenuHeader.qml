@@ -8,7 +8,7 @@ RowLayout {
     required property string title
     property Component action: null
 
-    signal backRequested()
+    signal backRequested
 
     spacing: 6
 

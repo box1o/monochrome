@@ -74,6 +74,10 @@ ShellRoot {
         id: notificationsSource
     }
 
+    ClipboardService {
+        id: clipboardSource
+    }
+
     RecordingService {
         id: recordingSource
     }
@@ -97,7 +101,7 @@ ShellRoot {
         audio: audioSource
         power: powerSource
         bluetooth: bluetoothSource
-        onSoundRequested: (name) => {
+        onSoundRequested: name => {
             return feedbackSounds.play(name);
         }
     }
@@ -115,6 +119,7 @@ ShellRoot {
             required property var modelData
 
             screen: modelData
+            clipboard: clipboardSource
             coffee: coffeeSource
             phone: phoneSource
             session: sessionSource

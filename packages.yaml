@@ -92,6 +92,7 @@ packages:
     - wl-clipboard
     - cliphist
     - grim
+    - wf-recorder
     - imagemagick
     - slurp
     - swappy

@@ -8,16 +8,13 @@ MenuPage {
 
     required property QtObject source
 
-    signal backRequested()
+    signal backRequested
 
-    Binding {
-        target: page.source
-        property: "browsing"
-        value: page.active
-        restoreMode: Binding.RestoreBindingOrValue
-    }
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -36,10 +33,9 @@ MenuPage {
             }
         }
 
-        ListView {
+        MenuList {
             Layout.fillWidth: true
-            Layout.preferredHeight: Math.min(contentHeight, Math.max(0, page.height - 90))
-            clip: true
+            Layout.fillHeight: true
             spacing: 4
             model: page.source.devices
 

@@ -18,8 +18,8 @@ QtObject {
         menu: model.chain.length > 0 ? model.chain[model.chain.length - 1] : null
     }
 
-    signal actionInvoked()
-    signal backRequested()
+    signal actionInvoked
+    signal backRequested
 
     onTrayItemChanged: {
         chain = [];

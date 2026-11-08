@@ -14,9 +14,9 @@ RowLayout {
     property bool scanning: false
     property bool scanStoppable: false
 
-    signal backRequested()
-    signal toggleRequested()
-    signal scanRequested()
+    signal backRequested
+    signal toggleRequested
+    signal scanRequested
 
     spacing: 6
 
@@ -42,6 +42,7 @@ RowLayout {
         description: header.scanning ? (header.scanStoppable ? "Stop scanning" : "Scanning for devices") : "Scan for devices"
         visible: header.scanVisible
         enabled: header.available && header.radioEnabled && !header.busy && (!header.scanning || header.scanStoppable)
+
         color: header.scanning ? header.tokens.green : header.tokens.muted
         spinning: header.scanning
         onClicked: header.scanRequested()

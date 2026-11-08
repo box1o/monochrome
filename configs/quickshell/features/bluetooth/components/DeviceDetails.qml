@@ -14,6 +14,7 @@ RowLayout {
     TextButton {
         tokens: details.tokens
         text: details.device?.connected ? "Disconnect" : details.device?.paired || details.device?.bonded ? "Connect" : "Pair"
+
         enabled: details.device !== null && !details.device.blocked
         onClicked: details.model.activate()
     }

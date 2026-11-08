@@ -19,8 +19,7 @@ AbstractButton {
 
     background: OverviewCard {
         tokens: tile.tokens
-        color: tile.tokens.alpha(tile.source.running ? tile.tokens.magenta : tile.tokens.foreground,
-            tile.source.running ? 0.08 : 0.025)
+        color: tile.tokens.alpha(tile.source.running ? tile.tokens.magenta : tile.tokens.foreground, tile.source.running ? 0.08 : 0.025)
         border.color: tile.visualFocus ? tile.tokens.muted : tile.tokens.alpha(tile.tokens.foreground, 0.07)
 
         Behavior on color {

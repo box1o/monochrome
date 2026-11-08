@@ -31,7 +31,6 @@ QtObject {
 
             recording.refresh();
         }
-
     }
 
     function refresh() {

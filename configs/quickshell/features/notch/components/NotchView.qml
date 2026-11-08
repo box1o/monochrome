@@ -12,10 +12,13 @@ import "../../tray"
 import "../../phone"
 import "../../session"
 import "../../notifications"
+import "../../clipboard"
 
 Item {
     id: view
 
+    required property QtObject recording
+    required property QtObject clipboard
     required property QtObject coffee
     required property QtObject phone
     required property QtObject sound
@@ -41,7 +44,38 @@ Item {
     required property QtObject month
     required property QtObject presentation
     required property QtObject navigation
-    readonly property real contentHeight: overview.implicitHeight
+    readonly property real overviewHeight: overview.overviewHeight
+    readonly property Item currentPage: {
+        switch (navigation.page) {
+        case "launcher":
+            return launcherPage;
+        case "wifi":
+            return wifiPage;
+        case "bluetooth":
+            return bluetoothPage;
+        case "tray":
+            return trayPage;
+        case "phone":
+            return phonePage;
+        case "session":
+            return sessionPage;
+        case "notifications":
+            return notificationsPage;
+        case "power":
+            return powerPage;
+        case "vpn":
+            return vpnPage;
+        case "brightness":
+            return brightnessPage;
+        case "sound":
+            return soundPage;
+        case "clipboard":
+            return clipboardPage;
+        default:
+            return null;
+        }
+    }
+    readonly property real contentHeight: currentPage ? currentPage.implicitHeight + 2 * overviewMetrics.padding : overview.implicitHeight
     readonly property real feedbackWidth: compactFeedback.contentWidth
     readonly property real menuOpacity: Math.max(0, (geometry.progress - 0.35) / 0.65)
     readonly property real clockOpacity: {
@@ -55,19 +89,19 @@ Item {
     readonly property alias rightShoulder: rightShoulder
 
     signal hoverChanged(bool hovered)
-    signal closeRequested()
+    signal closeRequested
     signal trayRequested(var item)
-    signal phoneRequested()
-    signal sessionRequested()
-    signal notificationsRequested()
-    signal powerRequested()
-    signal vpnRequested()
-    signal brightnessRequested()
-    signal soundRequested()
-    signal wifiRequested()
-    signal bluetoothRequested()
-    signal backRequested()
-    signal clockRequested()
+    signal phoneRequested
+    signal sessionRequested
+    signal notificationsRequested
+    signal powerRequested
+    signal vpnRequested
+    signal brightnessRequested
+    signal soundRequested
+    signal wifiRequested
+    signal bluetoothRequested
+    signal backRequested
+    signal clockRequested
 
     OverviewMetrics {
         id: overviewMetrics
@@ -129,19 +163,20 @@ Item {
 
         Overview {
             id: overview
-            active: view.expanded && view.navigation.overviewOpen
 
+            active: view.expanded && view.navigation.overviewOpen
             anchors.fill: parent
             visible: view.geometry.progress > 0 && !view.navigation.detailsOpen
             enabled: view.expanded && !view.navigation.detailsOpen
             opacity: view.menuOpacity
             focus: enabled
+            recording: view.recording
             coffee: view.coffee
             notifications: view.notifications
             power: view.power
             pomodoro: view.pomodoro
             media: view.media
-            vpn: view.vpn
+            vpn: view.vpn.source
             brightness: view.brightness
             audio: view.audio
             wifi: view.wifi.source
@@ -154,7 +189,9 @@ Item {
             tokens: view.tokens
             style: view.style
             onCloseRequested: view.closeRequested()
-            onTrayRequested: item => view.trayRequested(item)
+            onTrayRequested: item => {
+                return view.trayRequested(item);
+            }
             onPhoneRequested: view.phoneRequested()
             onSessionRequested: view.sessionRequested()
             onNotificationsRequested: view.notificationsRequested()
@@ -166,7 +203,22 @@ Item {
             onBluetoothRequested: view.bluetoothRequested()
         }
 
+        ClipboardView {
+            id: clipboardPage
+
+            anchors.fill: parent
+            anchors.margins: overviewMetrics.padding
+            model: view.clipboard
+            tokens: view.tokens
+            active: view.navigation.clipboardOpen && view.expanded
+            opacity: view.menuOpacity
+            onCloseRequested: view.closeRequested()
+            onBackRequested: view.backRequested()
+        }
+
         LauncherView {
+            id: launcherPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.launcher
@@ -177,6 +229,8 @@ Item {
         }
 
         WifiView {
+            id: wifiPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.wifi
@@ -188,6 +242,8 @@ Item {
         }
 
         BluetoothView {
+            id: bluetoothPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.bluetooth
@@ -199,6 +255,8 @@ Item {
         }
 
         TrayMenuView {
+            id: trayPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.trayMenu
@@ -209,6 +267,8 @@ Item {
         }
 
         PhoneView {
+            id: phonePage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             source: view.phone
@@ -220,6 +280,8 @@ Item {
         }
 
         SessionView {
+            id: sessionPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.session
@@ -231,6 +293,8 @@ Item {
         }
 
         NotificationsView {
+            id: notificationsPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             source: view.notifications
@@ -242,6 +306,8 @@ Item {
         }
 
         PowerView {
+            id: powerPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             source: view.power
@@ -253,9 +319,11 @@ Item {
         }
 
         VpnView {
+            id: vpnPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
-            source: view.vpn
+            model: view.vpn
             tokens: view.tokens
             active: view.navigation.vpnOpen && view.expanded
             opacity: view.menuOpacity
@@ -264,6 +332,8 @@ Item {
         }
 
         BrightnessView {
+            id: brightnessPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             source: view.brightness
@@ -275,6 +345,8 @@ Item {
         }
 
         SoundView {
+            id: soundPage
+
             anchors.fill: parent
             anchors.margins: overviewMetrics.padding
             model: view.sound

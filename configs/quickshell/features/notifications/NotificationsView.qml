@@ -9,9 +9,13 @@ MenuPage {
 
     required property QtObject source
 
-    signal backRequested()
+    signal backRequested
+
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -20,6 +24,7 @@ MenuPage {
             tokens: page.tokens
             title: "Notifications"
             onBackRequested: page.backRequested()
+
             action: TextButton {
                 tokens: page.tokens
                 text: "Clear"
@@ -29,13 +34,9 @@ MenuPage {
             }
         }
 
-        ListView {
+        MenuList {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AlwaysOff }
-            ScrollBar.horizontal: ScrollBar { policy: ScrollBar.AlwaysOff }
             spacing: 9
             model: page.source.entries
 
@@ -48,6 +49,14 @@ MenuPage {
                 color: page.tokens.muted
                 font.family: page.tokens.fontFamily
                 font.pixelSize: page.tokens.fontSize - 2
+            }
+
+            ScrollBar.vertical: ScrollBar {
+                policy: ScrollBar.AlwaysOff
+            }
+
+            ScrollBar.horizontal: ScrollBar {
+                policy: ScrollBar.AlwaysOff
             }
 
             delegate: NotificationCard {

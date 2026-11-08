@@ -9,7 +9,7 @@ QtObject {
     property int selectedIndex: 0
     readonly property var results: ApplicationSearch.search(applications.entries, query, applications.usage)
 
-    signal closeRequested()
+    signal closeRequested
 
     function reset() {
         query = "";

@@ -32,5 +32,4 @@ RowLayout {
         font.pixelSize: activity.tokens.fontSize - 1
         font.bold: true
     }
-
 }

@@ -16,11 +16,13 @@ QtObject {
         }
 
         stdout: SplitParser {
-            onRead: data => pairing.readEvent(data)
+            onRead: data => {
+                return pairing.readEvent(data);
+            }
         }
     }
 
-    signal succeeded()
+    signal succeeded
     signal failed(string message)
 
     function start(devicePath) {
@@ -64,7 +66,7 @@ QtObject {
         else if (message.event === "clear")
             prompt = {};
         else if (message.event === "result")
-            complete(message.success === true, message.message || "Pairing failed.");
+            complete(message.success === true, typeof message.message === "string" ? message.message : "Pairing failed.");
     }
 
     function complete(success, message) {

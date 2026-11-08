@@ -8,9 +8,9 @@ Item {
     required property QtObject tokens
     required property string title
 
-    signal previousRequested()
-    signal nextRequested()
-    signal todayRequested()
+    signal previousRequested
+    signal nextRequested
+    signal todayRequested
 
     implicitHeight: 26
 

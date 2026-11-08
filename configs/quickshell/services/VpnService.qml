@@ -6,7 +6,11 @@ QtObject {
     id: vpn
 
     property var connections: []
-    property var tailscale: ({devices: [], preferences: {}, connected: false})
+    property var tailscale: ({
+            devices: [],
+            preferences: {},
+            connected: false
+        })
     property bool browsing: false
     property string operationError: ""
     property string discoveryError: ""
@@ -141,9 +145,16 @@ QtObject {
     readonly property Process change: Process {
         property string message: ""
         property string output: ""
-        onStarted: { message = ""; output = ""; }
-        stdout: StdioCollector { onStreamFinished: vpn.change.output = text.trim() }
-        stderr: StdioCollector { onStreamFinished: vpn.change.message = text.trim() }
+        onStarted: {
+            message = "";
+            output = "";
+        }
+        stdout: StdioCollector {
+            onStreamFinished: vpn.change.output = text.trim()
+        }
+        stderr: StdioCollector {
+            onStreamFinished: vpn.change.message = text.trim()
+        }
         onExited: (code, status) => vpn.finish(status === 0 ? code : 1, output, message)
     }
 

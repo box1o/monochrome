@@ -7,17 +7,16 @@ import "components"
 MenuPage {
     id: page
 
-    required property QtObject source
-    property string section: "Connections"
+    required property QtObject model
+    readonly property QtObject source: model.source
 
-    signal backRequested()
+    signal backRequested
 
-    onActiveChanged: {
-        if (active)
-            section = source.tailscale.connected ? "Devices" : "Connections";
-    }
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -32,15 +31,15 @@ MenuPage {
             }
 
             Repeater {
-                model: ["Connections", "Devices", "Settings"]
+                model: page.model.sections
 
                 TextButton {
                     required property string modelData
 
                     tokens: page.tokens
                     text: modelData
-                    textColor: page.section === modelData ? page.tokens.foreground : page.tokens.muted
-                    onClicked: page.section = modelData
+                    textColor: page.model.section === modelData ? page.tokens.foreground : page.tokens.muted
+                    onClicked: page.model.selectSection(modelData)
                 }
             }
 
@@ -61,7 +60,7 @@ MenuPage {
             Layout.fillHeight: true
             source: page.source
             tokens: page.tokens
-            visible: page.section === "Connections"
+            visible: page.model.section === "Connections"
         }
 
         VpnDevices {
@@ -69,7 +68,7 @@ MenuPage {
             Layout.fillHeight: true
             source: page.source
             tokens: page.tokens
-            visible: page.section === "Devices"
+            visible: page.model.section === "Devices"
         }
 
         VpnSettings {
@@ -77,7 +76,7 @@ MenuPage {
             Layout.fillHeight: true
             source: page.source
             tokens: page.tokens
-            visible: page.section === "Settings"
+            visible: page.model.section === "Settings"
         }
 
         StatusLabel {

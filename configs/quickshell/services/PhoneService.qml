@@ -30,7 +30,6 @@ QtObject {
                 phone.devices = Devices.parse(text);
             }
         }
-
     }
 
     function refresh() {

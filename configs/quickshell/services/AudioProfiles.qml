@@ -85,7 +85,7 @@ QtObject {
             }
         }
         onExited: (code, status) => {
-            if (code !== 0 && profiles.requestedCard)
+            if ((code !== 0 || status !== 0) && profiles.requestedCard)
                 profiles.finish("Could not query the device's codec controls.");
         }
     }
@@ -105,7 +105,7 @@ QtObject {
             }
         }
         onExited: (code, status) => {
-            if (code !== 0)
+            if (code !== 0 || status !== 0)
                 profiles.error = "Audio profiles are unavailable. Check that PipeWire Pulse is running.";
             if (profiles.refreshQueued) {
                 profiles.refreshQueued = false;
@@ -116,7 +116,7 @@ QtObject {
 
     readonly property Process change: Process {
         onExited: (code, status) => {
-            if (code !== 0 && profiles.requestedCard)
+            if ((code !== 0 || status !== 0) && profiles.requestedCard)
                 profiles.finish("Could not change the audio profile. Check that the device is connected.");
             profiles.debounce.restart();
         }

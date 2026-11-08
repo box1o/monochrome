@@ -9,7 +9,11 @@ MenuPage {
 
     required property QtObject model
 
+    contentItem: content
+
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 6
 
@@ -20,14 +24,18 @@ MenuPage {
             onBackRequested: page.model.back()
         }
 
-        ListView {
+        MenuList {
             Layout.fillWidth: true
             Layout.fillHeight: true
             model: page.model.entries
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AlwaysOff }
-            ScrollBar.horizontal: ScrollBar { policy: ScrollBar.AlwaysOff }
+
+            ScrollBar.vertical: ScrollBar {
+                policy: ScrollBar.AlwaysOff
+            }
+
+            ScrollBar.horizontal: ScrollBar {
+                policy: ScrollBar.AlwaysOff
+            }
 
             delegate: TrayMenuEntry {
                 required property var modelData

@@ -4,11 +4,21 @@ FocusScope {
     id: page
 
     required property QtObject tokens
+    required property Item contentItem
+    property Item initialFocusItem: null
     property bool active: false
     property real reveal: active ? 1 : 0
 
-    signal closeRequested()
+    signal closeRequested
 
+    implicitHeight: contentItem ? contentItem.implicitHeight : 0
+    onActiveChanged: {
+        if (active && initialFocusItem)
+            Qt.callLater(() => {
+                if (page.active && page.initialFocusItem)
+                    page.initialFocusItem.forceActiveFocus();
+            });
+    }
     visible: active
     enabled: active
     focus: active

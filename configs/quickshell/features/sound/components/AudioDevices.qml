@@ -54,6 +54,7 @@ ColumnLayout {
     }
 
     ListView {
+        implicitHeight: Math.max(36, contentHeight)
         Layout.fillWidth: true
         Layout.fillHeight: true
         clip: true

@@ -14,9 +14,9 @@ Item {
     required property QtObject pomodoro
     required property QtObject tokens
 
-    signal powerRequested()
+    signal powerRequested
 
-    implicitHeight: 94
+    implicitHeight: 86
 
     PageDots {
         id: selector
@@ -30,6 +30,7 @@ Item {
         labels: ["Media", "Power and Pomodoro"]
         toggleOnClick: true
         currentIndex: deck.model.currentIndex
+        color: currentIndex === 1 ? deck.tokens.background : deck.tokens.foreground
         onSelected: index => deck.model.select(index)
     }
 
@@ -74,16 +75,10 @@ Item {
             direction: 1
 
             RowLayout {
+                id: powerRow
+
                 anchors.fill: parent
                 spacing: 8
-
-                PowerTile {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: (parent.width - parent.spacing) / 2.25
-                    source: deck.power
-                    tokens: deck.tokens
-                    onOpenRequested: deck.powerRequested()
-                }
 
                 PomodoroTile {
                     Layout.fillHeight: true
@@ -91,6 +86,16 @@ Item {
                     contentTopPadding: 14
                     source: deck.pomodoro
                     tokens: deck.tokens
+                }
+
+                PowerTile {
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: (powerRow.width - powerRow.spacing) / 6
+                    Layout.preferredWidth: Layout.minimumWidth
+                    Layout.maximumWidth: Layout.minimumWidth
+                    source: deck.power
+                    tokens: deck.tokens
+                    onOpenRequested: deck.powerRequested()
                 }
             }
         }

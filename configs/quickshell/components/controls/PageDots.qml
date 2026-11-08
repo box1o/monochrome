@@ -8,6 +8,7 @@ Row {
     required property var labels
     required property int currentIndex
     property bool toggleOnClick: false
+    property color color: tokens.foreground
 
     signal selected(int index)
 
@@ -43,9 +44,9 @@ Row {
                     width: 5
                     height: 5
                     radius: 2.5
-                    color: dots.currentIndex === button.index ? dots.tokens.foreground : dots.tokens.alpha(dots.tokens.foreground, button.hovered ? 0.5 : 0.22)
+                    color: dots.currentIndex === button.index ? dots.color : dots.tokens.alpha(dots.color, button.hovered ? 0.5 : 0.22)
                     border.width: button.visualFocus ? 1 : 0
-                    border.color: dots.tokens.foreground
+                    border.color: dots.color
 
                     Behavior on color {
                         ColorAnimation {

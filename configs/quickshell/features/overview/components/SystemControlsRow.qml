@@ -10,8 +10,8 @@ RowLayout {
     required property QtObject vpn
     required property QtObject tokens
     required property real cardHeight
-    signal brightnessRequested()
-    signal vpnRequested()
+    signal brightnessRequested
+    signal vpnRequested
     implicitHeight: cardHeight
     spacing: 8
 

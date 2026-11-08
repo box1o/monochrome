@@ -8,8 +8,8 @@ OverviewCard {
 
     required property var device
     required property bool busy
-    signal copyRequested()
-    signal pingRequested()
+    signal copyRequested
+    signal pingRequested
 
     implicitHeight: 44
 

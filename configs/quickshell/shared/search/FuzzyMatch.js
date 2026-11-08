@@ -1,5 +1,13 @@
 .pragma library
 
+function normalize(value) {
+    return String(value || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
+}
+
+function terms(query) {
+    return normalize(query).trim().split(/\s+/).filter(Boolean);
+}
+
 // Optimal string alignment also treats adjacent swapped letters as one edit.
 function editDistance(query, candidate) {
     let previous = Array.from({length: candidate.length + 1}, (_, i) => i);
@@ -54,4 +62,20 @@ function score(query, candidate) {
     if (distance > limit && candidate.length > query.length)
         distance = Math.min(distance, editDistance(query, candidate.slice(0, query.length + limit)));
     return distance <= limit ? 450 - distance * 60 : -1;
+}
+
+// Candidates and terms are normalized by their search adapter.
+function textScore(term, text) {
+    const words = text.split(/[\s._:+\/()\-]+/).filter(Boolean);
+    const fullMatch = score(term, text);
+    let best = fullMatch < 0 ? -1 : fullMatch + 50;
+    for (const word of words) {
+        const wordMatch = score(term, word);
+        if (wordMatch >= 0)
+            best = Math.max(best, wordMatch - 50);
+    }
+    const initials = words.map(word => word[0]).join("");
+    if (term.length >= 2 && initials.startsWith(term))
+        best = Math.max(best, 800);
+    return best;
 }

@@ -20,9 +20,19 @@ QtObject {
     readonly property bool busy: pending !== null || (adapter !== null && [BluetoothAdapterState.Enabling, BluetoothAdapterState.Disabling].includes(adapter.state))
     readonly property bool ownsScan: scanOwner !== null && scanOwner.discovering
     readonly property bool scanning: adapter !== null && adapter.discovering
-    readonly property var devices: adapter ? adapter.devices.values.slice().sort((a, b) => Number(b.connected) - Number(a.connected) || Number(b.paired) - Number(a.paired) || a.name.localeCompare(b.name)) : []
+    readonly property var devices: adapter ? adapter.devices.values.slice().sort(compareDevices) : []
     readonly property QtObject connectedDevice: devices.find(device => device.connected) || null
-    readonly property string summary: !available ? "No adapter" : blocked ? "Hardware blocked" : !enabled ? "Off" : (connectedDevice?.name || "Not connected")
+    readonly property string summary: {
+        if (!available)
+            return "No adapter";
+        if (blocked)
+            return "Hardware blocked";
+        return enabled ? (connectedDevice?.name || "Not connected") : "Off";
+    }
+
+    function compareDevices(a, b) {
+        return Number(b.connected) - Number(a.connected) || Number(b.paired) - Number(a.paired) || a.name.localeCompare(b.name);
+    }
 
     onBrowsingChanged: {
         if (!browsing)
@@ -131,8 +141,7 @@ QtObject {
 
     function enableAudioReconnect(device) {
         // BlueZ persists trust and authorizes the headphones to reconnect themselves.
-        if (device && (device.paired || device.bonded) && !device.blocked
-                && ["audio-headset", "audio-headphones", "audio-card", "audio-speakers"].includes(device.icon))
+        if (device && (device.paired || device.bonded) && !device.blocked && ["audio-headset", "audio-headphones", "audio-card", "audio-speakers"].includes(device.icon))
             device.trusted = true;
     }
 

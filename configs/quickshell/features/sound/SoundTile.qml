@@ -13,8 +13,7 @@ OverviewCard {
         acceptedButtons: Qt.LeftButton
         onTapped: {
             const position = volume.mapFromItem(tile, point.position.x, point.position.y);
-            if (position.x < 0 || position.x > volume.width
-                    || position.y < 0 || position.y > volume.height)
+            if (position.x < 0 || position.x > volume.width || position.y < 0 || position.y > volume.height)
                 tile.openRequested();
         }
     }

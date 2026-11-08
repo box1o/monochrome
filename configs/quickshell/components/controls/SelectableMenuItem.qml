@@ -62,6 +62,7 @@ AbstractButton {
                 textFormat: Text.PlainText
                 anchors.centerIn: parent
                 visible: row.iconName.length === 0 && (icon.source.toString() === "" || icon.status === Image.Error)
+
                 text: row.title.charAt(0).toUpperCase()
                 font.family: row.tokens.fontFamily
                 font.pixelSize: row.tokens.fontSize

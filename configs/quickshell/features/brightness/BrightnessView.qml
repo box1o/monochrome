@@ -8,9 +8,14 @@ MenuPage {
     id: page
 
     required property QtObject source
-    signal backRequested()
+
+    signal backRequested
+
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 12
 
@@ -31,10 +36,13 @@ MenuPage {
                 font.pixelSize: page.tokens.fontSize - 2
             }
 
-            Item { Layout.fillWidth: true }
+            Item {
+                Layout.fillWidth: true
+            }
         }
 
         Flickable {
+            implicitHeight: Math.max(36, contentHeight)
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentHeight: displays.implicitHeight
@@ -43,6 +51,7 @@ MenuPage {
 
             ColumnLayout {
                 id: displays
+
                 width: parent.width
                 spacing: 6
 
@@ -51,7 +60,9 @@ MenuPage {
 
                     AbstractButton {
                         id: display
+
                         required property var modelData
+
                         Layout.fillWidth: true
                         implicitHeight: 38
                         enabled: !page.source.busy
@@ -60,8 +71,7 @@ MenuPage {
 
                         background: Rectangle {
                             radius: page.tokens.radius
-                            color: display.modelData.id === page.source.device
-                                ? page.tokens.alpha(page.tokens.foreground, 0.1) : "transparent"
+                            color: display.modelData.id === page.source.device ? page.tokens.alpha(page.tokens.foreground, 0.1) : "transparent"
                         }
 
                         contentItem: Text {

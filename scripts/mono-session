@@ -49,6 +49,10 @@ case "$action" in
         if proc::exists udiskie && ! exec::query pgrep -x udiskie >/dev/null; then
             exec::run systemd-run --user --collect --unit mono-udiskie udiskie --no-notify
         fi
+        if proc::exists galaxybudsclient && ! exec::query systemctl --user is-active --quiet mono-buds.service; then
+            exec::run systemd-run --user --collect --unit mono-buds \
+                galaxybudsclient /StartMinimized
+        fi
         if proc::exists systemctl; then
             exec::run systemctl --user start hyprpolkitagent.service
         fi

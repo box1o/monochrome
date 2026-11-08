@@ -10,14 +10,25 @@ QtObject {
     property string error: ""
     property bool passwordRequested: false
     readonly property var adapters: Networking.devices.values.filter(device => device.type === DeviceType.Wifi)
+
     readonly property QtObject adapter: adapters.find(device => device.connected) || adapters[0] || null
     readonly property bool available: adapter !== null
     readonly property bool hardwareEnabled: Networking.wifiHardwareEnabled
     readonly property bool enabled: Networking.wifiEnabled
     readonly property bool busy: pending !== null && pending.stateChanging
-    readonly property var networks: adapter ? adapter.networks.values.filter(network => network.name).slice().sort((a, b) => Number(b.connected) - Number(a.connected) || Number(b.known) - Number(a.known) || b.signalStrength - a.signalStrength || a.name.localeCompare(b.name)) : []
+    readonly property var networks: adapter ? adapter.networks.values.filter(network => network.name).slice().sort(compareNetworks) : []
     readonly property QtObject connectedNetwork: networks.find(network => network.connected) || null
-    readonly property string summary: !available ? "No adapter" : !hardwareEnabled ? "Hardware blocked" : !enabled ? "Off" : (connectedNetwork?.name || "Not connected")
+    readonly property string summary: {
+        if (!available)
+            return "No adapter";
+        if (!hardwareEnabled)
+            return "Hardware blocked";
+        return enabled ? (connectedNetwork?.name || "Not connected") : "Off";
+    }
+
+    function compareNetworks(a, b) {
+        return Number(b.connected) - Number(a.connected) || Number(b.known) - Number(a.known) || b.signalStrength - a.signalStrength || a.name.localeCompare(b.name);
+    }
 
     readonly property Binding scanner: Binding {
         target: wifi.adapter

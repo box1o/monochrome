@@ -14,8 +14,7 @@ IconButton {
 
     background: Rectangle {
         radius: width / 2
-        color: button.primary ? button.tokens.foreground
-            : button.tokens.alpha(button.tokens.foreground, button.hovered ? 0.14 : 0.07)
+        color: button.primary ? button.tokens.foreground : button.tokens.alpha(button.tokens.foreground, button.hovered ? 0.14 : 0.07)
         opacity: button.enabled ? 1 : 0.35
         border.width: button.visualFocus ? 1 : 0
         border.color: button.tokens.muted

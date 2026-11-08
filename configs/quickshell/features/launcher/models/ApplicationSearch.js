@@ -1,27 +1,13 @@
 .pragma library
-.import "FuzzyMatch.js" as FuzzyMatch
-
-function normalize(value) {
-    return String(value || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
-}
+.import "../../../shared/search/FuzzyMatch.js" as FuzzyMatch
 
 function matchScore(entry, terms) {
-    const name = normalize(entry.name);
-    const words = name.split(/[\s._:+\/()\-]+/).filter(Boolean);
-    const initials = words.map(word => word[0]).join("");
-    const metadata = normalize([entry.genericName, entry.comment, ...(entry.keywords || [])].join(" "));
+    const name = FuzzyMatch.normalize(entry.name);
+    const metadata = FuzzyMatch.normalize([entry.genericName, entry.comment, ...(entry.keywords || [])].join(" "));
     let score = 0;
 
     for (const term of terms) {
-        const nameMatch = FuzzyMatch.score(term, name);
-        let best = nameMatch < 0 ? -1 : nameMatch + 50;
-        for (const word of words) {
-            const wordMatch = FuzzyMatch.score(term, word);
-            if (wordMatch >= 0)
-                best = Math.max(best, wordMatch - 50);
-        }
-        if (term.length >= 2 && initials.startsWith(term))
-            best = Math.max(best, 800);
+        let best = FuzzyMatch.textScore(term, name);
         if (metadata.includes(term))
             best = Math.max(best, 200);
         if (best < 0)
@@ -32,7 +18,7 @@ function matchScore(entry, terms) {
 }
 
 function search(entries, query, usage = {}) {
-    const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
+    const terms = FuzzyMatch.terms(query);
     const matches = [];
 
     for (const entry of entries) {

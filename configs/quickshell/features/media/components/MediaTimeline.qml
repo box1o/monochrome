@@ -32,8 +32,7 @@ ColumnLayout {
                 timeline.preview = value;
                 timeline.dragPlayer = timeline.source.player;
                 timeline.dragTrack = timeline.source.trackId;
-            } else if (enabled && timeline.dragPlayer === timeline.source.player
-                    && timeline.dragTrack === timeline.source.trackId) {
+            } else if (enabled && timeline.dragPlayer === timeline.source.player && timeline.dragTrack === timeline.source.trackId) {
                 timeline.source.seek(timeline.preview);
             }
         }
@@ -75,10 +74,13 @@ ColumnLayout {
             letterSpacing: 1
         }
 
-        Item { Layout.fillWidth: true }
+        Item {
+            Layout.fillWidth: true
+        }
 
         DottedText {
             text: timeline.source.duration > 0 ? timeline.source.formatTime(timeline.source.duration) : "--:--"
+
             color: timeline.tokens.alpha(timeline.tokens.foreground, 0.3)
             pixelSize: 8
             letterSpacing: 1

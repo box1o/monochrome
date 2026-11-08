@@ -40,7 +40,7 @@ AbstractButton {
     }
 
     WheelHandler {
-        onWheel: (event) => {
+        onWheel: event => {
             const horizontal = event.angleDelta.y === 0;
             button.trayItem.scroll(horizontal ? event.angleDelta.x : event.angleDelta.y, horizontal);
             event.accepted = true;

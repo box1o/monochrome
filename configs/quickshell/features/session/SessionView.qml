@@ -8,14 +8,17 @@ MenuPage {
 
     required property QtObject model
 
-    signal backRequested()
+    signal backRequested
 
     Keys.onLeftPressed: model.moveSelection(-1)
     Keys.onRightPressed: model.moveSelection(1)
     Keys.onReturnPressed: model.activateCurrent()
     Keys.onEnterPressed: model.activateCurrent()
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 12
 

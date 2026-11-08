@@ -354,6 +354,20 @@
       "upstream_sha256": "205b959e940d5841f0ce1d09c933153da9d9c94130a54d5cc0c68c2af1d403da",
       "sha256": "085785edf1439c09c65e34987bb0219a0dc8c0cebc3cb83c77626d17f77d8a79",
       "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "video.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/video.svg",
+      "upstream_sha256": "d4fb6587f282c1152b953fe9494cd8ccafdf1e9f44957fbb7fe8dc7af0457597",
+      "sha256": "c17474e79c02ea3ca57b2bf0d5e401391d4882a25deef01951dd6222508d0adf",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "trash.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/trash.svg",
+      "upstream_sha256": "27299f69ad7c6272be64b1b8e2d48cbd6dcf0ef0d4f92827a1affa945c91700e",
+      "sha256": "dce88a2bb92fc19539f2d11695839800206fd66224949b12c43b229482de5c6c",
+      "modification": "White base stroke for runtime theme tinting"
     }
   ]
 }

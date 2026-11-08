@@ -13,10 +13,13 @@ import "../calendar/models"
 import "../tray/models"
 import "../session/models"
 import "../sound/models"
+import "../clipboard/models"
+import "../vpn/models"
 
 ShellWindow {
     id: notch
 
+    required property QtObject clipboard
     required property QtObject coffee
     required property QtObject phone
     required property QtObject session
@@ -53,6 +56,8 @@ ShellWindow {
         state.open();
         if (page === "launcher")
             launcherModel.reset();
+        if (page === "clipboard")
+            clipboardModel.reset();
         navigationModel.page = page;
         notch.feedback.dismiss();
         notch.month.dismiss();
@@ -109,9 +114,18 @@ ShellWindow {
         function tray(index: int): void {
             notch.openTray(SystemTray.items.values[index]);
         }
-        function phone(): void { notch.openMenu("phone"); }
-        function power(): void { notch.openMenu("session"); }
-        function notifications(): void { notch.openMenu("notifications"); }
+        function phone(): void {
+            notch.openMenu("phone");
+        }
+        function power(): void {
+            notch.openMenu("session");
+        }
+        function notifications(): void {
+            notch.openMenu("notifications");
+        }
+        function clipboard(): void {
+            notch.openMenu("clipboard");
+        }
     }
 
     Connections {
@@ -119,6 +133,32 @@ ShellWindow {
         function onPresented(kind) {
             if (kind === "bluetooth" && state.expanded && navigationModel.bluetoothOpen)
                 state.close("connection");
+        }
+    }
+
+    ClipboardModel {
+        id: clipboardModel
+        source: notch.clipboard
+        active: state.expanded && navigationModel.clipboardOpen
+    }
+
+    Connections {
+        target: notch.clipboard
+        function onCopied() {
+            state.close();
+        }
+    }
+
+    IpcHandler {
+        target: "clipboard"
+        function toggle(): void {
+            if (notch.expanded && navigationModel.clipboardOpen)
+                state.close();
+            else
+                notch.openMenu("clipboard");
+        }
+        function open(): void {
+            notch.openMenu("clipboard");
         }
     }
 
@@ -144,6 +184,12 @@ ShellWindow {
         id: sessionModel
         source: notch.session
         active: state.expanded && navigationModel.sessionOpen
+    }
+
+    VpnModel {
+        id: vpnModel
+        source: notch.vpn
+        active: state.expanded && navigationModel.vpnOpen
     }
 
     SoundModel {
@@ -180,12 +226,16 @@ ShellWindow {
 
     Connections {
         target: notch.pomodoro
-        function onSessionChanged() { compactPresentation.activityDismissed = false; }
+        function onSessionChanged() {
+            compactPresentation.activityDismissed = false;
+        }
     }
 
     Connections {
         target: notch.recording
-        function onActiveChanged() { compactPresentation.activityDismissed = false; }
+        function onActiveChanged() {
+            compactPresentation.activityDismissed = false;
+        }
     }
 
     NotchState {
@@ -212,9 +262,17 @@ ShellWindow {
         tokens: notch.tokens
         availableWidth: notch.screen ? notch.screen.width : style.expandedWidth + 2 * style.shoulder
         availableHeight: notch.screen ? notch.screen.height : style.expandedHeight
+        maximumHeight: Math.max(style.expandedHeight, view.overviewHeight)
         contentHeight: view.contentHeight
         contentWidth: view.feedbackWidth
         expanded: state.expanded
+    }
+
+    Binding {
+        target: notch.phone
+        property: "browsing"
+        value: state.expanded && navigationModel.phoneOpen
+        restoreMode: Binding.RestoreBindingOrValue
     }
 
     Binding {
@@ -237,6 +295,8 @@ ShellWindow {
         geometry: layout
         style: notch.style
         tokens: notch.tokens
+        recording: notch.recording
+        clipboard: clipboardModel
         coffee: notch.coffee
         phone: notch.phone
         session: sessionModel
@@ -245,7 +305,7 @@ ShellWindow {
         power: notch.power
         pomodoro: notch.pomodoro
         media: notch.media
-        vpn: notch.vpn
+        vpn: vpnModel
         brightness: notch.brightness
         audio: notch.audio
         wifi: wifiModel

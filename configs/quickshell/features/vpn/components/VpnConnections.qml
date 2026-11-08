@@ -5,6 +5,7 @@ import "../../../components/icons"
 
 Flickable {
     id: list
+    implicitHeight: Math.max(36, contentHeight)
 
     required property QtObject source
     required property QtObject tokens

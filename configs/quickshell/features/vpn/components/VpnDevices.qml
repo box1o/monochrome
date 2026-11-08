@@ -4,6 +4,7 @@ import "../../../components/controls"
 
 Item {
     id: list
+    implicitHeight: source.tailscale.connected ? devices.implicitHeight : 36
 
     required property QtObject source
     required property QtObject tokens

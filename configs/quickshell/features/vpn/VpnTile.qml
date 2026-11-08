@@ -8,7 +8,7 @@ OverviewCard {
     id: tile
 
     required property QtObject source
-    signal openRequested()
+    signal openRequested
 
     RowLayout {
         anchors.fill: parent
@@ -47,6 +47,7 @@ OverviewCard {
                 Text {
                     Layout.fillWidth: true
                     text: tile.source.busy ? "Updating…" : tile.source.primary?.connected ? "Connected" : "Disconnected"
+
                     color: tile.tokens.muted
                     font.family: tile.tokens.fontFamily
                     font.pixelSize: tile.tokens.fontSize - 5

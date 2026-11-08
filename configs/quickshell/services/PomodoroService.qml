@@ -14,11 +14,21 @@ PomodoroTimer {
 
     readonly property IpcHandler controls: IpcHandler {
         target: "pomodoro"
-        function start(): void { pomodoro.start(); }
-        function pause(): void { pomodoro.pause(); }
-        function toggle(): void { pomodoro.toggle(); }
-        function reset(): void { pomodoro.reset(); }
-        function status(): string { return pomodoro.snapshot(); }
+        function start(): void {
+            pomodoro.start();
+        }
+        function pause(): void {
+            pomodoro.pause();
+        }
+        function toggle(): void {
+            pomodoro.toggle();
+        }
+        function reset(): void {
+            pomodoro.reset();
+        }
+        function status(): string {
+            return pomodoro.snapshot();
+        }
     }
 
     Component.onCompleted: restore(storage.session)

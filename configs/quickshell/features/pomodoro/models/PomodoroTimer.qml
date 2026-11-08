@@ -18,7 +18,7 @@ QtObject {
     readonly property string actionLabel: running ? "Pause" : remaining < duration ? "Resume" : "Start"
     readonly property real progress: Math.max(0, Math.min(1, 1 - remaining / duration))
 
-    signal sessionChanged()
+    signal sessionChanged
     signal phaseCompleted(string phase)
 
     function toggle() {
@@ -77,8 +77,14 @@ QtObject {
     }
 
     function snapshot() {
-        return JSON.stringify({phase: phase, completedFocus: completedFocus, active: active,
-            running: running, remaining: remaining, deadline: deadline});
+        return JSON.stringify({
+            phase: phase,
+            completedFocus: completedFocus,
+            active: active,
+            running: running,
+            remaining: remaining,
+            deadline: deadline
+        });
     }
 
     function restore(text) {
@@ -86,11 +92,7 @@ QtObject {
             return;
         try {
             const state = JSON.parse(text);
-            if (!["focus", "break", "long-break"].includes(state.phase)
-                    || !Number.isSafeInteger(state.completedFocus) || state.completedFocus < 0
-                    || !Number.isInteger(state.remaining) || state.remaining < 1
-                    || !Number.isFinite(state.deadline) || typeof state.running !== "boolean"
-                    || typeof state.active !== "boolean" || (state.running && (!state.active || state.deadline <= 0)))
+            if (!["focus", "break", "long-break"].includes(state.phase) || !Number.isSafeInteger(state.completedFocus) || state.completedFocus < 0 || !Number.isInteger(state.remaining) || state.remaining < 1 || !Number.isFinite(state.deadline) || typeof state.running !== "boolean" || typeof state.active !== "boolean" || (state.running && (!state.active || state.deadline <= 0)))
                 return;
             phase = state.phase;
             completedFocus = state.completedFocus;

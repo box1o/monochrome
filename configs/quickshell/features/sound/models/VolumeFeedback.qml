@@ -38,10 +38,18 @@ QtObject {
 
     readonly property Connections observer: Connections {
         target: feedback.source
-        function onVolumeChanged() { feedback.reconcile(); }
-        function onMutedChanged() { feedback.reconcile(); }
-        function onSinkChanged() { feedback.reconcile(); }
-        function onAvailableChanged() { feedback.reconcile(); }
+        function onVolumeChanged() {
+            feedback.reconcile();
+        }
+        function onMutedChanged() {
+            feedback.reconcile();
+        }
+        function onSinkChanged() {
+            feedback.reconcile();
+        }
+        function onAvailableChanged() {
+            feedback.reconcile();
+        }
     }
 
     readonly property Timer settle: Timer {

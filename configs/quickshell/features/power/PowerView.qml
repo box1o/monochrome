@@ -7,9 +7,14 @@ MenuPage {
     id: page
 
     required property QtObject source
-    signal backRequested()
+
+    signal backRequested
+
+    contentItem: content
 
     ColumnLayout {
+        id: content
+
         anchors.fill: parent
         spacing: 8
 
@@ -22,8 +27,10 @@ MenuPage {
 
         Repeater {
             model: page.source.profiles
+
             SelectableMenuItem {
                 required property var modelData
+
                 Layout.fillWidth: true
                 tokens: page.tokens
                 title: modelData.title
@@ -42,6 +49,8 @@ MenuPage {
             error: page.source.error.length > 0
         }
 
-        Item { Layout.fillHeight: true }
+        Item {
+            Layout.fillHeight: true
+        }
     }
 }

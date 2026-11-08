@@ -9,11 +9,31 @@ QtObject {
     readonly property bool busy: action.running
     readonly property string helper: Quickshell.env("HOME") + "/.local/bin/mono-session"
     readonly property var actions: [
-        {id: "lock", title: "Lock", icon: "lock-keyhole"},
-        {id: "suspend", title: "Sleep", icon: "moon"},
-        {id: "logout", title: "Log out", icon: "log-out"},
-        {id: "reboot", title: "Restart", icon: "rotate-ccw"},
-        {id: "poweroff", title: "Shut down", icon: "power"}
+        {
+            id: "lock",
+            title: "Lock",
+            icon: "lock-keyhole"
+        },
+        {
+            id: "suspend",
+            title: "Sleep",
+            icon: "moon"
+        },
+        {
+            id: "logout",
+            title: "Log out",
+            icon: "log-out"
+        },
+        {
+            id: "reboot",
+            title: "Restart",
+            icon: "rotate-ccw"
+        },
+        {
+            id: "poweroff",
+            title: "Shut down",
+            icon: "power"
+        }
     ]
 
     function execute(id) {
