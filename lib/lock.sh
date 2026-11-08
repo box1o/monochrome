@@ -9,10 +9,12 @@ lock::acquire() {
     validate::not_empty lock-file "${__file__}" || return
     validate::non_negative_integer timeout "${__timeout__}" || return
     proc::require flock || return
+
     fs::mkdir_parent "${__file__}" || return
 
     local __file_descriptor__
-    exec {__file_descriptor__}>"${__file__}" || return
+
+    exec {__file_descriptor__}> "${__file__}" || return
 
     if ! lock::_wait "${__file_descriptor__}" "${__timeout__}"; then
         exec {__file_descriptor__}>&-
@@ -48,12 +50,14 @@ lock::release() {
 
 lock::with() {
     local __file__=${1:-}
+
     shift || true
 
     proc::_require_command lock::with "$#" || return
     lock::acquire "${__file__}" || return
 
     local __status__=0
+
     "$@" || __status__=$?
 
     lock::release "${__file__}" || {
@@ -61,6 +65,5 @@ lock::with() {
             return 1
         fi
     }
-
     return "${__status__}"
 }

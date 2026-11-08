@@ -8,6 +8,17 @@ temp::_create() {
     local __base__=${3:-${TMPDIR:-/tmp}}
     local __path__
 
+    validate::enum "$__kind__" directory file || return
+
+    if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
+        __path__="${__base__%/}/${__prefix__}.dry-run-${BASHPID}"
+
+        log::info "DRY-RUN temporary $__kind__: $__path__"
+
+        printf '%s\n' "$__path__"
+        return 0
+    fi
+
     fs::mkdir "${__base__}" || return
 
     case "${__kind__}" in
@@ -24,21 +35,19 @@ temp::_create() {
     esac
 
     temp::register "${__path__}" || return
+
     printf '%s\n' "${__path__}"
 }
 
-temp::dir() {
-    temp::_create directory "${1:-shell-lib}" "${2:-${TMPDIR:-/tmp}}"
-}
+temp::dir() { temp::_create directory "${1:-shell-lib}" "${2:-${TMPDIR:-/tmp}}"; }
 
-temp::file() {
-    temp::_create file "${1:-shell-lib}" "${2:-${TMPDIR:-/tmp}}"
-}
+temp::file() { temp::_create file "${1:-shell-lib}" "${2:-${TMPDIR:-/tmp}}"; }
 
 temp::register() {
     local __path__=${1:-}
 
     validate::not_empty temporary-path "${__path__}" || return
+
     TEMP_RESOURCES+=("${__path__}")
 }
 

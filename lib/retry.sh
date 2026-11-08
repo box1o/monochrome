@@ -12,17 +12,23 @@ retry::run() {
         case "$1" in
             --attempts)
                 retry::_require_option_value "$1" "$#" || return
+
                 __attempts__=$2
+
                 shift 2
                 ;;
             --delay)
                 retry::_require_option_value "$1" "$#" || return
+
                 __delay__=$2
+
                 shift 2
                 ;;
             --backoff)
                 retry::_require_option_value "$1" "$#" || return
+
                 __backoff__=$2
+
                 shift 2
                 ;;
             --)
@@ -40,6 +46,7 @@ retry::run() {
     validate::positive_integer attempts "${__attempts__}" || return
     validate::positive_integer delay "${__delay__}" || return
     validate::enum "${__backoff__}" fixed exponential || return
+
     proc::_require_command retry::run "$#" || return
 
     retry::_attempt "${__attempts__}" "${__delay__}" "${__backoff__}" "$@"
@@ -59,6 +66,7 @@ retry::_attempt() {
     local __attempts__=$1
     local __sleep__=$2
     local __backoff__=$3
+
     shift 3
 
     local __attempt__
@@ -66,6 +74,7 @@ retry::_attempt() {
 
     for ((__attempt__ = 1; __attempt__ <= __attempts__; __attempt__++)); do
         "$@" && return 0
+
         __status__=$?
 
         if ((__attempt__ == __attempts__)); then
@@ -73,12 +82,12 @@ retry::_attempt() {
         fi
 
         log::warn "Attempt ${__attempt__}/${__attempts__} failed; retrying in ${__sleep__}s"
+
         exec::run --quiet sleep "${__sleep__}"
 
         if [[ "${__backoff__}" == exponential ]]; then
             __sleep__=$((__sleep__ * 2))
         fi
     done
-
     return "${__status__}"
 }

@@ -9,43 +9,36 @@ fs::exists() {
 fs::path::is_sacred() {
     local __path__=${1:-}
 
+    # The current user's runtime files are ordinary disposable user data.
+    if [[ "$__path__" == "/run/user/${UID}/"* ]]; then
+        return 1
+    fi
+
     case "${__path__}" in
         /boot | /boot/* | /bin | /bin/* | /dev | /dev/* | /etc | /etc/* | /lib | /lib/* | /lib64 | /lib64/* | /proc | /proc/* | /run | /run/* | /sbin | /sbin/* | /sys | /sys/* | /usr | /usr/*)
             return 0
             ;;
     esac
-
     return 1
 }
 
-fs::is_file() {
-    [[ -f "${1:-}" ]]
-}
+fs::is_file() { [[ -f "${1:-}" ]]; }
 
-fs::is_dir() {
-    [[ -d "${1:-}" ]]
-}
+fs::is_dir() { [[ -d "${1:-}" ]]; }
 
-fs::is_symlink() {
-    [[ -L "${1:-}" ]]
-}
+fs::is_symlink() { [[ -L "${1:-}" ]]; }
 
-fs::is_readable() {
-    [[ -r "${1:-}" ]]
-}
+fs::is_readable() { [[ -r "${1:-}" ]]; }
 
-fs::is_writable() {
-    [[ -w "${1:-}" ]]
-}
+fs::is_writable() { [[ -w "${1:-}" ]]; }
 
-fs::is_executable() {
-    [[ -x "${1:-}" ]]
-}
+fs::is_executable() { [[ -x "${1:-}" ]]; }
 
 fs::mkdir() {
     local __directory__=${1:-}
 
     validate::not_empty directory "${__directory__}" || return
+
     exec::run mkdir -p -- "${__directory__}"
 }
 
@@ -54,6 +47,7 @@ fs::mkdir_parent() {
     local __parent__
 
     validate::not_empty path "${__path__}" || return
+
     __parent__=$(path::dirname "${__path__}") || return
 
     fs::mkdir "${__parent__}"
@@ -63,6 +57,7 @@ fs::touch() {
     local __file__=${1:-}
 
     validate::not_empty file "${__file__}" || return
+
     fs::mkdir_parent "${__file__}" || return
 
     exec::run touch -- "${__file__}"
@@ -103,6 +98,7 @@ fs::copy_file() {
 
     fs::require_file source "${__source__}" || return
     validate::not_empty destination "${__destination__}" || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     exec::run cp --preserve=mode,timestamps -- \
@@ -116,6 +112,7 @@ fs::copy_tree() {
 
     fs::require_dir source "${__source__}" || return
     validate::not_empty destination "${__destination__}" || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     exec::run cp -a -- "${__source__}" "${__destination__}"
@@ -136,15 +133,15 @@ fs::move() {
     local __destination__=${2:-}
 
     fs::_require_source "${__source__}" || return
+
     validate::not_empty destination "${__destination__}" || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     exec::run mv -- "${__source__}" "${__destination__}"
 }
 
-fs::rename() {
-    fs::move "$@"
-}
+fs::rename() { fs::move "$@"; }
 
 fs::_assert_safe_removal_path() {
     local __path__=${1:-}
@@ -156,12 +153,22 @@ fs::_assert_safe_removal_path() {
             ;;
     esac
 
-    validate::absolute_path "${__path__}"
-    fs::path::is_sacred "${__path__}" && {
+    validate::absolute_path "${__path__}" || return
+
+    local normalized
+    normalized=$(path::absolute "$__path__") || return
+
+    case "$normalized" in
+        /)
+            log::error 'Refusing removal of the filesystem root'
+            return 1
+            ;;
+    esac
+
+    fs::path::is_sacred "$normalized" && {
         log::error "Refusing protected removal path: '${__path__}'"
         return 1
     }
-
     return 0
 }
 
@@ -183,6 +190,7 @@ fs::remove_dir() {
     local __path__=${1:-}
 
     fs::_assert_safe_removal_path "${__path__}" || return
+
     [[ -d "${__path__}" ]] || return 0
 
     exec::run rmdir -- "${__path__}"
@@ -211,14 +219,13 @@ fs::symlink() {
 
     validate::not_empty target "${__target__}" || return
     validate::not_empty link "${__link__}" || return
+
     fs::mkdir_parent "${__link__}" || return
 
     exec::run ln -sfn -- "${__target__}" "${__link__}"
 }
 
-fs::readlink() {
-    exec::capture readlink -f -- "${1:-}"
-}
+fs::readlink() { exec::query readlink -f -- "${1:-}"; }
 
 fs::chmod() {
     local __mode__=${1:-}
@@ -240,27 +247,24 @@ fs::chown() {
     exec::run chown -- "${__owner__}" "${__path__}"
 }
 
-fs::file_size() {
-    exec::capture stat -c '%s' -- "${1:-}"
-}
+fs::file_size() { exec::query stat -c '%s' -- "${1:-}"; }
 
 fs::checksum() {
     local __file__=${1:-}
     local __checksum__
+    __checksum__=$(exec::query sha256sum -- "${__file__}") || return
 
-    __checksum__=$(exec::capture sha256sum -- "${__file__}") || return
     printf '%s\n' "${__checksum__%% *}"
 }
 
-fs::same_file() {
-    exec::run --quiet cmp -s -- "${1:-}" "${2:-}"
-}
+fs::same_file() { exec::query cmp -s -- "${1:-}" "${2:-}"; }
 
 fs::write() {
     local __destination__=${1:-}
     local __value__=${2-}
 
     validate::not_empty destination "${__destination__}" || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
@@ -281,6 +285,7 @@ fs::append() {
     local __value__=${2-}
 
     validate::not_empty destination "${__destination__}" || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
@@ -309,12 +314,13 @@ fs::atomic_write() {
 
     local __directory__
     __directory__=$(path::dirname "${__destination__}") || return
+
     fs::mkdir "${__directory__}" || return
 
     local __temporary__
-    __temporary__=$(mktemp "${__directory__}/.tmp.XXXXXX") || return
+    __temporary__=$(exec::capture mktemp "${__directory__}/.tmp.XXXXXX") || return
 
-    if ! cat >"${__temporary__}"; then
+    if ! exec::run --quiet --stdout "${__temporary__}" -- cat; then
         exec::run rm -f -- "${__temporary__}"
         return 1
     fi
@@ -324,5 +330,6 @@ fs::atomic_write() {
 
 fs::read() {
     fs::require_file file "${1:-}" || return
-    exec::capture cat -- "${1}"
+
+    exec::query cat -- "${1}"
 }

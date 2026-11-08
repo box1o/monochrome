@@ -10,11 +10,13 @@ var::update() {
     local __value__=${3-}
 
     var::_validate_reference "${__reference__}" || return
+
     validate::identifier "${__key__}" || return
 
     # The validated name refers to an associative array.
     # shellcheck disable=SC2178
     local -n _variables_=${__reference__}
+
     _variables_["${__key__}"]=${__value__}
 }
 
@@ -23,11 +25,13 @@ var::has() {
     local __key__=${2:-}
 
     var::_validate_reference "${__reference__}" || return
+
     validate::identifier "${__key__}" || return
 
     # The validated name refers to an associative array.
     # shellcheck disable=SC2178
     local -n _variables_=${__reference__}
+
     [[ -n ${_variables_[${__key__}]+defined} ]]
 }
 
@@ -37,6 +41,7 @@ var::get() {
     local __default__=${3-}
 
     var::_validate_reference "${__reference__}" || return
+
     validate::identifier "${__key__}" || return
 
     # The validated name refers to an associative array.

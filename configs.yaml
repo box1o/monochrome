@@ -1,25 +1,55 @@
 configs:
-  hypr:
-    source: configs/hypr
-    target: .config/hypr
+  quickshell:
+    source: generated/quickshell
+    target: .config/quickshell
+  assets:
+    source: assets
+    target: .local/share/mono
   kitty:
-    source: configs/kitty
+    source: generated/kitty
     target: .config/kitty
   shell:
-    source: configs/shell
+    source: generated/shell
     target: .config/mono/shell
   bash:
-    source: configs/bash/bashrc
+    source: generated/bash/bashrc
     target: .bashrc
-  quickshell:
-    source: configs/quickshell
-    target: .config/quickshell
   zsh:
-    source: configs/zsh/zshrc
+    source: generated/zsh/zshrc
     target: .zshrc
   starship:
-    source: configs/starship
+    source: generated/starship
     target: .config/starship
-  nvim:
-    source: configs/nvim
-    target: .config/nvim
+  appearance:
+    source: generated/appearance
+    target: .config/mono/appearance
+  qt:
+    source: generated/qt
+    target: .config/mono/qt
+  qt5ct:
+    source: generated/qt5ct/qt5ct.conf
+    target: .config/qt5ct/qt5ct.conf
+  gtk3:
+    source: generated/gtk-3.0/settings.ini
+    target: .config/gtk-3.0/settings.ini
+  gtk3-style:
+    source: generated/gtk-3.0/gtk.css
+    target: .config/gtk-3.0/gtk.css
+  gtk4:
+    source: generated/gtk-4.0/settings.ini
+    target: .config/gtk-4.0/settings.ini
+  gtk4-style:
+    source: generated/gtk-4.0/gtk.css
+    target: .config/gtk-4.0/gtk.css
+  hypr:
+    source: generated/hypr
+    target: .config/hypr
+  fonts:
+    source: generated/fontconfig/60-mono-font.conf
+    target: .config/fontconfig/conf.d/60-mono-font.conf
+  tmux:
+    source: generated/tmux
+    target: .config/tmux
+  tmux-compat:
+    source: generated/tmux/compat.conf
+    target: .tmux.conf

@@ -1,28 +1,16 @@
 #!/usr/bin/env bash
 
-system::os() {
-    exec::capture uname -s
-}
+system::os() { exec::query uname -s; }
 
-system::architecture() {
-    exec::capture uname -m
-}
+system::architecture() { exec::query uname -m; }
 
-system::kernel() {
-    exec::capture uname -r
-}
+system::kernel() { exec::query uname -r; }
 
-system::hostname() {
-    exec::capture hostname
-}
+system::hostname() { exec::query hostname; }
 
-system::cpu_count() {
-    exec::capture getconf _NPROCESSORS_ONLN 2>/dev/null || exec::capture nproc
-}
+system::cpu_count() { exec::query getconf _NPROCESSORS_ONLN 2> /dev/null || exec::query nproc; }
 
-system::memory_mb() {
-    exec::capture awk '/MemTotal:/ { print int($2 / 1024) }' /proc/meminfo
-}
+system::memory_mb() { exec::query awk '/MemTotal:/ { print int($2 / 1024) }' /proc/meminfo; }
 
 system::require_linux() {
     local __operating_system__
@@ -52,9 +40,8 @@ system::distribution() {
 
 system::is_container() {
     [[ -f /.dockerenv ]] && return 0
-    exec::run --quiet grep -qaE '(docker|containerd|lxc|kubepods)' /proc/1/cgroup
+
+    exec::query grep -qaE '(docker|containerd|lxc|kubepods)' /proc/1/cgroup
 }
 
-system::is_wsl() {
-    exec::run --quiet grep -qi microsoft /proc/version
-}
+system::is_wsl() { exec::query grep -qi microsoft /proc/version; }

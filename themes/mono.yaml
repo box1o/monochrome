@@ -1,17 +1,76 @@
+# The only hand-edited visual settings file. Run scripts/tools/theme.sh after editing.
+version: 1
 name: mono
 
+# Neutral surfaces dominate. Red is a small signal, never a page background.
 colors:
-  background: "#181616"
-  surface: "#2d2a2e"
-  surface_bright: "#393836"
-  foreground: "#c5c9c5"
-  muted: "#727169"
-  accent: "#c4746e"
-  red: "#c4746e"
-  green: "#8a9a7b"
-  yellow: "#c4b28a"
-  blue: "#8ba4b0"
-  magenta: "#a292a3"
-  cyan: "#8ea4a2"
-  white: "#c5c9c5"
-  black: "#0d0c0c"
+  background: "#101010"
+  surface: "#1c1c1c"
+  surface_bright: "#282828"
+  foreground: "#e2e2e2"
+  muted: "#a3a3a3"
+  border: "#767676"
+  accent: "#f2636b"
+  on_accent: "#101010"
+  red: "#f2636b"
+  green: "#a9c6ad"
+  yellow: "#d4bf8a"
+  blue: "#a8bed5"
+  magenta: "#c1b0cf"
+  cyan: "#a3c5c5"
+  white: "#e2e2e2"
+  black: "#101010"
+
+fonts:
+  # UI choices to compare: Iosevka, JetBrainsMono Nerd Font Mono, Adwaita Sans.
+  family: "Adwaita Sans"
+  mono_family: "JetBrainsMono Nerd Font Mono"
+  size: 11                  # Points for GTK / Qt widgets.
+  terminal_size: 9          # Points.
+  icon_size: 12
+  shell_size: 15            # Logical pixels for QuickShell.
+
+geometry:
+  radius: 10                # Logical pixels; 0 makes corners square.
+  radius_small: 6
+  border_width: 1
+  gap_inner: 2
+  gap_outer: 4
+  padding: 6
+
+motion:
+  enabled: true
+  scale: 1.0               # 0.5 = twice as fast; 2 = twice as slow.
+  fast_ms: 120
+  normal_ms: 160
+  slow_ms: 240
+  curve: [0.2, 0.9, 0.2, 1.0]
+
+appearance:
+  wallpaper: "ember_stripes.jpg"
+  icons: "candy-icons"
+  cursor: "Bibata-Modern-Classic"
+  cursor_size: 12
+  gtk_theme: "adw-gtk3-dark"
+  opacity: 1.0
+  blur: false
+  shadow: true
+
+# QuickShell notch styling; generated QML must not be edited by hand.
+notch:
+  compact_width: 96
+  compact_height: 26
+  expanded_width: 500
+  expanded_height: 320
+  compact_radius: 13
+  expanded_radius: 18
+  shoulder: 12
+  close_delay: 180
+  background: "#000000"
+  foreground: "#e2e2e2"
+  clock_spacing: 2.5
+  clock_dot_spacing: 0.1
+  clock_row_spacing: 0.1
+  clock_weight: 1.0
+  clock_size_offset: 5
+  activity_color: "#ff4fa3"

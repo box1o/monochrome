@@ -18,7 +18,7 @@ chroot::_require_shell() {
 
     if [[ -L "${__shell__}" ]]; then
         local __target__
-        __target__=$(readlink -- "${__shell__}") || return
+        __target__=$(exec::query readlink -- "${__shell__}") || return
 
         if [[ "${__target__}" == /* ]]; then
             __target__="${__root__}${__target__}"
@@ -35,10 +35,12 @@ chroot::_require_shell() {
 
 chroot::run() {
     local __root__=${1:-}
+
     shift || true
 
     chroot::validate "${__root__}" || return
     user::require_root || return
+
     proc::require chroot env || return
 
     if (($# == 0)); then
@@ -52,6 +54,4 @@ chroot::run() {
         chroot "${__root__}" "$@"
 }
 
-chroot::shell() {
-    chroot::run "${1:-}" /bin/sh
-}
+chroot::shell() { chroot::run "${1:-}" /bin/sh; }

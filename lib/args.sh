@@ -25,20 +25,17 @@ args::reset() {
 #
 # Usage:
 #   args::flag --name <name> [--short <character>]
-args::flag() {
-    args::_define flag "$@"
-}
+args::flag() { args::_define flag "$@"; }
 
 # Register an option that consumes a value.
 #
 # Usage:
 #   args::option --name <name> [--short <character>] [--default <value>] [--required]
-args::option() {
-    args::_define option "$@"
-}
+args::option() { args::_define option "$@"; }
 
 args::_define() {
     local __kind__=${1:-}
+
     shift || true
 
     local __name__=
@@ -65,6 +62,7 @@ args::_define() {
                 ;;
             --required)
                 __required__=true
+
                 shift
                 ;;
             *)
@@ -145,17 +143,20 @@ args::parse() {
     args::_reset_values
 
     local __argument__
+
     while (($# > 0)); do
         __argument__=$1
 
         case "${__argument__}" in
             --)
                 shift
+
                 ARG_POSITIONAL_VALUES+=("$@")
                 break
                 ;;
             --*=*)
                 args::_parse_long_with_value "${__argument__}" || return
+
                 shift
                 ;;
             --*)
@@ -189,6 +190,7 @@ args::parse() {
                 ;;
             *)
                 ARG_POSITIONAL_VALUES+=("${__argument__}")
+
                 shift
                 ;;
         esac
@@ -201,6 +203,7 @@ args::_reset_values() {
     ARG_POSITIONAL_VALUES=()
 
     local __name__
+
     for __name__ in "${!ARG_KIND_REGISTRY[@]}"; do
         ARG_SEEN_REGISTRY["${__name__}"]=false
 
@@ -218,6 +221,7 @@ args::_parse_long_with_value() {
     local __argument__=${1:-}
     local __name__=${__argument__%%=*}
     local __value__=${__argument__#*=}
+
     __name__=${__name__#--}
 
     if [[ ! -v "ARG_KIND_REGISTRY[${__name__}]" ]]; then
@@ -285,6 +289,7 @@ args::has() {
     local __name__=${1:-}
 
     args::_require_definition "${__name__}" || return
+
     [[ "${ARG_SEEN_REGISTRY[${__name__}]}" == true ]]
 }
 
@@ -315,6 +320,7 @@ args::_require_definition() {
 
 args::positionals() {
     ((${#ARG_POSITIONAL_VALUES[@]} > 0)) || return 0
+
     printf '%s\n' "${ARG_POSITIONAL_VALUES[@]}"
 }
 
@@ -331,6 +337,4 @@ args::position() {
     printf '%s\n' "${ARG_POSITIONAL_VALUES[${__index__}]}"
 }
 
-args::count() {
-    printf '%s\n' "${#ARG_POSITIONAL_VALUES[@]}"
-}
+args::count() { printf '%s\n' "${#ARG_POSITIONAL_VALUES[@]}"; }

@@ -1,140 +1,174 @@
-import QtQuick
-import Quickshell
-import Quickshell.Io
+import QtQml
+import QtQml.Models
 import Quickshell.Bluetooth
 
-Item {
-    visible: false
-    id: service
-    property var host
-    readonly property var btAdapter: Bluetooth.defaultAdapter
-    readonly property bool btOn: btAdapter ? btAdapter.enabled : false
-    readonly property var btDevices: btAdapter ? btAdapter.devices : null
-    readonly property var btConnectedDevice: {
-        if (!btDevices) return null;
-        var list = btDevices.values;
-        for (var i = 0; i < list.length; i++)
-            if (list[i] && list[i].connected) return list[i];
-        return null;
-    }
-    readonly property string btConnectedName: {
-        if (btConnectedDevice) return btConnectedDevice.name || "Device";
-        return "";
-    }
-    readonly property string btConnectedType: {
-        if (!btConnectedDevice) return "earbuds";
-        var icon = String(btConnectedDevice.icon || "").toLowerCase();
-        var name = String(btConnectedDevice.name || "").toLowerCase();
-        if (icon === "input-mouse" || name.indexOf("mouse") >= 0) return "mouse";
-        if (icon === "input-keyboard" || name.indexOf("keyboard") >= 0) return "keyboard";
-        if (icon === "input-gaming" || name.indexOf("controller") >= 0 || name.indexOf("gamepad") >= 0 || name.indexOf("dualsense") >= 0 || name.indexOf("xbox") >= 0) return "gamepad";
-        if (icon === "phone" || name.indexOf("phone") >= 0 || name.indexOf("iphone") >= 0 || name.indexOf("android") >= 0) return "phone";
-        if (icon === "audio-speakers" || icon === "audio-speaker" || name.indexOf("speaker") >= 0) return "speaker";
-        return "earbuds";
-    }
-    readonly property int btConnectedBattery: {
-        if (btConnectedDevice && btConnectedDevice.batteryAvailable)
-            return Math.round(btConnectedDevice.battery * 100);
-        return -1;
-    }
+QtObject {
+    id: bluetooth
 
-    property bool btAudioConnected: false
-    property string btAudioMode: "music"
-    property string btAudioCodec: "-"
-    Process { id: pBtAudioStatus; command: [service.host.scriptDir + "/bluetooth_audio.sh", "status"]; stdout: StdioCollector { onStreamFinished: { var values = {}; String(text).trim().split("\n").forEach(function (line) { var p = line.split("="); if (p.length === 2) values[p[0]] = p[1]; }); service.btAudioConnected = values.connected === "1"; service.btAudioMode = values.mode || "music"; service.btAudioCodec = values.codec || "-"; } } }
-    Timer { interval: 2500; running: true; repeat: true; triggeredOnStart: true; onTriggered: { pBtAudioStatus.running = false; pBtAudioStatus.running = true; } }
-    Process { id: pBtAudioToggle }
-    function toggleBtAudio() { pBtAudioToggle.command = [service.host.scriptDir + "/bluetooth_audio.sh", "toggle"]; pBtAudioToggle.running = false; pBtAudioToggle.running = true; btAudioRefresh.restart(); }
-    Timer { id: btAudioRefresh; interval: 900; onTriggered: pBtAudioStatus.running = true }
+    signal connectionChanged(QtObject device, bool connected)
 
-    property string btToastName: ""
-    property string btToastType: "earbuds"
-    property bool   btToastDisconnected: false
-    property bool   btToastShown: false
-    readonly property bool btToastActive: btToastShown && !host.expanded
-    property string btPrevConnected: ""
+    property bool browsing: false
+    property QtObject pending: null
+    property QtObject scanOwner: null
+    property string action: ""
+    property string error: ""
+    readonly property var prompt: pairing.prompt
+    readonly property QtObject adapter: Bluetooth.defaultAdapter
+    readonly property bool available: adapter !== null
+    readonly property bool enabled: adapter !== null && adapter.enabled
+    readonly property bool blocked: adapter !== null && adapter.state === BluetoothAdapterState.Blocked
+    readonly property bool busy: pending !== null || (adapter !== null && [BluetoothAdapterState.Enabling, BluetoothAdapterState.Disabling].includes(adapter.state))
+    readonly property bool ownsScan: scanOwner !== null && scanOwner.discovering
+    readonly property bool scanning: adapter !== null && adapter.discovering
+    readonly property var devices: adapter ? adapter.devices.values.slice().sort((a, b) => Number(b.connected) - Number(a.connected) || Number(b.paired) - Number(a.paired) || a.name.localeCompare(b.name)) : []
+    readonly property QtObject connectedDevice: devices.find(device => device.connected) || null
+    readonly property string summary: !available ? "No adapter" : blocked ? "Hardware blocked" : !enabled ? "Off" : (connectedDevice?.name || "Not connected")
 
-    onBtConnectedNameChanged: {
-        var name = service.btConnectedName;
-        if (name.length > 0 && name !== service.btPrevConnected) {
-            service.btPrevConnected = name;
-            host.showBtToast(name, service.btConnectedType, false);
-        } else if (name.length === 0 && service.btPrevConnected.length > 0) {
-            var prev = service.btPrevConnected;
-            var prevType = service.btToastType;
-            service.btPrevConnected = "";
-            host.showBtToast(prev, prevType, true);
+    onBrowsingChanged: {
+        if (!browsing)
+            stopScan();
+    }
+    onAdapterChanged: stopScan()
+
+    readonly property Instantiator deviceObservers: Instantiator {
+        model: Bluetooth.devices
+        delegate: BluetoothDeviceObserver {
+            required property var modelData
+            device: modelData
+            onConnectionChanged: connected => {
+                if (connected)
+                    bluetooth.enableAudioReconnect(device);
+                bluetooth.connectionChanged(device, connected);
+            }
         }
     }
 
-    function showBtToast(name, type, isDisconnect) {
-        service.btToastName = name;
-        service.btToastType = type || "earbuds";
-        service.btToastDisconnected = isDisconnect || false;
-        service.btToastShown = true;
-        if (host.expanded) host.collapse();
-        btToastTimer.restart();
-        host.playSound(isDisconnect ? "disconnect" : "connect");
-    }
-    function dismissBtToast() {
-        service.btToastShown = false;
-        btToastTimer.stop();
-    }
-    Timer {
-        id: btToastTimer
-        interval: 2500
-        onTriggered: service.dismissBtToast()
+    readonly property Timer scanDeadline: Timer {
+        interval: 15000
+        onTriggered: bluetooth.stopScan()
     }
 
-    property bool acToastShown: false
-    readonly property bool acToastActive:
-        acToastShown && !host.expanded && host.isLaptop && !service.btToastActive
-    property bool acPrev: host.acOnline
+    readonly property Timer operationDeadline: Timer {
+        interval: 30000
+        onTriggered: bluetooth.cancel("Operation timed out. Try again.")
+    }
 
-    Connections {
-        target: host
-        function onAcOnlineChanged() {
-            if (host.acOnline && !service.acPrev && host.isLaptop) service.showAcToast();
-            service.acPrev = host.acOnline;
+    readonly property Connections stateWatcher: Connections {
+        target: bluetooth.pending
+        function onConnectedChanged() {
+            if (!bluetooth.pending)
+                return;
+            if (bluetooth.action === "connect" && bluetooth.pending.connected)
+                bluetooth.finish();
+            else if (bluetooth.action === "disconnect" && !bluetooth.pending.connected)
+                bluetooth.finish();
+        }
+
+        function onStateChanged() {
+            if (bluetooth.pending && bluetooth.action === "connect" && bluetooth.pending.state === BluetoothDeviceState.Disconnected)
+                bluetooth.finish("Could not connect. Check that the device is nearby and ready.");
         }
     }
-    function showAcToast() {
-        service.acToastShown = true;
-        if (host.expanded) host.collapse();
-        acToastTimer.restart();
-        host.playSound("charge");
-    }
-    function dismissAcToast() {
-        service.acToastShown = false;
-        acToastTimer.stop();
-    }
-    Timer {
-        id: acToastTimer
-        interval: 2300
-        onTriggered: service.dismissAcToast()
+
+    readonly property BluetoothPairing pairing: BluetoothPairing {
+        onSucceeded: {
+            if (!bluetooth.pending)
+                return;
+            bluetooth.enableAudioReconnect(bluetooth.pending);
+            bluetooth.action = "connect";
+            bluetooth.operationDeadline.interval = 30000;
+            bluetooth.operationDeadline.restart();
+            if (bluetooth.pending.connected)
+                bluetooth.finish();
+            else
+                bluetooth.pending.connect();
+        }
+        onFailed: message => bluetooth.finish(message)
     }
 
-    Process { id: pBtUnblock; command: ["rfkill", "unblock", "bluetooth"] }
-    function toggleBt() {
-        if (!btAdapter) return;
-        if (!btAdapter.enabled) {
-            pBtUnblock.running = true;
-            btPowerOn.restart();
-        } else {
-            btAdapter.enabled = false;
+    function toggle() {
+        if (available && !blocked && !busy) {
+            error = "";
+            if (enabled)
+                stopScan();
+            adapter.enabled = !enabled;
         }
     }
-    Timer {
-        id: btPowerOn
-        interval: 250
-        onTriggered: if (service.btAdapter) service.btAdapter.enabled = true;
-    }
-    function scanBt() {
-        if (!btAdapter || !btAdapter.enabled) return;
-        btAdapter.pairable = true;
-        btAdapter.discovering = true;
-        btScanStop.restart();
-    }
-    Timer { id: btScanStop; interval: 12000; onTriggered: if (service.btAdapter) service.btAdapter.discovering = false }
 
+    function scan() {
+        if (!adapter || !enabled || !browsing || adapter.discovering || scanOwner === adapter)
+            return;
+        error = "";
+        scanOwner = adapter;
+        scanOwner.discovering = true;
+        scanDeadline.restart();
+    }
+
+    function stopScan() {
+        scanDeadline.stop();
+        if (scanOwner)
+            scanOwner.discovering = false;
+        scanOwner = null;
+    }
+
+    function begin(device, operation) {
+        if (!device || busy || !enabled || device.blocked)
+            return false;
+        error = "";
+        action = operation;
+        pending = device;
+        operationDeadline.interval = operation === "pair" ? 100000 : 30000;
+        operationDeadline.restart();
+        return true;
+    }
+
+    function connect(device) {
+        if (!begin(device, "connect"))
+            return;
+        enableAudioReconnect(device);
+        device.connect();
+    }
+
+    function enableAudioReconnect(device) {
+        // BlueZ persists trust and authorizes the headphones to reconnect themselves.
+        if (device && (device.paired || device.bonded) && !device.blocked
+                && ["audio-headset", "audio-headphones", "audio-card", "audio-speakers"].includes(device.icon))
+            device.trusted = true;
+    }
+
+    function disconnect(device) {
+        if (!begin(device, "disconnect"))
+            return;
+        device.disconnect();
+    }
+
+    function pair(device) {
+        if (!begin(device, "pair"))
+            return;
+        if (!pairing.start(device.dbusPath))
+            finish("Another pairing request is still finishing. Try again.");
+    }
+
+    function reply(accept, value = "") {
+        pairing.reply(accept, value);
+    }
+
+    function finish(message = "") {
+        operationDeadline.stop();
+        error = message;
+        pending = null;
+        action = "";
+    }
+
+    function cancel(message = "") {
+        pairing.cancel();
+        if (pending && action === "connect")
+            pending.disconnect();
+        finish(message);
+    }
+
+    function forget(device) {
+        if (device && !busy && !device.connected)
+            device.forget();
+    }
 }

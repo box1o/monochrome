@@ -8,6 +8,7 @@ paths::has() {
     local __key__=${1:-}
 
     validate::identifier "${__key__}" || return
+
     [[ -v "PATH_REGISTRY[${__key__}]" ]]
 }
 
@@ -25,20 +26,26 @@ paths::register() {
         case "$1" in
             --overwrite)
                 __overwrite__=true
+
                 shift
                 ;;
             --description)
                 paths::_require_option_value "$1" "$#" || return
+
                 __description__=$2
+
                 shift 2
                 ;;
             --source)
                 paths::_require_option_value "$1" "$#" || return
+
                 __source__=$2
+
                 shift 2
                 ;;
             --no-normalize)
                 __normalize__=false
+
                 shift
                 ;;
             --)
@@ -88,9 +95,7 @@ paths::_require_option_value() {
     fi
 }
 
-paths::set() {
-    paths::register --overwrite "$@"
-}
+paths::set() { paths::register --overwrite "$@"; }
 
 paths::get() {
     local __key__=${1:-}
@@ -103,9 +108,7 @@ paths::get() {
     printf '%s\n' "${PATH_REGISTRY[${__key__}]}"
 }
 
-paths::require() {
-    paths::get "$@"
-}
+paths::require() { paths::get "$@"; }
 
 paths::remove() {
     local __key__=${1:-}
@@ -118,9 +121,7 @@ paths::remove() {
         'PATH_SOURCES['"${__key__}"']'
 }
 
-paths::keys() {
-    printf '%s\n' "${!PATH_REGISTRY[@]}" | sort
-}
+paths::keys() { printf '%s\n' "${!PATH_REGISTRY[@]}" | exec::query sort; }
 
 paths::print() {
     printf '%-28s %-12s %-52s %s\n' KEY SOURCE PATH DESCRIPTION
@@ -131,6 +132,7 @@ paths::print() {
         '------------------------------'
 
     local __key__
+
     while IFS= read -r __key__; do
         printf '%-28s %-12s %-52s %s\n' \
             "${__key__}" \
@@ -144,6 +146,7 @@ paths::log() {
     log::info "Registered paths"
 
     local __key__
+
     while IFS= read -r __key__; do
         log::info \
             "${__key__}=${PATH_REGISTRY[${__key__}]}" \

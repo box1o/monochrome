@@ -15,13 +15,17 @@ config::load() {
     local __version__=${3:-}
 
     config::_valid_name "${__name__}" || return
+
     validate::not_empty configuration-file "${__file__}" || return
+
     __file__=$(path::absolute "${__file__}") || return
+
     yaml::validate "${__file__}" || return
 
     if [[ -n "${__version__}" ]]; then
         local __actual__
         __actual__=$(yaml::get "${__file__}" '.version') || return
+
         if [[ "${__actual__}" != "${__version__}" ]]; then
             log::error "Unsupported configuration version: ${__actual__}; expected ${__version__}"
             return 1
@@ -31,16 +35,16 @@ config::load() {
     CONFIG_FILE_REGISTRY["${__name__}"]=${__file__}
 }
 
-config::has_document() {
-    [[ -v "CONFIG_FILE_REGISTRY[${1:-}]" ]]
-}
+config::has_document() { [[ -v "CONFIG_FILE_REGISTRY[${1:-}]" ]]; }
 
 config::file() {
     local __name__=${1:-}
+
     if ! config::has_document "${__name__}"; then
         log::error "Configuration is not loaded: ${__name__}"
         return 1
     fi
+
     printf '%s\n' "${CONFIG_FILE_REGISTRY[${__name__}]}"
 }
 
@@ -60,35 +64,56 @@ config::get() {
 config::has() {
     local __file__
     __file__=$(config::file "${1:-}") || return
+
     yaml::has "${__file__}" "${2:-}"
 }
 
 config::require() {
     local __name__=${1:-}
+
     shift || true
+
     local __file__
     __file__=$(config::file "${__name__}") || return
+
     yaml::require "${__file__}" "$@"
 }
 
 config::keys() {
     local __file__
     __file__=$(config::file "${1:-}") || return
+
     yaml::keys "${__file__}" "${2:-.}"
 }
 
 config::values() {
     local __file__
     __file__=$(config::file "${1:-}") || return
-    exec::capture yq eval -r "${2:-.}[]?" "${__file__}"
+
+    exec::query yq eval -r "${2:-.}[]?" "${__file__}"
 }
 
 config::entries() {
     local __file__
     __file__=$(config::file "${1:-}") || return
-    exec::capture yq eval -o=json -I=0 "${2:-.} | to_entries[]?" "${__file__}"
+
+    exec::query yq eval -o=json -I=0 "${2:-.} | to_entries[]?" "${__file__}"
 }
 
-config::reset() {
-    CONFIG_FILE_REGISTRY=()
+config::reset() { CONFIG_FILE_REGISTRY=(); }
+
+config::load_shell() {
+    local name=${1:-}
+
+    config::_valid_name "$name" || return
+
+    local home=${MONO_CONFIG_HOME:-${XDG_CONFIG_HOME:-${HOME}/.config}/mono}
+    local file
+
+    for file in "$home/mono.conf" "$home/$name.conf"; do
+        [[ -f "$file" ]] || continue
+
+        # shellcheck source=/dev/null
+        source "$file" || return
+    done
 }

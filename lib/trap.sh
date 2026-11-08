@@ -9,9 +9,9 @@ trap::_dispatch() {
 
     while IFS= read -r __handler__; do
         [[ -n "${__handler__}" ]] || continue
-        "${__handler__}" || true
-    done <<<"${TRAP_HANDLERS[${__signal__}]:-}"
 
+        "${__handler__}" || true
+    done <<< "${TRAP_HANDLERS[${__signal__}]:-}"
     return "${__status__}"
 }
 
@@ -28,7 +28,7 @@ trap::add() {
         return 2
     fi
 
-    if ! declare -F "${__handler__}" >/dev/null 2>&1; then
+    if ! declare -F "${__handler__}" > /dev/null 2>&1; then
         log::error "Trap handler is not a function: ${__handler__}"
         return 2
     fi

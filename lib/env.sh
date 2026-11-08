@@ -4,6 +4,7 @@ env::has() {
     local __name__=${1:-}
 
     env::_validate_name "${__name__}" || return
+
     [[ -v "${__name__}" ]]
 }
 
@@ -21,11 +22,13 @@ env::get() {
     local __default__=${2-}
 
     env::_validate_name "${__name__}" || return
+
     printf '%s\n' "${!__name__-${__default__}}"
 }
 
 env::require() {
     local __name__
+
     for __name__ in "$@"; do
         env::_validate_name "${__name__}" || return
 
@@ -56,6 +59,7 @@ env::load_file() {
     fs::require_file environment-file "${__file__}" || return
 
     local __restore_allexport__=false
+
     if [[ $- == *a* ]]; then
         __restore_allexport__=true
     else
@@ -63,6 +67,7 @@ env::load_file() {
     fi
 
     local __status__=0
+
     # Environment files are executable shell code and must be trusted.
     # shellcheck disable=SC1090
     source "${__file__}" || __status__=$?
@@ -70,18 +75,17 @@ env::load_file() {
     if [[ "${__restore_allexport__}" == false ]]; then
         set +a
     fi
-
     return "${__status__}"
 }
 
 env::log() {
     local __name__
+
     for __name__ in "$@"; do
         env::_validate_name "${__name__}" || return
+
         log::info "${__name__}=${!__name__-}"
     done
 }
 
-env::show() {
-    paths::print
-}
+env::show() { paths::print; }

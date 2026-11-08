@@ -1,78 +1,66 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-source "${MONO_LIB_DIR:-${HOME}/.local/lib/mono}/legacy.sh"
-load_config ccp
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
 
-CONFIG_FILE=''
-VERBOSE=false
-COPY=false
-CCP_OUTPUT=''
+script::init
+args::option --name file --short f
+args::flag --name verbose --short v
+args::flag --name copy --short c
+script::parse "$@" || exit $?
 
-usage() { printf 'Usage: %s -f <paths-file> [-v] [-c]\n' "$0"; }
+if args::has help; then
+    script::usage '--file PATH [--verbose] [--copy]'
+    exit 0
+fi
 
-parse_args() {
-    while (($# > 0)); do
-        case "$1" in
-            -f | --file)
-                [[ $# -ge 2 ]] || die "$1 requires a value"
-                CONFIG_FILE="${2}"
-                shift
-                ;;
-            -v | --verbose) VERBOSE=true ;;
-            -c | --copy) COPY=true ;;
-            -h | --help) usage; exit 0 ;;
-            *) die "unknown option: $1" ;;
-        esac
-        shift
-    done
-}
+script::require_count 0 0 || exit $?
 
-normalize_path() {
-    local path="$1"
-    path="${path%\"}"
-    path="${path#\"}"
-    path="${path%\'}"
-    path="${path#\'}"
-    path="${path/#\~/${HOME}}"
-    printf '%s\n' "${path}"
-}
+config::load_shell ccp
 
-append_file() {
-    local file="$1"
-    local output="$2"
-    if [[ ! -f "${file}" ]]; then
-        warn "missing: ${file}"
-        return 0
-    fi
-    ${VERBOSE} && log "reading ${file}"
-    {
-        printf '====\n%s\n====\n' "${file}"
-        cat -- "${file}"
-        printf '\n\n'
-    } >>"${output}"
-}
+paths_file=$(args::get file)
 
-build_output() {
-    local output="$1"
+fs::require_file paths-list "$paths_file"
+
+ccp::write_files() {
     local line file
-    while IFS= read -r line || [[ -n "${line}" ]]; do
-        [[ -z "${line}" || "${line}" =~ ^[[:space:]]*# ]] && continue
-        file="$(normalize_path "${line}")"
-        append_file "${file}" "${output}"
-    done <"${CONFIG_FILE}"
+
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+
+        file=${line%\"}
+        file=${file#\"}
+        file=${file%\'}
+        file=${file#\'}
+        file=${file/#\~/${HOME}}
+
+        if ! fs::is_file "$file"; then
+            log::warn "Missing: $file"
+            continue
+        fi
+
+        if args::has verbose; then log::info "Reading $file"; fi
+
+        printf '====\n%s\n====\n' "$file"
+
+        fs::read "$file"
+
+        printf '\n\n'
+    done < "$paths_file"
 }
 
-main() {
-    parse_args "$@"
-    need_file "${CONFIG_FILE}"
-    CCP_OUTPUT="$(mktemp)"
-    trap 'rm -f "${CCP_OUTPUT}"' EXIT
-    build_output "${CCP_OUTPUT}"
-    cat -- "${CCP_OUTPUT}"
-    if ${COPY}; then
-        copy_text <"${CCP_OUTPUT}"
-    fi
-}
+if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
+    log::info "DRY-RUN combine files from $paths_file"
+    exit 0
+fi
 
-main "$@"
+output=$(temp::file mono-ccp)
+
+trap 'fs::remove_file "$output"' EXIT
+
+ccp::write_files | fs::write "$output"
+fs::read "$output"
+
+if args::has copy; then clipboard::copy < "$output"; fi

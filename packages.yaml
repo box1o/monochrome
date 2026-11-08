@@ -7,7 +7,7 @@ packages:
     - curl
     - wget
     - jq
-    - yq
+    - go-yq
     - openssl
     - coreutils
     - findutils
@@ -21,6 +21,8 @@ packages:
     - age
     - trash-cli
     - python
+    - libpulse
+    - lua
     - pciutils
     - inotify-tools
     - socat
@@ -48,10 +50,16 @@ packages:
     - hyprpolkitagent
     - hyprsunset
     - hyprcursor
+    - hyprland-qt-support
+    - adw-gtk-theme
     - hyprpicker
     - xdg-desktop-portal
     - xdg-desktop-portal-hyprland
     - xdg-desktop-portal-gtk
+    - qt5ct
+    - ttf-jetbrains-mono-nerd
+    - ttc-iosevka
+    - adwaita-fonts
     - qt6-declarative
     - qt6-multimedia
     - qt6-wayland
@@ -84,18 +92,19 @@ packages:
     - wl-clipboard
     - cliphist
     - grim
+    - imagemagick
     - slurp
     - swappy
     - libnotify
     - gnome-keyring
     - seahorse
     - ttf-jetbrains-mono-nerd
+    - ttc-iosevka
     - noto-fonts
     - noto-fonts-cjk
     - noto-fonts-emoji
     - noto-fonts-extra
     - papirus-icon-theme
-    - adw-gtk-theme
     - firefox
     - nautilus
     - loupe
@@ -184,6 +193,7 @@ packages:
     - system-config-printer
 
   aur:
+    - hyprqt6engine
     - android-studio
     - bibata-cursor-theme-bin
     - localsend

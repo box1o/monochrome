@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 
-user::current() {
-    exec::capture id -un
-}
+user::current() { exec::query id -un; }
 
 user::uid() {
     local __user__=${1:-}
 
     if [[ -n "${__user__}" ]]; then
-        exec::capture id -u "${__user__}"
+        exec::query id -u "${__user__}"
     else
-        exec::capture id -u
+        exec::query id -u
     fi
 }
 
@@ -18,9 +16,9 @@ user::gid() {
     local __user__=${1:-}
 
     if [[ -n "${__user__}" ]]; then
-        exec::capture id -g "${__user__}"
+        exec::query id -g "${__user__}"
     else
-        exec::capture id -g
+        exec::query id -g
     fi
 }
 
@@ -28,6 +26,7 @@ user::exists() {
     local __user__=${1:-}
 
     validate::not_empty user "${__user__}" || return
+
     exec::run --quiet --stdout /dev/null --stderr /dev/null id "${__user__}"
 }
 
@@ -35,12 +34,11 @@ user::group_exists() {
     local __group__=${1:-}
 
     validate::not_empty group "${__group__}" || return
+
     exec::run --quiet --stdout /dev/null --stderr /dev/null getent group "${__group__}"
 }
 
-user::is_root() {
-    ((EUID == 0))
-}
+user::is_root() { ((EUID == 0)); }
 
 user::require_root() {
     if ! user::is_root; then
@@ -64,12 +62,11 @@ user::home() {
     fi
 
     local __entry__
-    __entry__=$(exec::capture getent passwd "${__user__}") || return
+    __entry__=$(exec::query getent passwd "${__user__}") || return
 
     local __remainder__=${__entry__#*:*:*:*:*:}
+
     printf '%s\n' "${__remainder__%%:*}"
 }
 
-user::run_as() {
-    proc::run_as "$@"
-}
+user::run_as() { proc::run_as "$@"; }

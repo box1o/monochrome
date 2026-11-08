@@ -33,21 +33,22 @@ archive::list() {
 
     local __format__
     __format__=$(archive::detect_format "${__archive__}") || return
+
     archive::_require_tool "${__format__}" || return
 
     case "${__format__}" in
-        tar | tar.*) exec::capture tar -tf "${__archive__}" ;;
-        zip) exec::capture unzip -Z1 "${__archive__}" ;;
+        tar | tar.*) exec::query tar -tf "${__archive__}" ;;
+        zip) exec::query unzip -Z1 "${__archive__}" ;;
     esac
 }
 
 archive::verify() {
     local __archive__=${1:-}
     local __entries__
-
     __entries__=$(archive::list "${__archive__}") || return
 
     local __entry__
+
     while IFS= read -r __entry__; do
         [[ -n "${__entry__}" ]] || continue
 
@@ -55,7 +56,7 @@ archive::verify() {
             log::error "Unsafe archive entry: ${__entry__}"
             return 1
         fi
-    done <<<"${__entries__}"
+    done <<< "${__entries__}"
 }
 
 archive::_entry_is_unsafe() {
@@ -72,6 +73,7 @@ archive::extract() {
 
     local __format__
     __format__=$(archive::detect_format "${__archive__}") || return
+
     archive::_require_tool "${__format__}" || return
     archive::verify "${__archive__}" || return
     fs::mkdir "${__destination__}" || return
@@ -82,17 +84,11 @@ archive::extract() {
     esac
 }
 
-archive::create_tar_gz() {
-    archive::_create_tar z "${1:-.}" "${2:-archive.tar.gz}"
-}
+archive::create_tar_gz() { archive::_create_tar z "${1:-.}" "${2:-archive.tar.gz}"; }
 
-archive::create_tar_xz() {
-    archive::_create_tar J "${1:-.}" "${2:-archive.tar.xz}"
-}
+archive::create_tar_xz() { archive::_create_tar J "${1:-.}" "${2:-archive.tar.xz}"; }
 
-archive::create_tar() {
-    archive::_create_tar '' "${1:-.}" "${2:-archive.tar}"
-}
+archive::create_tar() { archive::_create_tar '' "${1:-.}" "${2:-archive.tar}"; }
 
 archive::_create_tar() {
     local __compression__=${1-}
@@ -101,6 +97,7 @@ archive::_create_tar() {
 
     fs::require_dir source "${__source__}" || return
     proc::require tar || return
+
     fs::mkdir_parent "${__destination__}" || return
 
     exec::run tar "-c${__compression__}f" "${__destination__}" -C "${__source__}" .

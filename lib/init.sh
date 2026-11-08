@@ -7,6 +7,7 @@ fi
 SHELL_LIB_INITIALIZED=1
 
 SHELL_LIB_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+
 readonly SHELL_LIB_DIR
 
 shell::_source() {
@@ -38,6 +39,9 @@ shell::_source archive.sh
 shell::_source net.sh
 shell::_source yaml.sh
 shell::_source config.sh
+shell::_source clipboard.sh
+shell::_source deploy.sh
+shell::_source list.sh
 shell::_source mount.sh
 shell::_source chroot.sh
 

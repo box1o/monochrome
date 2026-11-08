@@ -5,18 +5,15 @@ NET_DEFAULT_RETRIES=${NET_DEFAULT_RETRIES:-5}
 NET_DEFAULT_RETRY_DELAY=${NET_DEFAULT_RETRY_DELAY:-2}
 NET_DEFAULT_USER_AGENT=${NET_DEFAULT_USER_AGENT:-mono-shell/1.0}
 
-net::_require_curl() {
-    proc::require curl
-}
+net::_require_curl() { proc::require curl; }
 
-net::is_url() {
-    [[ ${1:-} =~ ^https?:// ]]
-}
+net::is_url() { [[ ${1:-} =~ ^https?:// ]]; }
 
 net::status() {
     local __url__=${1:-}
 
     validate::not_empty URL "${__url__}" || return
+
     net::_require_curl || return
 
     exec::capture curl \
@@ -34,6 +31,7 @@ net::is_reachable() {
     local __url__=${1:-}
 
     validate::not_empty URL "${__url__}" || return
+
     net::_require_curl || return
 
     exec::run --quiet --stdout /dev/null curl \
@@ -45,7 +43,7 @@ net::is_reachable() {
         --connect-timeout "${NET_DEFAULT_CONNECT_TIMEOUT}" \
         --user-agent "${NET_DEFAULT_USER_AGENT}" \
         -- "${__url__}" \
-        >/dev/null
+        > /dev/null
 }
 
 # Download a URL through a resumable partial file.
@@ -66,14 +64,17 @@ net::download() {
         case "$1" in
             --overwrite)
                 __overwrite__=true
+
                 shift
                 ;;
             --no-resume)
                 __resume__=false
+
                 shift
                 ;;
             --quiet)
                 __quiet__=true
+
                 shift
                 ;;
             --retries | --retry-delay | --connect-timeout | --header | --sha256)
@@ -145,6 +146,7 @@ net::download() {
     net::_append_headers __arguments__ __headers__
 
     local __status__=0
+
     exec::run curl "${__arguments__[@]}" -- "${__url__}" || __status__=$?
 
     if ((__status__ != 0)); then
@@ -187,6 +189,7 @@ net::_validate_download() {
     validate::non_negative_integer retries "${__retries__}" || return
     validate::non_negative_integer retry-delay "${__retry_delay__}" || return
     validate::non_negative_integer connect-timeout "${__connect_timeout__}" || return
+
     net::_require_curl || return
 
     if [[ -e "${__destination__}" && "${__overwrite__}" != true ]]; then
@@ -259,7 +262,9 @@ net::request() {
     fi
 
     local __url__=$1
+
     validate::not_empty URL "${__url__}" || return
+
     net::is_url "${__url__}" || {
         log::error "Unsupported URL: ${__url__}"
         return 2
@@ -281,6 +286,7 @@ net::request() {
 
     if [[ -n "${__output__}" ]]; then
         fs::mkdir_parent "${__output__}" || return
+
         __arguments__+=(--output "${__output__}")
     fi
 

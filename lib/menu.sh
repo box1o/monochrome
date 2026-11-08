@@ -4,9 +4,7 @@ MENU_ACCENT=${MENU_ACCENT:-6}
 MENU_MUTED=${MENU_MUTED:-8}
 MENU_HEIGHT=${MENU_HEIGHT:-10}
 
-menu::_require_gum() {
-    proc::require gum
-}
+menu::_require_gum() { proc::require gum; }
 
 menu::_require_option_value() {
     local __caller__=${1:-function}
@@ -62,6 +60,7 @@ menu::select() {
     validate::positive_integer height "${__height__}" || return
 
     local -a __choices__=("$@")
+
     if ((__selected__ >= ${#__choices__[@]})); then
         log::error "Selected index is outside the choice list: ${__selected__}"
         return 2
@@ -118,6 +117,7 @@ menu::filter() {
     }
 
     validate::positive_integer height "${__height__}" || return
+
     menu::_require_gum || return
 
     printf '%s\n' "$@" | gum filter \
@@ -154,10 +154,12 @@ menu::input() {
                 ;;
             --required)
                 __required__=true
+
                 shift
                 ;;
             --password)
                 __password__=true
+
                 shift
                 ;;
             --)
@@ -190,6 +192,7 @@ menu::input() {
     [[ "${__password__}" == true ]] && __arguments__+=(--password)
 
     local __value__
+
     while true; do
         __value__=$(gum input "${__arguments__[@]}") || return $?
 
@@ -211,6 +214,7 @@ menu::confirm() {
 
     if [[ ${1:-} == --default-no ]]; then
         __default__=false
+
         shift
     fi
 
@@ -250,6 +254,7 @@ menu::spin() {
                 ;;
             --show-output)
                 __show_output__=true
+
                 shift
                 ;;
             --)

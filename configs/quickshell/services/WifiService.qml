@@ -1,136 +1,86 @@
-import QtQuick
+import QtQml
 import Quickshell
-import Quickshell.Io
+import Quickshell.Networking
 
-Item {
-    visible: false
-    id: service
-    property var host
-    readonly property string wifiScript: Quickshell.env("HOME") + "/.config/quickshell/scripts/wifi.sh"
+QtObject {
+    id: wifi
 
-    property bool wifiOn: true
-    property string wifiSsid: ""
-    property int wifiQuality: 0
-    property bool wifiBusy: false
-    property string wifiError: ""
+    property bool browsing: false
+    property QtObject pending: null
+    property string error: ""
+    property bool passwordRequested: false
+    readonly property var adapters: Networking.devices.values.filter(device => device.type === DeviceType.Wifi)
+    readonly property QtObject adapter: adapters.find(device => device.connected) || adapters[0] || null
+    readonly property bool available: adapter !== null
+    readonly property bool hardwareEnabled: Networking.wifiHardwareEnabled
+    readonly property bool enabled: Networking.wifiEnabled
+    readonly property bool busy: pending !== null && pending.stateChanging
+    readonly property var networks: adapter ? adapter.networks.values.filter(network => network.name).slice().sort((a, b) => Number(b.connected) - Number(a.connected) || Number(b.known) - Number(a.known) || b.signalStrength - a.signalStrength || a.name.localeCompare(b.name)) : []
+    readonly property QtObject connectedNetwork: networks.find(network => network.connected) || null
+    readonly property string summary: !available ? "No adapter" : !hardwareEnabled ? "Hardware blocked" : !enabled ? "Off" : (connectedNetwork?.name || "Not connected")
 
-    ListModel { id: wifiModel }
-    readonly property var wifiNetworks: wifiModel
-
-    Process {
-        id: pWifiStatus
-        command: [host.wifiScript, "status"]
-        running: true
-        stdout: SplitParser {
-            onRead: line => {
-                var p = line.trim().split("|");
-                if (p.length < 3) return;
-                service.wifiOn = (p[0] === "on");
-                service.wifiSsid = p[1] || "";
-                service.wifiQuality = parseInt(p[2]) || 0;
-            }
-        }
-    }
-    function refreshWifiStatus() {
-        pWifiStatus.running = false;
-        pWifiStatus.running = true;
-    }
-    Timer {
-        interval: host.expanded ? 4000 : 15000
-        running: true; repeat: true
-        onTriggered: service.refreshWifiStatus()
+    readonly property Binding scanner: Binding {
+        target: wifi.adapter
+        property: "scannerEnabled"
+        value: wifi.browsing && wifi.enabled
+        when: wifi.adapter !== null
+        restoreMode: Binding.RestoreBindingOrValue
     }
 
-    Process {
-        id: pWifiList
-        command: [host.wifiScript, "list"]
-        stdout: SplitParser {
-            onRead: line => {
-                var p = line.trim().split("|");
-                if (p.length < 5) return;
-                wifiModel.append({
-                    connected: p[0] === "yes",
-                    ssid: p[1],
-                    security: p[2],
-                    quality: parseInt(p[3]) || 0,
-                    known: p[4] === "yes"
-                });
-            }
-        }
-        onRunningChanged: if (!running) service.wifiBusy = false
-    }
-
-    Process { id: pWifiScan; command: [host.wifiScript, "scan"] }
-    Process {
-        id: pWifiToggle
-        command: [host.wifiScript, "toggle"]
-        onRunningChanged: if (!running) pWifiStatus.running = true
-    }
-    Process {
-        id: pWifiConnect
-        onRunningChanged: {
-            if (running) return;
-            service.wifiBusy = false;
-            if (exitCode !== 0) service.wifiError = "Could not connect";
-            else { service.wifiError = ""; host.page = "main"; }
-            service.refreshWifiStatus();
-            wifiSettleTimer.begin();
-            service.refreshWifiList();
+    readonly property Connections failures: Connections {
+        target: wifi.pending
+        function onConnectionFailed(reason) {
+            wifi.passwordRequested = reason === ConnectionFailReason.NoSecrets && wifi.isPersonal(wifi.pending);
+            wifi.error = wifi.passwordRequested ? "Enter the Wi-Fi password and try again." : "Connection failed: " + ConnectionFailReason.toString(reason);
         }
     }
 
-    Timer {
-        id: wifiSettleTimer
-        interval: 1200
-        repeat: true
-        property int tries: 0
-        onTriggered: {
-            service.refreshWifiStatus();
-            if (service.wifiSsid.length || ++wifiSettleTimer.tries > 6) {
-                wifiSettleTimer.tries = 0;
-                wifiSettleTimer.stop();
-            }
+    function isPersonal(network) {
+        return network && [WifiSecurityType.WpaPsk, WifiSecurityType.Wpa2Psk, WifiSecurityType.Sae].includes(network.security);
+    }
+
+    function needsPassword(network) {
+        return isPersonal(network) && (!network.known || (pending === network && passwordRequested));
+    }
+
+    function needsSetup(network) {
+        return network && !network.known && !isPersonal(network) && ![WifiSecurityType.Open, WifiSecurityType.Owe].includes(network.security);
+    }
+
+    function toggle() {
+        if (available && hardwareEnabled && !busy) {
+            error = "";
+            Networking.wifiEnabled = !enabled;
         }
-        function begin() { wifiSettleTimer.tries = 0; wifiSettleTimer.restart(); }
     }
 
-    Process { id: pWifiDisconnect }
-    function disconnectWifi() {
-        pWifiDisconnect.running = false;
-        pWifiDisconnect.command = [host.wifiScript, "disconnect"];
-        pWifiDisconnect.running = true;
-        wifiSettleTimer.begin();
-    }
-    Process { id: pWifiForget }
-    function forgetWifi(ssid) {
-        if (!ssid || !ssid.length) return;
-        pWifiForget.running = false;
-        pWifiForget.command = [host.wifiScript, "forget", String(ssid)];
-        pWifiForget.running = true;
-        wifiSettleTimer.begin();
-        wifiRescanTimer.restart();
+    function connect(network, password = "") {
+        if (!network || busy || !enabled)
+            return;
+        error = "";
+        passwordRequested = false;
+        pending = network;
+        if (password && isPersonal(network))
+            network.connectWithPsk(password);
+        else if (network.known || [WifiSecurityType.Open, WifiSecurityType.Owe].includes(network.security))
+            network.connect();
+        else
+            error = "Configure this network in Network Settings.";
     }
 
-    function toggleWifi() { pWifiToggle.running = true; }
-    function refreshWifiList() {
-        wifiModel.clear();
-        service.wifiBusy = true;
-        pWifiList.running = true;
-    }
-    function scanWifi() {
-        service.wifiBusy = true;
-        pWifiScan.running = true;
-        wifiRescanTimer.restart();
-    }
-    Timer { id: wifiRescanTimer; interval: 2600; onTriggered: service.refreshWifiList() }
-
-    function connectWifi(ssid, password) {
-        service.wifiBusy = true;
-        service.wifiError = "";
-        pWifiConnect.command = password && password.length
-            ? [host.wifiScript, "connect", String(ssid), String(password)]
-            : [host.wifiScript, "connect", String(ssid)];
-        pWifiConnect.running = true;
+    function disconnect(network) {
+        if (network && !busy) {
+            error = "";
+            network.disconnect();
+        }
     }
 
+    function forget(network) {
+        if (network && network.known && !network.connected && !busy)
+            network.forget();
+    }
+
+    function openSettings() {
+        Quickshell.execDetached(["nm-connection-editor"]);
+    }
 }

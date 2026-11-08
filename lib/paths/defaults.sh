@@ -8,8 +8,9 @@ paths::register_defaults() {
 
         while IFS=: read -r __account__ __password__ __uid__ __gid__ __gecos__ __home__ __shell__; do
             [[ ${__uid__} == "${EUID}" ]] && break
+
             __home__=
-        done </etc/passwd
+        done < /etc/passwd
     fi
 
     if [[ -z ${__home__} ]]; then

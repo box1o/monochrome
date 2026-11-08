@@ -1,47 +1,56 @@
-import QtQuick
-import Quickshell
-import Quickshell.Io
+import QtQml
+import Quickshell.Services.UPower
 
-Item {
-    id: service
-    visible: false
-    property var host
-    readonly property string powerScript:
-        Quickshell.env("HOME") + "/.config/quickshell/scripts/power.sh"
+QtObject {
+    id: power
 
-    // "power-saver" | "balanced" | "performance"
-    property string powerProfile: "balanced"
+    property int requestedProfile: -1
+    property string error: ""
+    readonly property bool busy: requestedProfile >= 0
+    readonly property int profile: PowerProfiles.profile
+    readonly property var profiles: [
+        {value: PowerProfile.PowerSaver, title: "Power Saver", detail: "Lower energy use", icon: "leaf"},
+        {value: PowerProfile.Balanced, title: "Balanced", detail: "Balanced power and performance", icon: "gauge"},
+        {value: PowerProfile.Performance, title: "Performance", detail: "Maximum performance", icon: "zap"}
+    ].filter(item => item.value !== PowerProfile.Performance || PowerProfiles.hasPerformanceProfile)
+    readonly property string profileName: profiles.find(item => item.value === profile)?.title || "Balanced"
+    readonly property string limitation: PowerProfiles.degradationReason === PerformanceDegradationReason.None
+        ? "" : PerformanceDegradationReason.toString(PowerProfiles.degradationReason)
 
-    Process {
-        id: pPowerGet
-        command: [host.powerScript, "get"]
-        running: true
-        stdout: SplitParser {
-            onRead: line => {
-                var s = line.trim();
-                if (s.length) service.powerProfile = s;
-            }
+    readonly property bool ready: UPower.displayDevice.ready && UPower.devices.values.some((device) => {
+        return device.isLaptopBattery && device.isPresent;
+    })
+    readonly property bool connected: !UPower.onBattery
+    readonly property bool charging: UPower.displayDevice.state === UPowerDeviceState.Charging
+    readonly property int percentage: ready ? Math.round(UPower.displayDevice.percentage * 100) : 0
+
+    function selectProfile(value) {
+        if (busy || value === profile || !profiles.some(item => item.value === value))
+            return;
+        error = "";
+        requestedProfile = value;
+        confirmation.restart();
+        PowerProfiles.profile = value;
+        confirmProfile();
+    }
+
+    function confirmProfile() {
+        if (requestedProfile >= 0 && profile === requestedProfile) {
+            requestedProfile = -1;
+            confirmation.stop();
         }
     }
-    Process {
-        id: pPowerSet
-        onRunningChanged: if (!running) pPowerGet.running = true
-    }
-    Timer {
-        interval: host.expanded ? 10000 : 30000
-        running: true; repeat: true
-        onTriggered: pPowerGet.running = true
+
+    readonly property Connections profileChanges: Connections {
+        target: PowerProfiles
+        function onProfileChanged() { power.confirmProfile(); }
     }
 
-    readonly property string profileLabel:
-        powerProfile === "power-saver" ? host.tr("Power saver")
-      : powerProfile === "performance" ? host.tr("Performance")
-                                       : host.tr("Balanced")
-
-    function setPowerProfile(name) {
-        service.powerProfile = name;
-        pPowerSet.command = [host.powerScript, "set", name];
-        pPowerSet.running = true;
+    readonly property Timer confirmation: Timer {
+        interval: 3000
+        onTriggered: {
+            power.requestedProfile = -1;
+            power.error = "Could not change the power profile";
+        }
     }
-
 }

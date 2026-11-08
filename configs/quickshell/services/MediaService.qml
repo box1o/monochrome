@@ -1,58 +1,65 @@
 import QtQuick
 import Quickshell.Services.Mpris
 
-Item {
-    width: 0
-    height: 0
-    visible: false
-    property var stickyPlayer: null
+QtObject {
+    id: media
 
-    readonly property var player: {
-        var list = Mpris.players ? Mpris.players.values : [];
-        var playing = null;
-        var any = null;
-        var stickyAlive = null;
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            if (!item) continue;
-            if (!any) any = item;
-            if (item === stickyPlayer) stickyAlive = item;
-            if (item.isPlaying && !playing) playing = item;
-        }
-        return playing || stickyAlive || any;
+    property bool monitoring: false
+    property var preferred: null
+    readonly property var players: Mpris.players.values
+    readonly property var player: players.find(item => item.isPlaying)
+        || players.find(item => item === preferred) || players[0] || null
+    readonly property int trackId: player?.uniqueId ?? -1
+    readonly property bool available: player !== null
+    readonly property bool playing: player?.isPlaying ?? false
+    readonly property string title: player?.trackTitle || player?.identity || "Media"
+    readonly property string artist: player?.trackArtist || player?.identity || ""
+    readonly property string artwork: player?.trackArtUrl || ""
+    readonly property real duration: player?.lengthSupported ? Math.max(0, player.length) : 0
+    readonly property real position: player?.positionSupported ? Math.max(0, player.position) : 0
+    readonly property bool canSeek: !!player && player.canSeek && player.positionSupported && duration > 0
+    readonly property bool canToggle: player?.canTogglePlaying ?? false
+    readonly property bool canPrevious: player?.canGoPrevious ?? false
+    readonly property bool canNext: player?.canGoNext ?? false
+
+    // Retain selection after the derived player binding has finished evaluating.
+    onPlayerChanged: Qt.callLater(media.rememberPlayer)
+
+    function rememberPlayer() {
+        if (preferred !== player)
+            preferred = player;
     }
 
-    readonly property bool active:
-        player !== null && player !== undefined
-        && String(player.trackTitle).trim().length > 0
-
-    property string art: ""
-    property string artTrack: ""
-
-    function refreshArt() {
-        if (!player) return;
-        var title = String(player.trackTitle || "");
-        var source = String(player.trackArtUrl || "");
-        if (!title.length) return;
-        if (title !== artTrack) {
-            artTrack = title;
-            art = source;
-        } else if (source.length > 0) {
-            art = source;
-        }
+    function toggle() {
+        if (canToggle)
+            player.togglePlaying();
     }
 
-    onPlayerChanged: {
-        if (player) stickyPlayer = player;
-        refreshArt();
+    function previous() {
+        if (canPrevious)
+            player.previous();
     }
 
-    Connections {
-        target: player
-        ignoreUnknownSignals: true
-        function onTrackArtUrlChanged() { refreshArt(); }
-        function onTrackTitleChanged() { refreshArt(); }
-        function onPostTrackChanged() { refreshArt(); }
-        function onIsPlayingChanged() { refreshArt(); }
+    function next() {
+        if (canNext)
+            player.next();
+    }
+
+    function seek(fraction) {
+        if (canSeek && Number.isFinite(fraction))
+            player.position = Math.max(0, Math.min(1, fraction)) * duration;
+    }
+
+    function formatTime(seconds) {
+        const value = Math.max(0, Math.floor(seconds));
+        const hours = Math.floor(value / 3600);
+        const minutes = Math.floor(value / 60) % 60;
+        const rest = String(value % 60).padStart(2, "0");
+        return hours > 0 ? hours + ":" + String(minutes).padStart(2, "0") + ":" + rest : minutes + ":" + rest;
+    }
+
+    readonly property FrameAnimation positionUpdates: FrameAnimation {
+        running: media.monitoring && media.playing && !!media.player && media.player.positionSupported
+        onTriggered: media.player.positionChanged()
     }
 }

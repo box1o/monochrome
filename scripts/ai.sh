@@ -1,100 +1,89 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
-source "${MONO_LIB_DIR:-${HOME}/.local/lib/mono}/legacy.sh"
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
 
-load_config ai
+script::init
+args::option --name ignore --default ""
+args::option --name ignore-only
+args::option --name prompt
+script::parse "$@" || exit $?
 
-TARGET='.'
-IGNORE="${AI_IGNORE:-node_modules,build,dist,.next,.cache,__pycache__,vendor,target,coverage,.vscode,package-lock.json,yarn.lock,pnpm-lock.yaml}"
-PROMPT="${AI_PROMPT:-Please analyze this project structure.}"
+if args::has help; then
+    script::usage '[directory] [--ignore CSV] [--ignore-only CSV] [--prompt TEXT]'
+    exit 0
+fi
 
-usage() {
-    printf 'Usage: %s [directory] [--ignore csv] [--ignore-only csv] [--prompt text]\n' "$0"
-}
+script::require_count 0 1 || exit $?
 
-parse_args() {
-    while (($# > 0)); do
-        case "$1" in
-            --ignore)
-                [[ $# -ge 2 ]] || die '--ignore requires a value'
-                IGNORE="${IGNORE},${2}"
-                shift
-                ;;
-            --ignore-only)
-                [[ $# -ge 2 ]] || die '--ignore-only requires a value'
-                IGNORE="${2}"
-                shift
-                ;;
-            --prompt)
-                [[ $# -ge 2 ]] || die '--prompt requires a value'
-                PROMPT="${2}"
-                shift
-                ;;
-            -h | --help)
-                usage
-                exit 0
-                ;;
-            *) TARGET="$1" ;;
-        esac
-        shift
+config::load_shell ai
+
+target=${SCRIPT_ARGS[0]:-.}
+ignore=${AI_IGNORE:-node_modules,build,dist,.next,.cache,__pycache__,vendor,target,coverage,.vscode,package-lock.json,yarn.lock,pnpm-lock.yaml}
+
+if args::has ignore-only; then
+    ignore=$(args::get ignore-only)
+fi
+
+if args::has ignore; then
+    ignore+=,$(args::get ignore)
+fi
+
+prompt=$(args::get prompt "${AI_PROMPT:-Please analyze this project structure.}")
+
+fs::require_dir project "$target"
+proc::require tree file find
+
+ai::write_context() {
+    local file item
+    local -a excluded=() find_args=("$target")
+
+    IFS=',' read -r -a excluded <<< ".git,$ignore"
+
+    local pattern='.git'
+
+    for item in "${excluded[@]}"; do
+        [[ -n "$item" ]] || continue
+
+        pattern+="|$item"
+        find_args+=(-not -name "$item" -not -path "*/$item/*")
     done
-}
 
-build_tree_ignore_args() {
-    local item
-    ignore_args=(-I .git)
-    IFS=',' read -ra items <<<"${IGNORE}"
-    for item in "${items[@]}"; do
-        [[ -n "${item}" ]] && ignore_args+=(-I "${item}")
-    done
-}
+    printf 'AI PROJECT ANALYSIS PROMPT\n%s\n\nPROJECT STRUCTURE\n' "$prompt"
 
-is_text_file() { file "$1" | grep -q text; }
+    exec::run --quiet -- tree --gitignore -a -I "$pattern" "$target"
 
-write_header() {
-    printf 'AI PROJECT ANALYSIS PROMPT\n%s\n\n' "${PROMPT}"
-}
+    printf '\nFILE CONTENTS\n'
 
-write_tree() {
-    printf 'PROJECT STRUCTURE\n'
-    tree --gitignore -a "${ignore_args[@]}" "${TARGET}"
-    printf '\n'
-}
-
-write_file_contents() {
-    local path
-    printf 'FILE CONTENTS\n'
-    while IFS= read -r -d '' path; do
-        if ! is_text_file "${path}"; then
-            printf '\n--- FILE: %s (binary skipped) ---\n' "${path}"
+    while IFS= read -r -d '' file; do
+        if [[ $(exec::query file --brief --mime-type -- "$file") != text/* ]]; then
+            printf '\n--- FILE: %s (binary skipped) ---\n' "$file"
             continue
         fi
-        printf '\n--- FILE: %s ---\n' "${path}"
-        cat -- "${path}"
-    done < <(find "${TARGET}" -type f -not -path '*/.git/*' -print0)
+
+        printf '\n--- FILE: %s ---\n' "$file"
+
+        fs::read "$file"
+    done < <(exec::query find "${find_args[@]}" -type f -print0)
 }
 
-write_output() {
-    { write_header; write_tree; write_file_contents; } >"${out}"
-}
+if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
+    log::info "DRY-RUN build project context for $target"
+    exit 0
+fi
 
-emit_output() {
-    if has_cmd wl-copy && [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
-        wl-copy <"${out}"
-        ok 'copied project context to clipboard'
-    else
-        cat -- "${out}"
-    fi
-}
+output=$(temp::file mono-ai)
 
-parse_args "$@"
-need_cmd tree
-need_cmd file
-need_dir "${TARGET}"
-out="$(mktemp)"
-trap 'rm -f "${out}"' EXIT
-build_tree_ignore_args
-write_output
-emit_output
+trap 'fs::remove_file "$output"' EXIT
+
+ai::write_context | fs::write "$output"
+
+if proc::exists wl-copy && [[ -n ${WAYLAND_DISPLAY:-} ]]; then
+    clipboard::copy < "$output"
+
+    log::info 'Copied project context to clipboard'
+else
+    fs::read "$output"
+fi

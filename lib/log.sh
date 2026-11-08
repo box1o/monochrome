@@ -47,6 +47,7 @@ log::_icon_for() {
 log::_write() {
     local __level_name__=${1:-}
     local __level_value__=${2:-0}
+
     shift 2 || return 2
 
     if ((__level_value__ < LOG_LEVEL)); then
@@ -54,15 +55,19 @@ log::_write() {
     fi
 
     local __prefix__=
+
     if [[ "${LOG_TIMESTAMP}" == true ]]; then
         local __timestamp__
-        __timestamp__=$(date '+%Y-%m-%d %H:%M:%S') || return
+
+        printf -v __timestamp__ '%(%Y-%m-%d %H:%M:%S)T' -1
+
         __prefix__="[${__timestamp__}] "
     fi
 
     if log::_supports_color; then
         local __color__
         local __icon__
+
         __color__=$(log::_color_for "${__level_name__}") || return
         __icon__=$(log::_icon_for "${__level_name__}") || return
 
@@ -80,6 +85,7 @@ log::_write() {
 
     local __icon__
     __icon__=$(log::_icon_for "${__level_name__}") || return
+
     if [[ -n "${__icon__}" ]]; then
         printf '%s %s%s\n' "${__icon__}" "${__prefix__}" "$*" >&2
     else
@@ -87,27 +93,20 @@ log::_write() {
     fi
 }
 
-log::debug() {
-    log::_write DEBUG "${LOG_LEVEL_DEBUG}" "$@"
-}
+log::debug() { log::_write DEBUG "${LOG_LEVEL_DEBUG}" "$@"; }
 
-log::info() {
-    log::_write INFO "${LOG_LEVEL_INFO}" "$@"
-}
+log::info() { log::_write INFO "${LOG_LEVEL_INFO}" "$@"; }
 
-log::warn() {
-    log::_write WARN "${LOG_LEVEL_WARN}" "$@"
-}
+log::warn() { log::_write WARN "${LOG_LEVEL_WARN}" "$@"; }
 
-log::error() {
-    log::_write ERROR "${LOG_LEVEL_ERROR}" "$@"
-}
+log::error() { log::_write ERROR "${LOG_LEVEL_ERROR}" "$@"; }
 
 log::fatal() {
     local __exit_code__=1
 
     if [[ ${1:-} == --code ]]; then
         __exit_code__=${2:-1}
+
         shift 2
     fi
 

@@ -2,6 +2,7 @@
 
 exec::_quote() {
     local __argument__
+
     for __argument__ in "$@"; do
         printf '%q ' "${__argument__}"
     done
@@ -12,6 +13,7 @@ exec::capture() {
         log::error 'exec::capture requires a command'
         return 2
     }
+
     exec::run --quiet "$@"
 }
 
@@ -37,16 +39,19 @@ exec::run() {
                     log::error "$1 requires a value"
                     return 2
                 }
+
                 case "$1" in
                     --stdout) __stdout__=$2 ;;
                     --stderr) __stderr__=$2 ;;
                     --stdin) __stdin__=$2 ;;
                     --info) __info__=$2 ;;
                 esac
+
                 shift
                 ;;
             --)
                 shift
+
                 __command__=("$@")
                 break
                 ;;
@@ -55,6 +60,7 @@ exec::run() {
                 break
                 ;;
         esac
+
         shift
     done
 
@@ -62,6 +68,7 @@ exec::run() {
         log::error 'exec::run requires a command'
         return 2
     }
+
     [[ -n ${__info__} ]] || __info__=$(exec::_quote "${__command__[@]}")
 
     if [[ ${__dry_run__} == true ]]; then
@@ -72,7 +79,7 @@ exec::run() {
     [[ ${__quiet__} == true ]] || log::info "RUN ${__info__}"
 
     if [[ ${__sudo__} == true ]]; then
-        __command=(sudo "${__command__[@]}")
+        __command__=(sudo "${__command__[@]}")
     fi
 
     if [[ -n ${__stdin__} && ! -f ${__stdin__} ]]; then
@@ -80,23 +87,45 @@ exec::run() {
         return 1
     fi
 
-    if [[ -n ${__stdin__} && -n ${__stdout__} && -n ${__stderr__} ]]; then
-        if [[ ${__append__} == true ]]; then "${__command__[@]}" <"${__stdin__}" >>"${__stdout__}" 2>>"${__stderr__}"; else "${__command__[@]}" <"${__stdin__}" >"${__stdout__}" 2>"${__stderr__}"; fi
-    elif [[ -n ${__stdout__} && -n ${__stderr__} ]]; then
-        if [[ ${__append__} == true ]]; then "${__command__[@]}" >>"${__stdout__}" 2>>"${__stderr__}"; else "${__command__[@]}" >"${__stdout__}" 2>"${__stderr__}"; fi
-    elif [[ -n ${__stdout__} ]]; then
-        if [[ ${__append__} == true ]]; then "${__command__[@]}" >>"${__stdout__}"; else "${__command__[@]}" >"${__stdout__}"; fi
-    elif [[ -n ${__stderr__} ]]; then
-        if [[ ${__append__} == true ]]; then "${__command__[@]}" 2>>"${__stderr__}"; else "${__command__[@]}" 2>"${__stderr__}"; fi
-    elif [[ -n ${__stdin__} ]]; then
-        "${__command__[@]}" <"${__stdin__}"
+    local __status__=0
+
+    if [[ -z $__stdin__ && -z $__stdout__ && -z $__stderr__ ]]; then
+        "${__command__[@]}" || __status__=$?
     else
-        "${__command__[@]}"
+        (
+            if [[ -n ${__stdin__} ]]; then
+                exec < "${__stdin__}" || exit
+            fi
+
+            if [[ -n ${__stdout__} ]]; then
+                if [[ ${__append__} == true ]]; then
+                    exec >> "${__stdout__}" || exit
+                else
+                    exec > "${__stdout__}" || exit
+                fi
+            fi
+
+            if [[ -n ${__stderr__} ]]; then
+                if [[ ${__append__} == true ]]; then
+                    exec 2>> "${__stderr__}" || exit
+                else
+                    exec 2> "${__stderr__}" || exit
+                fi
+            fi
+
+            "${__command__[@]}"
+        ) || __status__=$?
     fi
-    local __status__=$?
 
     if ((__status__ != 0)); then
         log::error "FAILED (${__status__}) ${__info__}"
     fi
     return "${__status__}"
+}
+
+# Read-only commands may still inspect state while mutations are previewed.
+exec::query() {
+    local SHELL_LIB_DRY_RUN=false
+
+    exec::capture "$@"
 }

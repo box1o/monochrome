@@ -4,31 +4,40 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-readonly __mono_runtime_lib__="${MONO_LIB_DIR:-${HOME}/.local/lib/mono}/init.sh"
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
 
-if [[ ! -r "${__mono_runtime_lib__}" ]]; then
-    printf 'Mono runtime library is unavailable: %s\n' "${__mono_runtime_lib__}" >&2
-    exit 1
+script::init
+script::parse "$@" || exit $?
+
+if args::has help; then
+    script::usage 'clipboard|monitor ACTION [VALUES...]'
+    exit 0
 fi
 
-# shellcheck source=/dev/null
-source "${__mono_runtime_lib__}"
+script::require_count 2 8 || exit $?
+
+set -- "${SCRIPT_ARGS[@]}"
 
 mono_shell::clipboard_list() {
     proc::require cliphist || return
-    proc::run cliphist list
+
+    exec::run cliphist list
 }
 
 mono_shell::clipboard_copy() {
     local __entry_id__=${1:-}
+
     validate::not_empty clipboard-entry "${__entry_id__}" || return
     proc::require cliphist wl-copy || return
-    printf '%s\t' "${__entry_id__}" | cliphist decode | wl-copy
+
+    printf '%s\t' "${__entry_id__}" | exec::run --quiet -- cliphist decode | clipboard::copy
 }
 
 mono_shell::clipboard_wipe() {
     proc::require cliphist || return
-    proc::run cliphist wipe
+
+    exec::run cliphist wipe
 }
 
 mono_shell::monitor_apply() {
@@ -42,29 +51,29 @@ mono_shell::monitor_apply() {
     [[ "${__position__}" =~ ^(auto(-(left|right|up|down))?|-?[0-9]+x-?[0-9]+)$ ]] || return 2
     [[ "${__scale__}" =~ ^[0-9]+([.][0-9]+)?$ ]] || return 2
 
-    local __spec__="${__name__},${__mode__},${__position__},${__scale__}"
-    local __config__="${XDG_CONFIG_HOME:-${HOME}/.config}/mono/hypr/monitors.conf"
-    local __temporary__
-    __temporary__=$(temp::file mono-monitor) || return
+    local transform=${5:-0} vrr=${6:-0}
+    local config="${XDG_CONFIG_HOME:-${HOME}/.config}/hypr/settings/monitors.lua"
 
-    fs::mkdir_parent "${__config__}" || return
-    [[ -f "${__config__}" ]] || fs::touch "${__config__}" || return
-    awk -v name="${__name__}" -v spec="${__spec__}" '
-        $0 ~ "^[[:space:]]*monitor[[:space:]]*=[[:space:]]*" name "," {
-            if (!written) print "monitor = " spec
-            written = 1
-            next
-        }
-        { print }
-        END { if (!written) print "monitor = " spec }
-    ' "${__config__}" >"${__temporary__}"
-    proc::run mv -- "${__temporary__}" "${__config__}"
-    proc::run hyprctl keyword monitor "${__spec__}"
+    [[ "$transform" =~ ^[0-7]$ && "$vrr" =~ ^[0-2]$ ]] || return 2
+    fs::require_file monitors "$config" || return
+    proc::require lua hyprctl || return
+
+    local helper="${BASH_SOURCE[0]%/*}/../configs/hypr/scripts/update-monitors.lua"
+    fs::is_file "$helper" || helper="${config%/settings/monitors.lua}/scripts/update-monitors.lua"
+    fs::require_file monitor-helper "$helper" || return
+
+    local content
+    content=$(exec::query lua "$helper" "$config" \
+        "$__name__" "$__mode__" "$__position__" "$__scale__" "$transform" "$vrr") || return
+
+    printf '%s\n' "$content" | fs::atomic_write "$config" || return
+    exec::run hyprctl reload
 }
 
 mono_shell::main() {
     local __domain__=${1:-}
     local __action__=${2:-}
+
     shift 2 2>/dev/null || true
 
     case "${__domain__}:${__action__}" in

@@ -4,14 +4,32 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-readonly D_SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
+
+script::init
+script::parse "$@" || exit $?
+
+if args::has help; then
+    script::usage '[PATH]'
+    exit 0
+fi
+
+script::require_count 0 1 || exit $?
+
+set -- "${SCRIPT_ARGS[@]}"
+
+D_SUPPORT_DIR="${MONO_HELPER_DIR}/d-support"
+
+readonly D_SUPPORT_DIR
+
 target="${1:-./d.bl.sh}"
 
 if [[ -e "${target}" ]]; then
-    printf 'ERROR: already exists: %s\n' "${target}" >&2
-    exit 1
+    log::fatal "Already exists: ${target}"
 fi
 
-cp -- "${D_SCRIPT_DIR}/d.bl.sh.example" "${target}"
-chmod u+x -- "${target}"
-printf 'Created: %s\n' "${target}"
+fs::copy_file "${D_SUPPORT_DIR}/d.bl.sh.example" "${target}"
+fs::chmod u+x "${target}"
+
+[[ ${SHELL_LIB_DRY_RUN:-false} == true ]] || log::info "Created: ${target}"

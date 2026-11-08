@@ -58,9 +58,11 @@ validate::boolean() {
 
 validate::enum() {
     local __value__=${1:-}
+
     shift || true
 
     local __candidate__
+
     for __candidate__ in "$@"; do
         if [[ "${__value__}" == "${__candidate__}" ]]; then
             return 0

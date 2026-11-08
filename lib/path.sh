@@ -7,9 +7,11 @@ path::join() {
     fi
 
     local __result__=$1
+
     shift
 
     local __part__
+
     for __part__ in "$@"; do
         __result__="${__result__%/}/${__part__#/}"
     done
@@ -23,20 +25,14 @@ path::absolute() {
     validate::not_empty path "${__path__}" || return
     proc::require realpath || return
 
-    exec::capture realpath -m -- "${__path__}"
+    exec::query realpath -m -- "${__path__}"
 }
 
-path::normalize() {
-    path::absolute "$@"
-}
+path::normalize() { path::absolute "$@"; }
 
-path::basename() {
-    exec::capture basename -- "${1:-}"
-}
+path::basename() { exec::query basename -- "${1:-}"; }
 
-path::dirname() {
-    exec::capture dirname -- "${1:-}"
-}
+path::dirname() { exec::query dirname -- "${1:-}"; }
 
 path::extension() {
     local __name__
@@ -73,12 +69,10 @@ path::relative() {
     validate::not_empty target "${__target__}" || return
     proc::require realpath || return
 
-    exec::capture realpath --relative-to="${__base__}" -m -- "${__target__}"
+    exec::query realpath --relative-to="${__base__}" -m -- "${__target__}"
 }
 
-path::is_absolute() {
-    [[ ${1:-} == /* ]]
-}
+path::is_absolute() { [[ ${1:-} == /* ]]; }
 
 path::is_within() {
     local __target__
