@@ -1,8 +1,8 @@
 {
-  "source_images": 45,
-  "distinct_images": 36,
+  "source_images": 46,
+  "distinct_images": 37,
   "duplicates": 9,
-  "default_wallpaper": "ember_stripes.jpg",
+  "default_wallpaper": "charcoal.jpg",
   "images": [
     {
       "source": "/home/woki/monochrome/configs/hypr/wallpapers/ember_stripes.jpg",
@@ -757,6 +757,28 @@
           "pixels": 295568,
           "width": 728,
           "height": 406
+        }
+      ]
+    },
+    {
+      "source": "https://unsplash.com/photos/abstract-dark-grey-flowing-waves-on-black-background-JdX0OeTj5S0",
+      "author": "Andrew Kliatskyi",
+      "license": "https://unsplash.com/license",
+      "download": "https://images.unsplash.com/photo-1677678138857-4652c2d04484?auto=format&fit=max&w=3840&q=95",
+      "sha256": "3b268c4572b5c8edd8b3ff4ef657e56871e06fd452d292890c2089cd6ffcd39b",
+      "bytes": 270603,
+      "pixels": 8294400,
+      "width": 2160,
+      "height": 3840,
+      "asset": "bg/charcoal.jpg",
+      "sources": [
+        {
+          "source": "https://unsplash.com/photos/abstract-dark-grey-flowing-waves-on-black-background-JdX0OeTj5S0",
+          "sha256": "3b268c4572b5c8edd8b3ff4ef657e56871e06fd452d292890c2089cd6ffcd39b",
+          "bytes": 270603,
+          "pixels": 8294400,
+          "width": 2160,
+          "height": 3840
         }
       ]
     }

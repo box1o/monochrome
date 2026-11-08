@@ -43,6 +43,7 @@ packages:
     - fastfetch
     - neovim
     - hyprland
+    - ly
     - quickshell
     - hyprpaper
     - hypridle
@@ -107,7 +108,9 @@ packages:
     - noto-fonts-extra
     - papirus-icon-theme
     - firefox
+    - discord
     - nautilus
+    - mousepad
     - loupe
     - zathura
     - vlc
@@ -194,6 +197,10 @@ packages:
     - system-config-printer
 
   aur:
+    - spotify
+    - spicetify-cli
+    - candy-icons-git
+    - galaxybudsclient-bin
     - hyprqt6engine
     - android-studio
     - bibata-cursor-theme-bin

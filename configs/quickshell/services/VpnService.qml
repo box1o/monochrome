@@ -14,6 +14,7 @@ QtObject {
     property bool browsing: false
     property string operationError: ""
     property string discoveryError: ""
+    property string snapshot: ""
     readonly property string error: operationError || discoveryError
     property string notice: ""
     property string loginUrl: ""
@@ -44,6 +45,10 @@ QtObject {
     function readSnapshot(text) {
         if (busy || queryRevision !== revision)
             return;
+        if (text === snapshot) {
+            discoveryError = "";
+            return;
+        }
         try {
             const result = JSON.parse(text);
             if (!Array.isArray(result.connections) || !Array.isArray(result.tailscale?.devices))
@@ -51,6 +56,7 @@ QtObject {
             discoveryError = "";
             connections = result.connections;
             tailscale = result.tailscale;
+            snapshot = text;
             loginUrl = tailscale.authUrl || (tailscale.connected ? "" : loginUrl);
         } catch (failure) {
             discoveryError = "Could not read VPN connections";
@@ -116,7 +122,7 @@ QtObject {
         } else if (code !== 0) {
             operationError = message.split("\n")[0] || "Could not complete VPN action";
         }
-        refresh();
+        Qt.callLater(vpn.refresh);
     }
 
     readonly property Process clipboard: Process {
@@ -138,7 +144,7 @@ QtObject {
             if (code !== 0 || status !== 0)
                 vpn.discoveryError = "VPN discovery unavailable";
             if (vpn.refreshQueued)
-                vpn.refresh();
+                Qt.callLater(vpn.refresh);
         }
     }
 

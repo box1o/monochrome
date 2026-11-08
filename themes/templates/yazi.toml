@@ -1,0 +1,32 @@
+# Generated from themes/mono.yaml. Do not edit.
+[app]
+overall = { fg = "#{{colors.foreground}}", bg = "#{{colors.background}}" }
+[mgr]
+cwd = { fg = "#{{colors.blue}}" }
+find_keyword = { fg = "#{{colors.yellow}}", bold = true }
+find_position = { fg = "#{{colors.magenta}}" }
+border_style = { fg = "#{{colors.border}}" }
+marker_copied = { fg = "#{{colors.green}}", bg = "#{{colors.green}}" }
+marker_cut = { fg = "#{{colors.red}}", bg = "#{{colors.red}}" }
+marker_selected = { fg = "#{{colors.accent}}", bg = "#{{colors.accent}}" }
+[tabs]
+active = { fg = "#{{colors.on_accent}}", bg = "#{{colors.accent}}", bold = true }
+inactive = { fg = "#{{colors.muted}}", bg = "#{{colors.surface}}" }
+[mode]
+normal_main = { fg = "#{{colors.on_accent}}", bg = "#{{colors.accent}}", bold = true }
+normal_alt = { fg = "#{{colors.foreground}}", bg = "#{{colors.surface}}" }
+select_main = { fg = "#{{colors.background}}", bg = "#{{colors.green}}", bold = true }
+select_alt = { fg = "#{{colors.green}}", bg = "#{{colors.surface}}" }
+unset_main = { fg = "#{{colors.background}}", bg = "#{{colors.red}}", bold = true }
+unset_alt = { fg = "#{{colors.red}}", bg = "#{{colors.surface}}" }
+[status]
+overall = { fg = "#{{colors.foreground}}", bg = "#{{colors.surface}}" }
+[which]
+mask = { bg = "#{{colors.surface}}" }
+cand = { fg = "#{{colors.accent}}" }
+rest = { fg = "#{{colors.muted}}" }
+desc = { fg = "#{{colors.foreground}}" }
+[notify]
+title_info = { fg = "#{{colors.blue}}" }
+title_warn = { fg = "#{{colors.yellow}}" }
+title_error = { fg = "#{{colors.red}}" }

@@ -4,6 +4,7 @@ QtObject {
     property string page: "overview"
     readonly property bool overviewOpen: page === "overview"
     readonly property bool calendarOpen: page === "calendar"
+    readonly property bool snippetsOpen: page === "snippets"
     readonly property bool clipboardOpen: page === "clipboard"
     readonly property bool launcherOpen: page === "launcher"
     readonly property bool wifiOpen: page === "wifi"

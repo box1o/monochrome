@@ -71,22 +71,28 @@ installer::full_install() {
     local __assume_yes__=${4:-true}
     local __detect_hardware__=${5:-true}
 
-    # Fail before package or deployment changes if the source theme/manifests are invalid.
+    # Validate manifests before bootstrapping the theme validator.
     configs::validate_manifest || return
     packages::validate_manifest || return
-    exec::query bash "$MONO_ROOT/scripts/tools/theme.sh" --root "$MONO_ROOT" --dry-run || return
+    bootstrap::prepare "$__dry_run__" || return
+    if [[ ${MONO_BOOTSTRAP_PENDING:-false} != true ]]; then
+        exec::query bash "$MONO_ROOT/scripts/tools/theme.sh" --root "$MONO_ROOT" --dry-run || return
+    fi
 
-    log::info 'Full install phase 1/3: packages'
+    log::info 'Full install phase 1/4: packages'
 
     installer::install_packages "${__groups__}" "${__dry_run__}" "${__assume_yes__}" "${__detect_hardware__}" || return
 
-    log::info 'Full install phase 2/3: user scripts'
+    log::info 'Full install phase 2/4: user scripts'
 
     scripts::deploy "${__dry_run__}" || return
 
-    log::info 'Full install phase 3/3: configurations'
+    log::info 'Full install phase 3/4: configurations'
 
     configs::deploy "${__configs__}" "${__dry_run__}" || return
+
+    log::info 'Full install phase 4/4: system setup'
+    setup::apply "$__dry_run__" || return
 
     if [[ "${__dry_run__}" == true ]]; then
         log::info 'Full installation preview completed successfully'
@@ -123,6 +129,7 @@ installer::_interactive() {
         packages) installer::install_packages default "${__dry_run__}" true true ;;
         configs) configs::deploy all "${__dry_run__}" ;;
         scripts) scripts::deploy "${__dry_run__}" ;;
+        setup) setup::apply "${__dry_run__}" ;;
         watch) watcher::configs all "${__dry_run__}" ;;
         full) installer::full_install default all "${__dry_run__}" true true ;;
     esac
@@ -166,6 +173,9 @@ installer::main() {
             ;;
         scripts)
             scripts::deploy "${INSTALLER_DRY_RUN}"
+            ;;
+        setup)
+            setup::apply "${INSTALLER_DRY_RUN}"
             ;;
         watch)
             watcher::configs "${INSTALLER_CONFIGS}" "${INSTALLER_DRY_RUN}"

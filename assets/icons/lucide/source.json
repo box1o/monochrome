@@ -368,6 +368,24 @@
       "upstream_sha256": "27299f69ad7c6272be64b1b8e2d48cbd6dcf0ef0d4f92827a1affa945c91700e",
       "sha256": "dce88a2bb92fc19539f2d11695839800206fd66224949b12c43b229482de5c6c",
       "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "usb.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/usb.svg",
+      "upstream_sha256": "6d3feae2abc694973d7dc8000a7016688306b82530426288c163257ac90d3e21",
+      "sha256": "6d3feae2abc694973d7dc8000a7016688306b82530426288c163257ac90d3e21"
+    },
+    {
+      "file": "camera.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/camera.svg",
+      "upstream_sha256": "ebbb3178dd80dfd942770a2237fe7bfc3515c55c7daa9d3666933a656d2790e3",
+      "sha256": "ebbb3178dd80dfd942770a2237fe7bfc3515c55c7daa9d3666933a656d2790e3"
+    },
+    {
+      "file": "download.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/download.svg",
+      "upstream_sha256": "3daeee13ded5a3afa2198b1bb4e2262d163922f97d96ac6ff9953e8ed4fe039d",
+      "sha256": "3daeee13ded5a3afa2198b1bb4e2262d163922f97d96ac6ff9953e8ed4fe039d"
     }
   ]
 }

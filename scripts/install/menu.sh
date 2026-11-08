@@ -8,6 +8,7 @@ installer_menu::action() {
         "Install packages" \
         "Deploy configs" \
         "Deploy scripts" \
+        "System setup" \
         "Watch configs" \
         "Full install" \
         "Exit") || return
@@ -16,6 +17,7 @@ installer_menu::action() {
         "Install packages") printf 'packages\n' ;;
         "Deploy configs") printf 'configs\n' ;;
         "Deploy scripts") printf 'scripts\n' ;;
+        "System setup") printf 'setup\n' ;;
         "Watch configs") printf 'watch\n' ;;
         "Full install") printf 'full\n' ;;
         "Exit") return 130 ;;

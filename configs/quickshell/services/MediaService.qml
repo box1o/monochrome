@@ -57,7 +57,9 @@ QtObject {
         return hours > 0 ? hours + ":" + String(minutes).padStart(2, "0") + ":" + rest : minutes + ":" + rest;
     }
 
-    readonly property FrameAnimation positionUpdates: FrameAnimation {
+    readonly property Timer positionUpdates: Timer {
+        interval: 100
+        repeat: true
         running: media.monitoring && media.playing && !!media.player && media.player.positionSupported
         onTriggered: media.player.positionChanged()
     }

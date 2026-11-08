@@ -83,3 +83,18 @@ hl.window_rule({
 })
 hl.window_rule({ match = { class = "^(nm-connection-editor|blueman-manager)$" }, float = true })
 hl.window_rule({ match = { modal = true }, float = true, center = true })
+
+-- PiP titles are shared by Firefox/Zen and Chromium-based browsers.
+hl.window_rule({ match = { title = "(?i)^(picture[ -]in[ -]picture|pip)$" }, float = true })
+
+-- Some applications identify the PiP window only after it has opened.
+hl.on("window.title", function(window)
+    if not window then
+        return
+    end
+
+    local title = (window.title or ""):lower():gsub("[ %-]", "")
+    if title == "pictureinpicture" or title == "pip" then
+        hl.dispatch(hl.dsp.window.float({ window = window, action = "set" }))
+    end
+end)

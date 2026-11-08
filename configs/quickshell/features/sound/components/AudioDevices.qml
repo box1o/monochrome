@@ -1,4 +1,5 @@
 import QtQuick
+import "../../../components/layout"
 import QtQuick.Layouts
 import "../../../components/controls"
 import "../../../components/indicators"
@@ -50,17 +51,15 @@ ColumnLayout {
         text: devices.input ? "Input device" : "Output device"
         color: devices.tokens.muted
         font.family: devices.tokens.fontFamily
-        font.pixelSize: devices.tokens.fontSize - 3
+        font.pixelSize: devices.tokens.labelSize
     }
 
-    ListView {
-        implicitHeight: Math.max(36, contentHeight)
+    MenuList {
+        motionEnabled: devices.tokens.motionEnabled
         Layout.fillWidth: true
         Layout.fillHeight: true
-        clip: true
         spacing: 2
         model: devices.input ? devices.source.inputs : devices.source.outputs
-        boundsBehavior: Flickable.StopAtBounds
         delegate: SelectableMenuItem {
             required property var modelData
             width: ListView.view.width

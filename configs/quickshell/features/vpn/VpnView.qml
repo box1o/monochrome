@@ -10,7 +10,7 @@ MenuPage {
     required property QtObject model
     readonly property QtObject source: model.source
 
-    signal backRequested
+    signal backRequested()
 
     contentItem: content
 
@@ -18,36 +18,17 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: page.tokens.spacing
 
-        RowLayout {
+        TabHeader {
             Layout.fillWidth: true
+            tokens: page.tokens
+            sections: page.model.sections
+            currentSection: page.model.section
+            onBackRequested: page.backRequested()
+            onSectionRequested: section => page.model.selectSection(section)
 
-            IconButton {
-                tokens: page.tokens
-                iconName: "chevron-left"
-                description: "Back"
-                onClicked: page.backRequested()
-            }
-
-            Repeater {
-                model: page.model.sections
-
-                TextButton {
-                    required property string modelData
-
-                    tokens: page.tokens
-                    text: modelData
-                    textColor: page.model.section === modelData ? page.tokens.foreground : page.tokens.muted
-                    onClicked: page.model.selectSection(modelData)
-                }
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            TextButton {
+            action: TextButton {
                 tokens: page.tokens
                 text: "Sign in"
                 visible: page.source.loginUrl.length > 0 && !page.source.tailscale.connected

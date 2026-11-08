@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
+exec::run --quiet -- bash "$MONO_HELPER_DIR/tools/health.sh" "$@"

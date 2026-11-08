@@ -1,0 +1,34 @@
+/* Generated from themes/mono.yaml. Do not edit. */
+:root {
+    color-scheme: dark !important;
+    --lwt-accent-color: #{{colors.background}} !important;
+    --lwt-text-color: #{{colors.foreground}} !important;
+    --toolbar-bgcolor: #{{colors.surface}} !important;
+    --toolbar-color: #{{colors.foreground}} !important;
+    --toolbar-field-background-color: #{{colors.background}} !important;
+    --toolbar-field-color: #{{colors.foreground}} !important;
+    --toolbar-field-focus-background-color: #{{colors.surface}} !important;
+    --toolbar-field-focus-color: #{{colors.foreground}} !important;
+    --toolbar-field-focus-border-color: #{{colors.border}} !important;
+    --lwt-sidebar-background-color: #{{colors.background}} !important;
+    --lwt-sidebar-text-color: #{{colors.foreground}} !important;
+    --tab-selected-bgcolor: #{{colors.surface_bright}} !important;
+    --tab-selected-textcolor: #{{colors.foreground}} !important;
+    --tab-hover-background-color: #{{colors.surface_bright}} !important;
+    --arrowpanel-background: #{{colors.surface}} !important;
+    --arrowpanel-color: #{{colors.foreground}} !important;
+    --arrowpanel-border-color: #{{colors.surface_bright}} !important;
+    --panel-background: #{{colors.surface}} !important;
+    --panel-color: #{{colors.foreground}} !important;
+    --input-bgcolor: #{{colors.background}} !important;
+    --input-color: #{{colors.foreground}} !important;
+    --button-background-color-primary: #{{colors.accent}} !important;
+    --button-text-color-primary: #{{colors.on_accent}} !important;
+    --color-accent-primary: #{{colors.accent}} !important;
+    --color-accent-primary-contrast: #{{colors.on_accent}} !important;
+    --focus-outline-color: #{{colors.border}} !important;
+    --urlbarView-highlight-background: #{{colors.surface_bright}} !important;
+    --urlbarView-highlight-color: #{{colors.foreground}} !important;
+}
+#navigator-toolbox, #sidebar-box { background: #{{colors.background}} !important; color: #{{colors.foreground}} !important; }
+::selection { background: #{{colors.accent}}66 !important; color: #{{colors.foreground}} !important; }

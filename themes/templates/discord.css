@@ -1,0 +1,47 @@
+/**
+ * @name Mono
+ * @description Generated Mono system palette.
+ * @version 1.0.0
+ * @author Mono
+ */
+.theme-dark, .theme-light, .theme-darker, .theme-midnight {
+    --background-primary: #{{colors.background}};
+    --background-secondary: #{{colors.surface}};
+    --background-secondary-alt: #{{colors.background}};
+    --background-tertiary: #{{colors.background}};
+    --background-floating: #{{colors.surface}};
+    --background-base-lowest: #{{colors.background}};
+    --background-base-lower: #{{colors.background}};
+    --background-base-low: #{{colors.surface}};
+    --background-surface-high: #{{colors.surface}};
+    --background-surface-higher: #{{colors.surface_bright}};
+    --background-surface-highest: #{{colors.surface_bright}};
+    --bg-base-primary: #{{colors.background}};
+    --bg-base-secondary: #{{colors.surface}};
+    --bg-base-tertiary: #{{colors.background}};
+    --bg-surface-raised: #{{colors.surface}};
+    --bg-surface-overlay: #{{colors.surface}};
+    --background-mod-subtle: #{{colors.surface_bright}};
+    --text-normal: #{{colors.foreground}};
+    --text-muted: #{{colors.muted}};
+    --text-primary: #{{colors.foreground}};
+    --text-secondary: #{{colors.muted}};
+    --header-primary: #{{colors.foreground}};
+    --header-secondary: #{{colors.muted}};
+    --interactive-normal: #{{colors.muted}};
+    --interactive-hover: #{{colors.foreground}};
+    --interactive-active: #{{colors.foreground}};
+    --interactive-muted: #{{colors.border}};
+    --channels-default: #{{colors.muted}};
+    --channeltextarea-background: #{{colors.surface}};
+    --brand-500: #{{colors.accent}};
+    --brand-560: #{{colors.accent}};
+    --brand-600: #{{colors.accent}};
+    --text-link: #{{colors.blue}};
+    --text-positive: #{{colors.green}};
+    --text-danger: #{{colors.red}};
+    --status-danger: #{{colors.red}};
+    --status-positive: #{{colors.green}};
+    --background-modifier-selected: #{{colors.accent}}26;
+    --background-modifier-hover: #{{colors.foreground}}0a;
+}

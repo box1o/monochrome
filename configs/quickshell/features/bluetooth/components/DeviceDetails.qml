@@ -9,7 +9,7 @@ RowLayout {
     required property QtObject tokens
     readonly property QtObject device: model.selected
     visible: device !== null && !model.source.busy
-    spacing: 8
+    spacing: details.tokens.spacing
 
     TextButton {
         tokens: details.tokens

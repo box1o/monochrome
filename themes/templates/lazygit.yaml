@@ -1,0 +1,12 @@
+# Generated from themes/mono.yaml. Do not edit.
+gui:
+  theme:
+    activeBorderColor: ["#{{colors.accent}}", bold]
+    inactiveBorderColor: ["#{{colors.border}}"]
+    searchingActiveBorderColor: ["#{{colors.yellow}}", bold]
+    optionsTextColor: ["#{{colors.blue}}"]
+    selectedLineBgColor: ["#{{colors.surface_bright}}"]
+    cherryPickedCommitBgColor: ["#{{colors.surface}}"]
+    cherryPickedCommitFgColor: ["#{{colors.magenta}}"]
+    unstagedChangesColor: ["#{{colors.red}}"]
+    defaultFgColor: ["#{{colors.foreground}}"]

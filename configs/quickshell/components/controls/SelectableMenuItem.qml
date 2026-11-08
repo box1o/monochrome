@@ -14,15 +14,17 @@ AbstractButton {
     property bool selected: false
     property color iconColor: tokens.muted
 
-    implicitHeight: 44
+    implicitHeight: tokens.rowHeight
     padding: 8
     rightPadding: 18
     hoverEnabled: true
     Accessible.name: title
 
     background: Rectangle {
-        radius: row.tokens.radius + 2
-        color: row.tokens.alpha(row.tokens.foreground, row.down ? 0.09 : row.selected ? 0.055 : row.hovered ? 0.03 : 0)
+        radius: row.tokens.controlRadius
+        color: row.down ? row.tokens.pressedBackground : row.selected ? row.tokens.selectionBackground : row.hovered ? row.tokens.hoverBackground : "transparent"
+        border.width: row.visualFocus ? 1 : 0
+        border.color: row.tokens.focusColor
 
         Behavior on color {
             ColorAnimation {
@@ -62,7 +64,6 @@ AbstractButton {
                 textFormat: Text.PlainText
                 anchors.centerIn: parent
                 visible: row.iconName.length === 0 && (icon.source.toString() === "" || icon.status === Image.Error)
-
                 text: row.title.charAt(0).toUpperCase()
                 font.family: row.tokens.fontFamily
                 font.pixelSize: row.tokens.fontSize
@@ -80,7 +81,7 @@ AbstractButton {
                 text: row.title
                 color: row.tokens.foreground
                 font.family: row.tokens.fontFamily
-                font.pixelSize: row.tokens.fontSize - 2
+                font.pixelSize: row.tokens.bodySize
                 elide: Text.ElideRight
             }
 
@@ -91,7 +92,7 @@ AbstractButton {
                 text: row.subtitle
                 color: row.tokens.muted
                 font.family: row.tokens.fontFamily
-                font.pixelSize: row.tokens.fontSize - 4
+                font.pixelSize: row.tokens.detailSize
                 elide: Text.ElideRight
             }
         }

@@ -12,10 +12,12 @@ ColumnLayout {
     property var dragPlayer: null
     property int dragTrack: -1
     property real preview: 0
+
     spacing: 2
 
     Slider {
         id: seek
+
         objectName: "playback-position"
         Layout.fillWidth: true
         implicitHeight: 12
@@ -54,6 +56,7 @@ ColumnLayout {
             levels: timeline.levels
             progress: seek.visualPosition
         }
+
         handle: Rectangle {
             x: Math.max(0, Math.min(seek.width - width, seek.visualPosition * seek.width - width / 2))
             width: 2
@@ -80,7 +83,6 @@ ColumnLayout {
 
         DottedText {
             text: timeline.source.duration > 0 ? timeline.source.formatTime(timeline.source.duration) : "--:--"
-
             color: timeline.tokens.alpha(timeline.tokens.foreground, 0.3)
             pixelSize: 8
             letterSpacing: 1

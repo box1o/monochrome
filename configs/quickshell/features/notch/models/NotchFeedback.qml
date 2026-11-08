@@ -9,6 +9,9 @@ QtObject {
     required property QtObject audio
     required property QtObject power
     required property QtObject bluetooth
+    property QtObject devices: null
+    property QtObject downloads: null
+    property QtObject notifications: null
     property string kind: "power"
     property string title: ""
     property string iconName: ""
@@ -17,10 +20,40 @@ QtObject {
     property int revision: 0
     readonly property bool active: expiry.running
     readonly property Connections brightnessEvents: Connections {
-        target: feedback.brightness
         function onChanged(percentage) {
             feedback.present("brightness", "Brightness", "", percentage, "");
         }
+
+        target: feedback.brightness
+    }
+
+    readonly property MicrophoneFeedback microphoneEvents: MicrophoneFeedback {
+        source: feedback.audio
+        onChanged: muted => feedback.present("microphone", muted ? "Microphone muted" : "Microphone on", "", -1, "")
+    }
+
+    readonly property Connections deviceEvents: Connections {
+        function onConnectionChanged(label, connected) {
+            feedback.present("usb", label + (connected ? " connected" : " disconnected"), "", -1, "");
+        }
+
+        target: feedback.devices
+    }
+
+    readonly property Connections downloadEvents: Connections {
+        function onCompleted(name) {
+            feedback.present("download", name, "", -1, "");
+        }
+
+        target: feedback.downloads
+    }
+
+    readonly property Connections screenshotEvents: Connections {
+        function onScreenshotSaved() {
+            feedback.present("screenshot", "Screenshot copied", "", -1, "");
+        }
+
+        target: feedback.notifications
     }
 
     readonly property VolumeFeedback volumeEvents: VolumeFeedback {
@@ -35,14 +68,14 @@ QtObject {
         id: powerEvents
 
         source: feedback.power
-        onOccurred: pluggedIn => feedback.present("power", title, String.fromCodePoint(pluggedIn ? 0xF0241 : 0xF0079), percentage, pluggedIn ? "charge" : "disconnect")
+        onOccurred: pluggedIn => feedback.present("power", title, String.fromCodePoint(pluggedIn ? 983617 : 983161), percentage, pluggedIn ? "charge" : "disconnect")
     }
 
     readonly property Connections bluetoothEvents: Connections {
         function onConnectionChanged(device, connected) {
             const title = (device.name || "Bluetooth") + (connected ? "" : " disconnected");
             const battery = device.batteryAvailable ? Math.round(device.battery * 100) : -1;
-            feedback.present("bluetooth", title, String.fromCodePoint(0xF00AF), battery, connected ? "connect" : "disconnect");
+            feedback.present("bluetooth", title, String.fromCodePoint(983215), battery, connected ? "connect" : "disconnect");
         }
 
         target: feedback.bluetooth
@@ -58,15 +91,25 @@ QtObject {
     function present(eventKind, label, glyph, battery, sound) {
         const entering = !active || kind !== eventKind;
         kind = eventKind;
-        iconName = eventKind === "brightness" ? "brightness" : eventKind === "volume" ? (audio.muted ? "volume-x-bold" : "volume-2-bold") : "";
+        const icons = {
+            "brightness": "brightness",
+            "volume": audio.muted ? "volume-x-bold" : "volume-2-bold",
+            "microphone": audio.microphoneMuted ? "mic-off" : "mic",
+            "usb": "usb",
+            "download": "download",
+            "screenshot": "camera"
+        };
+        iconName = icons[eventKind] || "";
         title = label;
         symbol = glyph;
         percentage = battery;
         if (entering)
             revision++;
+
         expiry.restart();
         if (sound)
             soundRequested(sound);
+
         presented(kind);
     }
 

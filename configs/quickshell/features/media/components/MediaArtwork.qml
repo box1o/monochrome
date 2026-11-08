@@ -23,7 +23,9 @@ AbstractButton {
         text: artwork.description
         visible: artwork.hovered && artwork.visible && artwork.enabled && !artwork.down
     }
-    contentItem: Item {}
+
+    contentItem: Item {
+    }
 
     background: ClippingRectangle {
         radius: artwork.tokens.radius
@@ -33,6 +35,7 @@ AbstractButton {
 
         Image {
             id: image
+
             anchors.fill: parent
             source: artwork.source
             sourceSize.width: 84

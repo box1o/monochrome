@@ -9,7 +9,7 @@ MenuPage {
 
     required property QtObject source
 
-    signal backRequested
+    signal backRequested()
 
     contentItem: content
 
@@ -19,26 +19,11 @@ MenuPage {
         anchors.fill: parent
         spacing: 12
 
-        RowLayout {
+        MenuHeader {
             Layout.fillWidth: true
-
-            IconButton {
-                tokens: page.tokens
-                iconName: "chevron-left"
-                description: "Back"
-                onClicked: page.backRequested()
-            }
-
-            Text {
-                text: "Display brightness"
-                color: page.tokens.foreground
-                font.family: page.tokens.fontFamily
-                font.pixelSize: page.tokens.fontSize - 2
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
+            tokens: page.tokens
+            title: "Display brightness"
+            onBackRequested: page.backRequested()
         }
 
         Flickable {
@@ -49,6 +34,10 @@ MenuPage {
             clip: true
             boundsBehavior: Flickable.StopAtBounds
 
+            ScrollMotion {
+                motionEnabled: page.tokens.motionEnabled
+            }
+
             ColumnLayout {
                 id: displays
 
@@ -58,33 +47,16 @@ MenuPage {
                 Repeater {
                     model: page.source.devices
 
-                    AbstractButton {
-                        id: display
-
+                    SelectableMenuItem {
                         required property var modelData
 
                         Layout.fillWidth: true
-                        implicitHeight: 38
+                        tokens: page.tokens
+                        title: modelData.label
+                        iconName: "brightness"
+                        selected: modelData.id === page.source.device
                         enabled: !page.source.busy
-                        Accessible.name: modelData.label
                         onClicked: page.source.selectDevice(modelData.id)
-
-                        background: Rectangle {
-                            radius: page.tokens.radius
-                            color: display.modelData.id === page.source.device ? page.tokens.alpha(page.tokens.foreground, 0.1) : "transparent"
-                        }
-
-                        contentItem: Text {
-                            leftPadding: 12
-                            rightPadding: 12
-                            text: display.modelData.label
-                            textFormat: Text.PlainText
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                            color: page.tokens.foreground
-                            font.family: page.tokens.fontFamily
-                            font.pixelSize: page.tokens.fontSize - 3
-                        }
                     }
                 }
             }

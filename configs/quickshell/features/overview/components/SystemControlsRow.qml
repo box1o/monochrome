@@ -10,10 +10,12 @@ RowLayout {
     required property QtObject vpn
     required property QtObject tokens
     required property real cardHeight
-    signal brightnessRequested
-    signal vpnRequested
+
+    signal brightnessRequested()
+    signal vpnRequested()
+
     implicitHeight: cardHeight
-    spacing: 8
+    spacing: row.tokens.spacing
 
     BrightnessTile {
         Layout.preferredWidth: (row.width - row.spacing) * 1.8 / 3

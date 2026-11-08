@@ -8,8 +8,9 @@ OverviewCard {
 
     required property var device
     required property bool busy
-    signal copyRequested
-    signal pingRequested
+
+    signal copyRequested()
+    signal pingRequested()
 
     implicitHeight: 44
 
@@ -32,14 +33,14 @@ OverviewCard {
             elide: Text.ElideRight
             color: row.tokens.foreground
             font.family: row.tokens.fontFamily
-            font.pixelSize: row.tokens.fontSize - 3
+            font.pixelSize: row.tokens.labelSize
         }
 
         Text {
             text: row.device.self ? "This device" : row.device.online ? "Online" : "Offline"
             color: row.device.online && !row.device.self ? row.tokens.green : row.tokens.muted
             font.family: row.tokens.fontFamily
-            font.pixelSize: row.tokens.fontSize - 5
+            font.pixelSize: row.tokens.captionSize
         }
 
         IconButton {

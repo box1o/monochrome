@@ -6,7 +6,7 @@ Slider {
 
     required property QtObject tokens
     property string description: "Level"
-    property color trackColor: tokens.alpha(tokens.foreground, 0.08)
+    property color trackColor: tokens.controlBackground
     property color fillColor: tokens.foreground
     property bool focusOutline: true
 
@@ -21,6 +21,7 @@ Slider {
 
     background: Rectangle {
         id: track
+
         x: slider.leftPadding
         y: (slider.height - height) / 2
         width: slider.availableWidth
@@ -28,7 +29,7 @@ Slider {
         radius: height / 2
         color: slider.trackColor
         border.width: slider.focusOutline && slider.visualFocus ? 1 : 0
-        border.color: slider.tokens.muted
+        border.color: slider.tokens.focusColor
 
         Item {
             width: track.width * slider.visualPosition
@@ -44,5 +45,7 @@ Slider {
             }
         }
     }
-    handle: Item {}
+
+    handle: Item {
+    }
 }

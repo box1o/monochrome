@@ -1,0 +1,13 @@
+{
+  "project": "highlight.js",
+  "version": "11.11.1",
+  "source": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js",
+  "license": "BSD-3-Clause",
+  "sha256": "c4a399dd6f488bc97a3546e3476747b3e714c99c57b9473154c6fb8d259b9381",
+  "qt_adjustments": [
+    "QML library pragma and lazy cached engine accessor",
+    "Null guard in deepFreeze for Qt Object.isFrozen(null) behavior",
+    "Skip non-function language map entries exposed by the Qt engine",
+    "Use broad Unicode identifier ranges for Python because Qt lacks XID regex properties"
+  ]
+}

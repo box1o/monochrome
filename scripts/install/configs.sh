@@ -71,16 +71,20 @@ configs::normalize() {
             return 2
         fi
 
-        local dependency=""
+        local dependency
+        local -a dependencies=()
         case "$__name__" in
-            bash | zsh) dependency=shell ;;
-            tmux) dependency=tmux-compat ;;
-            hypr | quickshell) dependency=assets ;;
+        applications) dependencies=(shell) ;;
+        bash | zsh) dependencies=(shell) ;;
+        tmux) dependencies=(tmux-compat) ;;
+        hypr | quickshell) dependencies=(assets icons) ;;
+        appearance | qt | qt5ct | gtk3 | gtk4) dependencies=(icons) ;;
         esac
-        if [[ -n "$dependency" && ! -v "__seen__[$dependency]" ]]; then
+        for dependency in "${dependencies[@]}"; do
+            [[ -v "__seen__[$dependency]" ]] && continue
             __seen__["$dependency"]=true
             printf '%s\n' "$dependency"
-        fi
+        done
 
         [[ -v "__seen__[${__name__}]" ]] && continue
 
@@ -177,11 +181,11 @@ configs::_target_path() {
     __target__=$(exec::query realpath --canonicalize-missing --no-symlinks -- "${__home__}/${__relative__}") || return
 
     case "${__target__}" in
-        "${__home__}" | "${__home__}"/*) printf '%s\n' "${__target__}" ;;
-        *)
-            log::error "Configuration target is outside the user home: ${__target__}"
-            return 1
-            ;;
+    "${__home__}" | "${__home__}"/*) printf '%s\n' "${__target__}" ;;
+    *)
+        log::error "Configuration target is outside the user home: ${__target__}"
+        return 1
+        ;;
     esac
 }
 
@@ -221,6 +225,18 @@ configs::_deploy_one() {
 
     deploy::replace "${__user__}" "${__dry_run__}" "${__source__}" "${__target__}" || return
 
+    case "$__name__" in
+    icons)
+        if proc::exists gtk-update-icon-cache; then
+            deploy::run "$__user__" "$__dry_run__" gtk-update-icon-cache -f -t "$__target__" || return
+        fi
+        ;;
+    quickshell) deploy::run "$__user__" "$__dry_run__" bash "$MONO_ROOT/scripts/desktop/snippets.sh" setup || return ;;
+    nautilus) deploy::run "$__user__" "$__dry_run__" bash "$MONO_ROOT/scripts/desktop/files.sh" setup "$MONO_ROOT" || return ;;
+    zen) deploy::run "$__user__" "$__dry_run__" bash "$MONO_ROOT/scripts/desktop/browser.sh" zen || return ;;
+    applications) deploy::run "$__user__" "$__dry_run__" bash "$MONO_ROOT/scripts/desktop/style.sh" || return ;;
+    esac
+
     if [[ -n "$monitor_state" ]]; then
         printf '%s\n' "$monitor_state" |
             deploy::run "$__user__" "$__dry_run__" fs::atomic_write "$__target__/settings/monitors.lua" || return
@@ -237,7 +253,9 @@ configs::deploy() {
 
     validate::boolean dry-run "${__dry_run__}" || return
 
-    if [[ "$__dry_run__" == true ]]; then
+    if [[ "$__dry_run__" == true && ${MONO_BOOTSTRAP_PENDING:-false} == true ]]; then
+        log::info 'DRY-RUN generate theme after bootstrap dependencies are installed'
+    elif [[ "$__dry_run__" == true ]]; then
         exec::query bash "${MONO_ROOT}/scripts/tools/theme.sh" --root "$MONO_ROOT" --dry-run || return
     else
         exec::run --quiet -- bash "${MONO_ROOT}/scripts/tools/theme.sh" --root "$MONO_ROOT" || return

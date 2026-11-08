@@ -17,8 +17,14 @@ QtObject {
     readonly property string text: String(Math.floor(remaining / 60)).padStart(2, "0") + ":" + String(remaining % 60).padStart(2, "0")
     readonly property string actionLabel: running ? "Pause" : remaining < duration ? "Resume" : "Start"
     readonly property real progress: Math.max(0, Math.min(1, 1 - remaining / duration))
+    readonly property Timer ticks: Timer {
+        interval: 250
+        repeat: true
+        running: timer.running
+        onTriggered: timer.update(Date.now())
+    }
 
-    signal sessionChanged
+    signal sessionChanged()
     signal phaseCompleted(string phase)
 
     function toggle() {
@@ -31,6 +37,7 @@ QtObject {
     function start() {
         if (running)
             return;
+
         active = true;
         deadline = Date.now() + remaining * 1000;
         running = true;
@@ -41,6 +48,7 @@ QtObject {
         update(Date.now());
         if (!running)
             return;
+
         running = false;
         deadline = 0;
         sessionChanged();
@@ -59,9 +67,11 @@ QtObject {
     function update(now) {
         if (!running)
             return;
+
         remaining = Math.max(0, Math.ceil((deadline - now) / 1000));
         if (remaining > 0)
             return;
+
         const finished = phase;
         running = false;
         deadline = 0;
@@ -78,22 +88,26 @@ QtObject {
 
     function snapshot() {
         return JSON.stringify({
-            phase: phase,
-            completedFocus: completedFocus,
-            active: active,
-            running: running,
-            remaining: remaining,
-            deadline: deadline
+            "phase": phase,
+            "completedFocus": completedFocus,
+            "active": active,
+            "running": running,
+            "remaining": remaining,
+            "deadline": deadline
         });
     }
 
     function restore(text) {
+        // Ignore a malformed local session and retain the default timer.
+
         if (!text)
             return;
+
         try {
             const state = JSON.parse(text);
             if (!["focus", "break", "long-break"].includes(state.phase) || !Number.isSafeInteger(state.completedFocus) || state.completedFocus < 0 || !Number.isInteger(state.remaining) || state.remaining < 1 || !Number.isFinite(state.deadline) || typeof state.running !== "boolean" || typeof state.active !== "boolean" || (state.running && (!state.active || state.deadline <= 0)))
                 return;
+
             phase = state.phase;
             completedFocus = state.completedFocus;
             active = state.active;
@@ -102,14 +116,6 @@ QtObject {
             running = state.running;
             update(Date.now());
         } catch (failure) {
-            // Ignore a malformed local session and retain the default timer.
         }
-    }
-
-    readonly property Timer ticks: Timer {
-        interval: 250
-        repeat: true
-        running: timer.running
-        onTriggered: timer.update(Date.now())
     }
 }

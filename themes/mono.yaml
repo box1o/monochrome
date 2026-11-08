@@ -47,8 +47,8 @@ motion:
   curve: [0.2, 0.9, 0.2, 1.0]
 
 appearance:
-  wallpaper: "ember_stripes.jpg"
-  icons: "candy-icons"
+  wallpaper: "charcoal.jpg"
+  icons: "candy-mono"
   cursor: "Bibata-Modern-Classic"
   cursor_size: 12
   gtk_theme: "adw-gtk3-dark"

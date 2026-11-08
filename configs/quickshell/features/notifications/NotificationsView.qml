@@ -9,7 +9,7 @@ MenuPage {
 
     required property QtObject source
 
-    signal backRequested
+    signal backRequested()
 
     contentItem: content
 
@@ -17,7 +17,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: page.tokens.spacing
 
         MenuHeader {
             Layout.fillWidth: true
@@ -35,6 +35,7 @@ MenuPage {
         }
 
         MenuList {
+            motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 9
@@ -48,7 +49,7 @@ MenuPage {
                 text: "Nothing yet"
                 color: page.tokens.muted
                 font.family: page.tokens.fontFamily
-                font.pixelSize: page.tokens.fontSize - 2
+                font.pixelSize: page.tokens.bodySize
             }
 
             ScrollBar.vertical: ScrollBar {

@@ -8,8 +8,9 @@ MenuList {
     required property QtObject source
     required property QtObject tokens
 
+    motionEnabled: applications.tokens.motionEnabled
     model: source.applications
-    spacing: 12
+    spacing: applications.tokens.sectionSpacing
 
     StatusLabel {
         anchors.centerIn: parent
@@ -29,9 +30,7 @@ MenuList {
         available: applications.source.usable(modelData)
         volume: available ? modelData.audio.volume : 0
         muted: available && modelData.audio.muted
-        onVolumeRequested: value => {
-            return applications.source.setNodeVolume(modelData, value);
-        }
+        onVolumeRequested: value => applications.source.setNodeVolume(modelData, value)
         onMuteRequested: applications.source.toggleNodeMute(modelData)
     }
 }

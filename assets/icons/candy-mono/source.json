@@ -1,0 +1,18 @@
+{
+  "name": "Candy Mono",
+  "upstream": "https://github.com/EliverLara/candy-icons",
+  "license": "GPL-3.0",
+  "modified": "2026-11-08",
+  "changes": "Candy shapes and gradients retained. Application hues blended with Mono accents. Nautilus folder and place icons use only the system palette from themes/mono.yaml, with shaded gradients and original identifying emblems.",
+  "palette": {
+    "background": "#101010",
+    "foreground": "#e2e2e2",
+    "muted": "#a3a3a3",
+    "red": "#f2636b",
+    "green": "#a9c6ad",
+    "yellow": "#d4bf8a",
+    "blue": "#a8bed5",
+    "magenta": "#c1b0cf",
+    "cyan": "#a3c5c5"
+  }
+}

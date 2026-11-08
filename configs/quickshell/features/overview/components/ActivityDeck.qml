@@ -14,7 +14,7 @@ Item {
     required property QtObject pomodoro
     required property QtObject tokens
 
-    signal powerRequested
+    signal powerRequested()
 
     implicitHeight: 86
 
@@ -30,7 +30,7 @@ Item {
         labels: ["Media", "Power and Pomodoro"]
         toggleOnClick: true
         currentIndex: deck.model.currentIndex
-        color: currentIndex === 1 ? deck.tokens.background : deck.tokens.foreground
+        color: currentIndex === 1 ? deck.tokens.onFill : deck.tokens.foreground
         onSelected: index => deck.model.select(index)
     }
 
@@ -63,7 +63,7 @@ Item {
                     text: "No media playing"
                     color: deck.tokens.muted
                     font.family: deck.tokens.fontFamily
-                    font.pixelSize: deck.tokens.fontSize - 2
+                    font.pixelSize: deck.tokens.bodySize
                 }
             }
         }
@@ -78,7 +78,7 @@ Item {
                 id: powerRow
 
                 anchors.fill: parent
-                spacing: 8
+                spacing: deck.tokens.spacing
 
                 PomodoroTile {
                     Layout.fillHeight: true

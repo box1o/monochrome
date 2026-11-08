@@ -26,7 +26,6 @@ Item {
 
         x: compactX + (morph.metrics.padding - compactX) * morph.progress
         y: (morph.style.compactHeight - height) / 2 * (1 - morph.progress) + morph.metrics.clockY * morph.progress
-
         text: morph.clock.text
         pixelSize: Math.max(8, morph.tokens.fontSize - morph.style.clockSizeOffset) * (1 - morph.progress) + largeMetrics.pixelSize * morph.progress
         dotSpacing: morph.style.clockDotSpacing + (largeMetrics.dotSpacing - morph.style.clockDotSpacing) * morph.progress

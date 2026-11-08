@@ -25,6 +25,7 @@ MenuPage {
         }
 
         MenuList {
+            motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
             model: page.model.entries

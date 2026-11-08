@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Mono",
+  "version": "1.0.0",
+  "description": "Generated Mono system palette",
+  "theme": {
+    "colors": {
+      "frame": {{rgb.background}},
+      "frame_inactive": {{rgb.background}},
+      "frame_incognito": {{rgb.background}},
+      "frame_incognito_inactive": {{rgb.background}},
+      "toolbar": {{rgb.surface}},
+      "tab_text": {{rgb.foreground}},
+      "tab_background_text": {{rgb.muted}},
+      "bookmark_text": {{rgb.foreground}},
+      "ntp_background": {{rgb.background}},
+      "ntp_text": {{rgb.foreground}},
+      "ntp_link": {{rgb.blue}},
+      "button_background": {{rgb.surface_bright}}
+    }
+  }
+}

@@ -10,7 +10,7 @@ RowLayout {
     required property QtObject style
     readonly property real contentWidth: implicitWidth + 28
 
-    spacing: 8
+    spacing: activity.tokens.spacing
     Accessible.role: Accessible.StaticText
     Accessible.name: model.dateLabel + ", " + model.description
 
@@ -18,7 +18,7 @@ RowLayout {
         text: activity.model.dateLabel
         color: activity.style.foreground
         font.family: activity.tokens.monoFamily
-        font.pixelSize: activity.tokens.fontSize - 3
+        font.pixelSize: activity.tokens.labelSize
     }
 
     ProgressPill {

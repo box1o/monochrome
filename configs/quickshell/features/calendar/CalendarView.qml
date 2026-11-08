@@ -8,11 +8,11 @@ ColumnLayout {
     required property QtObject model
     required property QtObject tokens
 
-    signal previousRequested
-    signal nextRequested
-    signal todayRequested
+    signal previousRequested()
+    signal nextRequested()
+    signal todayRequested()
 
-    spacing: 8
+    spacing: calendar.tokens.spacing
 
     MonthNavigation {
         Layout.fillWidth: true
@@ -38,7 +38,7 @@ ColumnLayout {
                 Layout.fillWidth: true
                 text: modelData
                 color: calendar.tokens.muted
-                font.pixelSize: calendar.tokens.fontSize - 4
+                font.pixelSize: calendar.tokens.detailSize
             }
         }
     }

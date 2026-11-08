@@ -8,17 +8,6 @@ QtObject {
     property bool active: false
     property string section: "Applications"
     readonly property var sections: ["Applications", "Output", "Input", "Codec"]
-
-    function selectSection(value) {
-        if (sections.includes(value))
-            section = value;
-    }
-
-    onActiveChanged: {
-        if (active)
-            section = "Applications";
-    }
-
     readonly property Binding browsing: Binding {
         target: model.source
         property: "browsing"
@@ -38,5 +27,15 @@ QtObject {
         property: "active"
         value: model.active && model.section === "Codec"
         restoreMode: Binding.RestoreBindingOrValue
+    }
+
+    function selectSection(value) {
+        if (sections.includes(value))
+            section = value;
+    }
+
+    onActiveChanged: {
+        if (active)
+            section = "Applications";
     }
 }

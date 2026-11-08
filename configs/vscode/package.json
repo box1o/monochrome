@@ -1,0 +1,23 @@
+{
+  "name": "theme",
+  "displayName": "Mono",
+  "description": "The generated Mono system palette for Visual Studio Code.",
+  "publisher": "mono",
+  "version": "1.0.0",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "id": "Mono",
+        "label": "Mono",
+        "uiTheme": "vs-dark",
+        "path": "./themes/mono-color-theme.json"
+      }
+    ],
+    "configurationDefaults": {
+      "workbench.colorTheme": "Mono",
+      "workbench.preferredDarkColorTheme": "Mono"
+    }
+  }
+}

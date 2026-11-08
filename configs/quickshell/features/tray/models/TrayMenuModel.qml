@@ -18,14 +18,8 @@ QtObject {
         menu: model.chain.length > 0 ? model.chain[model.chain.length - 1] : null
     }
 
-    signal actionInvoked
-    signal backRequested
-
-    onTrayItemChanged: {
-        chain = [];
-        if (active && !trayItem)
-            backRequested();
-    }
+    signal actionInvoked()
+    signal backRequested()
 
     function open(item) {
         if (!item || !item.hasMenu)
@@ -60,6 +54,11 @@ QtObject {
         }
     }
 
+    onTrayItemChanged: {
+        chain = [];
+        if (active && !trayItem)
+            backRequested();
+    }
     onActiveChanged: {
         if (!active)
             reset();

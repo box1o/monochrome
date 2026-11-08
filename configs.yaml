@@ -1,7 +1,25 @@
 configs:
+  nautilus:
+    source: generated/nautilus/scripts
+    target: .local/share/nautilus/scripts/Mono
+  applications:
+    source: generated/applications
+    target: .config/mono/applications
+  zen:
+    source: generated/zen
+    target: .config/mono/zen
+  vscode:
+    source: generated/vscode
+    target: .vscode/extensions/mono.theme-1.0.0
+  nvim:
+    source: generated/nvim
+    target: .config/nvim
   quickshell:
     source: generated/quickshell
     target: .config/quickshell
+  icons:
+    source: assets/icons/candy-mono
+    target: .local/share/icons/candy-mono
   assets:
     source: assets
     target: .local/share/mono

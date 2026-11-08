@@ -26,7 +26,6 @@ Item {
 
     MultiEffect {
         anchors.fill: image
-        anchors.margins: icon.inset
         source: image
         colorization: 1
         colorizationColor: icon.color

@@ -1,37 +1,50 @@
 import QtQuick
+import "../../../components/layout"
 import QtQuick.Layouts
 import "../../../components/controls"
 
 Flickable {
     id: profiles
-    implicitHeight: Math.max(36, contentHeight)
 
     required property QtObject source
     required property QtObject tokens
+
+    implicitHeight: Math.max(36, contentHeight)
     contentHeight: content.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
 
+    ScrollMotion {
+        motionEnabled: profiles.tokens.motionEnabled
+    }
+
     ColumnLayout {
         id: content
+
         width: profiles.width
         spacing: 6
+
         Repeater {
             model: profiles.source.cards
+
             ColumnLayout {
                 id: card
+
                 required property var modelData
+
                 Layout.fillWidth: true
                 spacing: 2
+
                 RowLayout {
                     Layout.fillWidth: true
                     Layout.bottomMargin: 4
                     spacing: 10
+
                     Text {
                         text: "Sound codec"
                         color: profiles.tokens.foreground
                         font.family: profiles.tokens.fontFamily
-                        font.pixelSize: profiles.tokens.fontSize - 3
+                        font.pixelSize: profiles.tokens.labelSize
                     }
 
                     Text {
@@ -42,14 +55,16 @@ Flickable {
                         elide: Text.ElideRight
                         color: profiles.tokens.muted
                         font.family: profiles.tokens.fontFamily
-                        font.pixelSize: profiles.tokens.fontSize - 4
+                        font.pixelSize: profiles.tokens.detailSize
                     }
                 }
 
                 Repeater {
                     model: card.modelData.profiles
+
                     SelectableMenuItem {
                         required property var modelData
+
                         Layout.fillWidth: true
                         tokens: profiles.tokens
                         title: modelData.title

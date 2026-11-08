@@ -1,0 +1,44 @@
+/* Generated from themes/mono.yaml. Do not edit. */
+@OBSThemeMeta {
+    name: 'Mono';
+    id: 'org.monochrome.Mono';
+    extends: 'com.obsproject.Yami';
+    author: 'Mono';
+    dark: 'true';
+}
+@OBSThemeVars {
+    --grey1: #{{colors.border}};
+    --grey2: #{{colors.border}};
+    --grey3: #{{colors.surface_bright}};
+    --grey4: #{{colors.surface_bright}};
+    --grey5: #{{colors.surface}};
+    --grey6: #{{colors.surface}};
+    --grey7: #{{colors.background}};
+    --grey8: #{{colors.background}};
+    --white1: #{{colors.foreground}};
+    --white2: #{{colors.foreground}};
+    --white3: #{{colors.foreground}};
+    --white4: #{{colors.muted}};
+    --white5: #{{colors.muted}};
+    --bg_window: #{{colors.background}};
+    --bg_base: #{{colors.surface}};
+    --bg_preview: #{{colors.background}};
+    --primary: #{{colors.accent}};
+    --primary_light: #{{colors.accent}};
+    --primary_lighter: #{{colors.accent}};
+    --primary_dark: #{{colors.accent}};
+    --primary_darker: #{{colors.accent}};
+    --text: #{{colors.foreground}};
+    --text_light: #{{colors.foreground}};
+    --text_muted: #{{colors.muted}};
+    --text_inactive: #{{colors.muted}};
+    --text_disabled: #{{colors.border}};
+    --border_color: #{{colors.surface_bright}};
+    --input_bg: #{{colors.surface}};
+    --input_bg_hover: #{{colors.surface_bright}};
+    --input_bg_focus: #{{colors.surface_bright}};
+    --input_border: #{{colors.border}};
+    --list_item_bg_selected: #{{colors.surface_bright}};
+    --list_item_bg_hover: #{{colors.surface}};
+    --highlight_color: #{{colors.accent}};
+}

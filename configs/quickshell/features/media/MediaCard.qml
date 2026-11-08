@@ -15,6 +15,7 @@ OverviewCard {
 
     MediaSpectrum {
         id: spectrum
+
         active: card.active && card.source.playing && card.tokens.motionEnabled
     }
 
@@ -49,7 +50,7 @@ OverviewCard {
                     elide: Text.ElideRight
                     color: card.tokens.foreground
                     font.family: card.tokens.fontFamily
-                    font.pixelSize: card.tokens.fontSize - 2
+                    font.pixelSize: card.tokens.bodySize
                     font.bold: true
                 }
 
@@ -60,7 +61,7 @@ OverviewCard {
                     elide: Text.ElideRight
                     color: card.tokens.muted
                     font.family: card.tokens.fontFamily
-                    font.pixelSize: card.tokens.fontSize - 4
+                    font.pixelSize: card.tokens.detailSize
                 }
             }
 

@@ -13,9 +13,9 @@ IconButton {
 
     background: Rectangle {
         radius: button.cornerRadius
-        color: button.tokens.alpha(button.tokens.foreground, button.down ? 0.12 : button.active ? 0.09 : button.hovered ? 0.06 : 0.025)
+        color: button.down ? button.tokens.pressedBackground : button.active ? button.tokens.selectionBackground : button.hovered ? button.tokens.hoverBackground : button.tokens.cardBackground
         border.width: 1
-        border.color: button.visualFocus ? button.tokens.muted : button.tokens.alpha(button.tokens.foreground, 0.12)
+        border.color: button.visualFocus ? button.tokens.focusColor : button.tokens.cardBorder
 
         Behavior on color {
             ColorAnimation {

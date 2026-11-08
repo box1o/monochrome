@@ -8,9 +8,9 @@ RowLayout {
     required property string title
     property Component action: null
 
-    signal backRequested
+    signal backRequested()
 
-    spacing: 6
+    spacing: header.tokens.spacing
 
     IconButton {
         tokens: header.tokens
@@ -26,7 +26,7 @@ RowLayout {
         elide: Text.ElideRight
         color: header.tokens.foreground
         font.family: header.tokens.fontFamily
-        font.pixelSize: header.tokens.fontSize - 2
+        font.pixelSize: header.tokens.bodySize
     }
 
     Loader {

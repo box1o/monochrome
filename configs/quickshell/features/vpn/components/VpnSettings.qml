@@ -1,18 +1,23 @@
 import QtQuick
+import "../../../components/layout"
 import QtQuick.Layouts
 import "../../../components/controls"
 
 Flickable {
     id: settings
-    implicitHeight: Math.max(36, contentHeight)
 
     required property QtObject source
     required property QtObject tokens
     readonly property var preferences: source.tailscale.preferences
 
+    implicitHeight: Math.max(36, contentHeight)
     contentHeight: content.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
+
+    ScrollMotion {
+        motionEnabled: settings.tokens.motionEnabled
+    }
 
     ColumnLayout {
         id: content
@@ -21,23 +26,19 @@ Flickable {
         spacing: 9
 
         Repeater {
-            model: [
-                {
-                    "title": "Use Tailscale DNS",
-                    "key": "accept-dns",
-                    "field": "dns"
-                },
-                {
-                    "title": "Accept subnet routes",
-                    "key": "accept-routes",
-                    "field": "routes"
-                },
-                {
-                    "title": "Block incoming connections",
-                    "key": "shields-up",
-                    "field": "shields"
-                }
-            ]
+            model: [{
+                "title": "Use Tailscale DNS",
+                "key": "accept-dns",
+                "field": "dns"
+            }, {
+                "title": "Accept subnet routes",
+                "key": "accept-routes",
+                "field": "routes"
+            }, {
+                "title": "Block incoming connections",
+                "key": "shields-up",
+                "field": "shields"
+            }]
 
             RowLayout {
                 required property var modelData
@@ -49,7 +50,7 @@ Flickable {
                     text: modelData.title
                     color: settings.tokens.foreground
                     font.family: settings.tokens.fontFamily
-                    font.pixelSize: settings.tokens.fontSize - 3
+                    font.pixelSize: settings.tokens.labelSize
                 }
 
                 ToggleIconButton {
@@ -68,7 +69,7 @@ Flickable {
             text: "Exit node"
             color: settings.tokens.muted
             font.family: settings.tokens.fontFamily
-            font.pixelSize: settings.tokens.fontSize - 3
+            font.pixelSize: settings.tokens.labelSize
         }
 
         TextButton {
@@ -99,7 +100,7 @@ Flickable {
             text: "No exit nodes available"
             color: settings.tokens.muted
             font.family: settings.tokens.fontFamily
-            font.pixelSize: settings.tokens.fontSize - 5
+            font.pixelSize: settings.tokens.captionSize
         }
     }
 }

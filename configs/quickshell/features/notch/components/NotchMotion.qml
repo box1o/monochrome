@@ -6,13 +6,17 @@ NotchGeometry {
 
     required property QtObject tokens
     property bool expanded: false
+    readonly property bool transitioning: heightAnimation.running || openAnimation.running
 
     progress: expanded ? 1 : 0
 
     Behavior on expandedHeight {
         // Opening already interpolates height through progress.
         enabled: motion.expanded && motion.progress === 1
+
         NumberAnimation {
+            id: heightAnimation
+
             duration: motion.tokens.motionEnabled ? motion.tokens.normalDuration : 0
             easing.type: Easing.OutCubic
         }
@@ -28,6 +32,8 @@ NotchGeometry {
 
     Behavior on progress {
         NumberAnimation {
+            id: openAnimation
+
             duration: motion.tokens.motionEnabled ? motion.tokens.normalDuration : 0
             easing.type: Easing.BezierSpline
             easing.bezierCurve: motion.tokens.curve

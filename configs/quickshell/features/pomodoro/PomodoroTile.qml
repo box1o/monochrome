@@ -19,8 +19,8 @@ AbstractButton {
 
     background: OverviewCard {
         tokens: tile.tokens
-        color: tile.tokens.alpha(tile.source.running ? tile.tokens.magenta : tile.tokens.foreground, tile.source.running ? 0.08 : 0.025)
-        border.color: tile.visualFocus ? tile.tokens.muted : tile.tokens.alpha(tile.tokens.foreground, 0.07)
+        color: tile.tokens.cardBackground
+        border.color: tile.visualFocus ? tile.tokens.focusColor : tile.tokens.cardBorder
 
         Behavior on color {
             ColorAnimation {
@@ -44,7 +44,7 @@ AbstractButton {
             GlyphIcon {
                 Layout.preferredWidth: 14
                 Layout.preferredHeight: 14
-                glyph: String.fromCodePoint(0xF051B)
+                glyph: String.fromCodePoint(984347)
                 fontFamily: tile.tokens.monoFamily
                 pixelSize: 14
                 color: tile.source.running ? tile.tokens.magenta : tile.tokens.muted
@@ -55,7 +55,7 @@ AbstractButton {
                 text: tile.source.title
                 color: tile.tokens.foreground
                 font.family: tile.tokens.monoFamily
-                font.pixelSize: tile.tokens.fontSize - 3
+                font.pixelSize: tile.tokens.labelSize
                 font.bold: true
             }
 
@@ -63,7 +63,7 @@ AbstractButton {
                 text: tile.source.running ? "Stop" : "Start"
                 color: tile.source.running ? tile.tokens.magenta : tile.tokens.muted
                 font.family: tile.tokens.monoFamily
-                font.pixelSize: tile.tokens.fontSize - 5
+                font.pixelSize: tile.tokens.captionSize
                 font.bold: true
             }
 
@@ -97,7 +97,7 @@ AbstractButton {
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 8
+            spacing: tile.tokens.spacing
 
             Text {
                 text: tile.source.text

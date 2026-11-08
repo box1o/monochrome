@@ -8,8 +8,9 @@ RowLayout {
     required property QtObject model
     required property QtObject tokens
     required property QtObject style
+    property color accentColor: tokens.blue
 
-    spacing: 8
+    spacing: status.tokens.spacing
 
     Connections {
         function onRevisionChanged() {
@@ -18,6 +19,17 @@ RowLayout {
         }
 
         target: status.model
+    }
+
+    Connections {
+        target: status.tokens
+
+        function onMotionEnabledChanged() {
+            if (!status.tokens.motionEnabled) {
+                arrival.stop();
+                symbol.scale = 1;
+            }
+        }
     }
 
     SequentialAnimation {
@@ -43,6 +55,7 @@ RowLayout {
 
     Item {
         id: symbol
+
         Layout.preferredWidth: Math.min(status.style.compactHeight - 4, status.tokens.iconSize + 3)
         Layout.preferredHeight: Layout.preferredWidth
 
@@ -50,14 +63,14 @@ RowLayout {
             anchors.fill: parent
             visible: status.model.iconName.length > 0
             name: status.model.iconName
-            color: status.tokens.blue
+            color: status.accentColor
         }
 
         Text {
             anchors.centerIn: parent
             visible: status.model.iconName.length === 0
             text: status.model.symbol
-            color: status.model.kind === "bluetooth" ? status.tokens.blue : status.style.foreground
+            color: status.accentColor
             font.family: status.tokens.monoFamily
             font.pixelSize: symbol.width
         }

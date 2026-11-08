@@ -58,6 +58,12 @@ export FZF_DEFAULT_OPTS="
 --marker='*'
 --cycle
 "
+if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/mono/applications/fzf/mono.conf" ]]; then
+    export FZF_DEFAULT_OPTS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/mono/applications/fzf/mono.conf"
+fi
+if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/bat/themes/Mono.tmTheme" ]]; then
+    export BAT_THEME=Mono
+fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

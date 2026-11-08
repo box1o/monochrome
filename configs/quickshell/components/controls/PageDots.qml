@@ -36,7 +36,8 @@ Row {
                 visible: button.hovered && button.visible && !button.down
             }
 
-            background: Item {}
+            background: Item {
+            }
 
             contentItem: Item {
                 Rectangle {

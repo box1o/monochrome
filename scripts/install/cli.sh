@@ -57,6 +57,7 @@ installer_cli::print_help() {
         '  ./scripts/install/install.sh packages [options]' \
         '  ./scripts/install/install.sh configs [options]' \
         '  ./scripts/install/install.sh scripts [options]' \
+        '  ./scripts/install/install.sh setup [options]' \
         '  ./scripts/install/install.sh watch [options]' \
         '  ./scripts/install/install.sh full [options]' \
         '' \
@@ -64,8 +65,9 @@ installer_cli::print_help() {
         '  packages              Install package groups from packages.yaml.' \
         '  configs               Replace installed configurations from configs.yaml.' \
         '  scripts               Deploy user scripts into ~/.local/bin.' \
+        '  setup                 Enable desktop services and configure shell/login.' \
         '  watch                 Redeploy changed configurations continuously.' \
-        '  full                  Install packages, configs, and user scripts.' \
+        '  full                  Install packages, configs, scripts and system setup.' \
         '' \
         'Options:' \
         '  -g, --groups <list>   Comma-separated groups (default: default).' \

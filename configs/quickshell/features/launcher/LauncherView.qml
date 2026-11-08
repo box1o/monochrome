@@ -16,7 +16,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: launcher.tokens.spacing
 
         SearchField {
             id: search
@@ -34,6 +34,7 @@ MenuPage {
         MenuList {
             id: results
 
+            motionEnabled: launcher.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 2
@@ -47,7 +48,7 @@ MenuPage {
                 text: launcher.model.query.trim() ? "No applications found" : "No applications available"
                 color: launcher.tokens.muted
                 font.family: launcher.tokens.fontFamily
-                font.pixelSize: launcher.tokens.fontSize - 2
+                font.pixelSize: launcher.tokens.bodySize
             }
 
             delegate: ApplicationRow {

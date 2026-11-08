@@ -13,21 +13,21 @@ Rectangle {
     required property string description
     property bool radioEnabled: false
     property bool available: true
-    readonly property color ink: radioEnabled ? tokens.background : tokens.foreground
+    readonly property color ink: radioEnabled ? tokens.onFill : tokens.foreground
 
-    signal toggleRequested
-    signal openRequested
+    signal toggleRequested()
+    signal openRequested()
 
-    implicitHeight: 54
-    radius: tokens.radius + 5
-    color: radioEnabled ? tokens.foreground : tokens.alpha(tokens.foreground, 0.035)
+    implicitHeight: tokens.cardHeight
+    radius: tokens.cardRadius
+    color: radioEnabled ? tokens.foreground : tokens.cardBackground
     border.width: radioEnabled ? 0 : 1
-    border.color: tokens.alpha(tokens.foreground, 0.07)
+    border.color: tokens.cardBorder
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 9
-        spacing: 8
+        anchors.margins: tile.tokens.cardInset
+        spacing: tile.tokens.spacing
 
         AbstractButton {
             id: toggle
@@ -59,7 +59,7 @@ Rectangle {
 
             background: Rectangle {
                 radius: width / 2
-                color: tile.radioEnabled ? tile.tokens.background : tile.tokens.alpha(tile.tokens.foreground, toggle.hovered ? 0.14 : 0.08)
+                color: tile.radioEnabled ? tile.tokens.onFill : toggle.hovered ? tile.tokens.hoverBackground : tile.tokens.controlBackground
             }
         }
 
@@ -71,7 +71,8 @@ Rectangle {
             Accessible.name: "Open " + tile.description
             onClicked: tile.openRequested()
 
-            background: Item {}
+            background: Item {
+            }
 
             contentItem: Item {
                 Column {
@@ -86,7 +87,7 @@ Rectangle {
                         textFormat: Text.PlainText
                         color: tile.ink
                         font.family: tile.tokens.monoFamily
-                        font.pixelSize: tile.tokens.fontSize - 3
+                        font.pixelSize: tile.tokens.labelSize
                         font.weight: Font.Bold
                         elide: Text.ElideRight
                     }
@@ -97,7 +98,7 @@ Rectangle {
                         textFormat: Text.PlainText
                         color: tile.tokens.alpha(tile.ink, 0.62)
                         font.family: tile.tokens.monoFamily
-                        font.pixelSize: tile.tokens.fontSize - 4
+                        font.pixelSize: tile.tokens.detailSize
                         elide: Text.ElideRight
                     }
                 }

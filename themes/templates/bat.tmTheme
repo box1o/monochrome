@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><key>name</key><string>Mono</string><key>settings</key><array>
+<dict><key>settings</key><dict><key>background</key><string>#{{colors.background}}</string><key>foreground</key><string>#{{colors.foreground}}</string><key>selection</key><string>#{{colors.surface_bright}}</string></dict></dict>
+<dict><key>scope</key><string>comment</string><key>settings</key><dict><key>foreground</key><string>#{{colors.muted}}</string></dict></dict>
+<dict><key>scope</key><string>string</string><key>settings</key><dict><key>foreground</key><string>#{{colors.green}}</string></dict></dict>
+<dict><key>scope</key><string>constant</string><key>settings</key><dict><key>foreground</key><string>#{{colors.yellow}}</string></dict></dict>
+<dict><key>scope</key><string>keyword, storage</string><key>settings</key><dict><key>foreground</key><string>#{{colors.accent}}</string></dict></dict>
+<dict><key>scope</key><string>keyword.operator</string><key>settings</key><dict><key>foreground</key><string>#{{colors.cyan}}</string></dict></dict>
+<dict><key>scope</key><string>entity.name.function, support.function</string><key>settings</key><dict><key>foreground</key><string>#{{colors.blue}}</string></dict></dict>
+<dict><key>scope</key><string>entity.name.type, support.type, support.class</string><key>settings</key><dict><key>foreground</key><string>#{{colors.cyan}}</string></dict></dict>
+<dict><key>scope</key><string>meta.preprocessor, entity.name.tag</string><key>settings</key><dict><key>foreground</key><string>#{{colors.magenta}}</string></dict></dict>
+<dict><key>scope</key><string>invalid</string><key>settings</key><dict><key>foreground</key><string>#{{colors.red}}</string></dict></dict>
+</array></dict></plist>

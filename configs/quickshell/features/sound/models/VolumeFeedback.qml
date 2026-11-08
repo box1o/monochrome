@@ -4,6 +4,38 @@ QtObject {
     id: feedback
 
     required property QtObject source
+    readonly property QtObject history: QtObject {
+        property QtObject sink: null
+        property bool initialized: false
+        property real volume: 0
+        property bool muted: false
+    }
+
+    readonly property Connections observer: Connections {
+        function onVolumeChanged() {
+            feedback.reconcile();
+        }
+
+        function onMutedChanged() {
+            feedback.reconcile();
+        }
+
+        function onSinkChanged() {
+            feedback.reconcile();
+        }
+
+        function onAvailableChanged() {
+            feedback.reconcile();
+        }
+
+        target: feedback.source
+    }
+
+    readonly property Timer settle: Timer {
+        interval: 80
+        onTriggered: feedback.changed(feedback.source.volume, feedback.source.muted)
+    }
+
     signal changed(real volume, bool muted)
 
     function reconcile() {
@@ -28,32 +60,4 @@ QtObject {
     }
 
     Component.onCompleted: reconcile()
-
-    readonly property QtObject history: QtObject {
-        property QtObject sink: null
-        property bool initialized: false
-        property real volume: 0
-        property bool muted: false
-    }
-
-    readonly property Connections observer: Connections {
-        target: feedback.source
-        function onVolumeChanged() {
-            feedback.reconcile();
-        }
-        function onMutedChanged() {
-            feedback.reconcile();
-        }
-        function onSinkChanged() {
-            feedback.reconcile();
-        }
-        function onAvailableChanged() {
-            feedback.reconcile();
-        }
-    }
-
-    readonly property Timer settle: Timer {
-        interval: 80
-        onTriggered: feedback.changed(feedback.source.volume, feedback.source.muted)
-    }
 }

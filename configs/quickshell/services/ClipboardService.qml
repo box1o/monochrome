@@ -29,7 +29,7 @@ QtObject {
             }
             output = "";
             if (clipboard.refreshQueued && !clipboard.busy)
-                clipboard.refresh();
+                Qt.callLater(clipboard.refresh);
         }
 
         stdout: StdioCollector {
@@ -46,9 +46,9 @@ QtObject {
                 if (operation === "copy")
                     clipboard.copied();
 
-                clipboard.refresh();
+                Qt.callLater(clipboard.refresh);
             } else if (clipboard.refreshQueued) {
-                clipboard.refresh();
+                Qt.callLater(clipboard.refresh);
             }
         }
     }
@@ -60,7 +60,7 @@ QtObject {
         onTriggered: clipboard.refresh()
     }
 
-    signal copied
+    signal copied()
 
     function refresh() {
         if (query.running || busy) {
@@ -77,9 +77,7 @@ QtObject {
         if (busy || !["copy", "delete", "clear"].includes(operation))
             return;
 
-        if (operation !== "clear" && !entries.some(entry => {
-            return entry.id === id;
-        }))
+        if (operation !== "clear" && !entries.some(entry => entry.id === id))
             return;
 
         revision++;

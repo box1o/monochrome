@@ -7,8 +7,8 @@ IconButton {
     property real controlScale: 1
 
     iconName: ""
-    implicitWidth: 30 * controlScale
-    implicitHeight: 30 * controlScale
+    implicitWidth: tokens.buttonSize * controlScale
+    implicitHeight: tokens.buttonSize * controlScale
     padding: 4 * controlScale
     color: active ? tokens.green : tokens.alpha(tokens.red, 0.75)
 

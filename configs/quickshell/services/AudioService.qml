@@ -13,6 +13,8 @@ QtObject {
     readonly property var inputs: nodes.filter(node => !node.isStream && !node.isSink)
     readonly property var applications: nodes.filter(node => node.type === PwNodeType.AudioOutStream)
     readonly property bool available: usable(sink)
+    readonly property bool microphoneAvailable: usable(microphone)
+    readonly property bool microphoneMuted: microphoneAvailable && microphone.audio.muted
     readonly property real microphoneGain: usable(microphone) ? Math.cbrt(Math.max(0, microphone.audio.volume)) : 0
     readonly property real volume: available ? sink.audio.volume : 0
     readonly property bool muted: available && sink.audio.muted
@@ -42,6 +44,7 @@ QtObject {
     function setNodeVolume(node, value) {
         if (!usable(node) || !Number.isFinite(value))
             return;
+
         node.audio.volume = Math.max(0, Math.min(1, value));
         if (value > 0 && node.audio.muted)
             node.audio.muted = false;

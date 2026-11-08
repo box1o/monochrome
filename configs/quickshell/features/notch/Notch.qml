@@ -14,11 +14,13 @@ import "../tray/models"
 import "../session/models"
 import "../sound/models"
 import "../clipboard/models"
+import "../snippets/models"
 import "../vpn/models"
 
 ShellWindow {
     id: notch
 
+    required property QtObject snippets
     required property QtObject clipboard
     required property QtObject coffee
     required property QtObject phone
@@ -56,6 +58,8 @@ ShellWindow {
         state.open();
         if (page === "launcher")
             launcherModel.reset();
+        if (page === "snippets")
+            snippetsModel.reset();
         if (page === "clipboard")
             clipboardModel.reset();
         navigationModel.page = page;
@@ -66,6 +70,25 @@ ShellWindow {
     function openTray(item) {
         if (trayModel.open(item))
             openMenu("tray");
+    }
+
+    IpcHandler {
+        target: "notch"
+
+        function open(): void {
+            notch.openMenu("overview");
+        }
+
+        function close(): void {
+            state.close();
+        }
+
+        function toggle(): void {
+            if (notch.expanded)
+                state.close();
+            else
+                notch.openMenu("overview");
+        }
     }
 
     IpcHandler {
@@ -133,6 +156,34 @@ ShellWindow {
         function onPresented(kind) {
             if (kind === "bluetooth" && state.expanded && navigationModel.bluetoothOpen)
                 state.close("connection");
+        }
+    }
+
+    SnippetsModel {
+        id: snippetsModel
+        source: notch.snippets
+    }
+
+    Connections {
+        target: notch.snippets
+        function onCopied() {
+            state.close();
+        }
+        function onEditing() {
+            state.close();
+        }
+    }
+
+    IpcHandler {
+        target: "snippets"
+        function toggle(): void {
+            if (notch.expanded && navigationModel.snippetsOpen)
+                state.close();
+            else
+                notch.openMenu("snippets");
+        }
+        function open(): void {
+            notch.openMenu("snippets");
         }
     }
 
@@ -260,9 +311,10 @@ ShellWindow {
         id: layout
         style: notch.style
         tokens: notch.tokens
+        preferredWidth: notch.style.expandedWidth * (navigationModel.snippetsOpen ? 1.5 : 1)
         availableWidth: notch.screen ? notch.screen.width : style.expandedWidth + 2 * style.shoulder
         availableHeight: notch.screen ? notch.screen.height : style.expandedHeight
-        maximumHeight: Math.max(style.expandedHeight, view.overviewHeight)
+        maximumHeight: navigationModel.snippetsOpen ? Math.max(600, style.expandedHeight) : Math.max(style.expandedHeight, view.overviewHeight)
         contentHeight: view.contentHeight
         contentWidth: view.feedbackWidth
         expanded: state.expanded
@@ -296,6 +348,7 @@ ShellWindow {
         style: notch.style
         tokens: notch.tokens
         recording: notch.recording
+        snippets: snippetsModel
         clipboard: clipboardModel
         coffee: notch.coffee
         phone: notch.phone

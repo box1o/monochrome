@@ -5,7 +5,8 @@ import Quickshell.Io
 QtObject {
     id: pairing
 
-    property var prompt: ({})
+    property var prompt: ({
+    })
     property bool awaitingResult: false
     readonly property bool active: process.running
     readonly property Process process: Process {
@@ -16,20 +17,19 @@ QtObject {
         }
 
         stdout: SplitParser {
-            onRead: data => {
-                return pairing.readEvent(data);
-            }
+            onRead: data => pairing.readEvent(data)
         }
     }
 
-    signal succeeded
+    signal succeeded()
     signal failed(string message)
 
     function start(devicePath) {
         if (active)
             return false;
 
-        prompt = {};
+        prompt = {
+        };
         awaitingResult = true;
         process.command = ["bash", Quickshell.env("HOME") + "/.local/libexec/mono/bluetooth/pair.sh", "--device", devicePath];
         process.running = true;
@@ -44,7 +44,8 @@ QtObject {
             "accept": accept,
             "value": value
         }) + "\n");
-        prompt = {};
+        prompt = {
+        };
     }
 
     function readEvent(data) {
@@ -64,14 +65,16 @@ QtObject {
         if (message.event === "prompt")
             prompt = message;
         else if (message.event === "clear")
-            prompt = {};
+            prompt = {
+        };
         else if (message.event === "result")
             complete(message.success === true, typeof message.message === "string" ? message.message : "Pairing failed.");
     }
 
     function complete(success, message) {
         awaitingResult = false;
-        prompt = {};
+        prompt = {
+        };
         if (success)
             succeeded();
         else
@@ -99,7 +102,8 @@ QtObject {
 
     function cancel() {
         awaitingResult = false;
-        prompt = {};
+        prompt = {
+        };
         process.running = false;
     }
 }

@@ -50,6 +50,14 @@ ShellRoot {
         id: audioSource
     }
 
+    DeviceService {
+        id: deviceSource
+    }
+
+    DownloadService {
+        id: downloadSource
+    }
+
     WifiService {
         id: wifiSource
     }
@@ -72,6 +80,12 @@ ShellRoot {
 
     NotificationsService {
         id: notificationsSource
+
+        onSoundRequested: feedbackSounds.play("notification")
+    }
+
+    SnippetsService {
+        id: snippetsSource
     }
 
     ClipboardService {
@@ -101,9 +115,10 @@ ShellRoot {
         audio: audioSource
         power: powerSource
         bluetooth: bluetoothSource
-        onSoundRequested: name => {
-            return feedbackSounds.play(name);
-        }
+        devices: deviceSource
+        downloads: downloadSource
+        notifications: notificationsSource
+        onSoundRequested: name => feedbackSounds.play(name)
     }
 
     ScreenPolicy {
@@ -119,6 +134,7 @@ ShellRoot {
             required property var modelData
 
             screen: modelData
+            snippets: snippetsSource
             clipboard: clipboardSource
             coffee: coffeeSource
             phone: phoneSource

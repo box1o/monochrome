@@ -27,7 +27,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: page.tokens.spacing
 
         ConnectionHeader {
             Layout.fillWidth: true
@@ -49,6 +49,7 @@ MenuPage {
         }
 
         MenuList {
+            motionEnabled: page.tokens.motionEnabled
             id: networks
             Layout.fillWidth: true
             Layout.fillHeight: true

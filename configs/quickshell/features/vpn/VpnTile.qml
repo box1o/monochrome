@@ -12,8 +12,8 @@ OverviewCard {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 7
-        spacing: 8
+        anchors.margins: tile.tokens.cardInset
+        spacing: tile.tokens.spacing
 
         IconButton {
             tokens: tile.tokens
@@ -40,7 +40,7 @@ OverviewCard {
                     elide: Text.ElideRight
                     color: tile.tokens.foreground
                     font.family: tile.tokens.fontFamily
-                    font.pixelSize: tile.tokens.fontSize - 3
+                    font.pixelSize: tile.tokens.labelSize
                     font.bold: true
                 }
 
@@ -50,7 +50,7 @@ OverviewCard {
 
                     color: tile.tokens.muted
                     font.family: tile.tokens.fontFamily
-                    font.pixelSize: tile.tokens.fontSize - 5
+                    font.pixelSize: tile.tokens.captionSize
                 }
             }
         }

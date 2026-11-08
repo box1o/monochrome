@@ -16,9 +16,10 @@ ToolTip {
 
     TextMetrics {
         id: measurement
+
         text: tooltip.text
         font.family: tooltip.tokens.fontFamily
-        font.pixelSize: tooltip.tokens.fontSize - 4
+        font.pixelSize: tooltip.tokens.detailSize
     }
 
     contentItem: Text {

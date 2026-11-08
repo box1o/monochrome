@@ -9,7 +9,7 @@ IconButton {
     implicitWidth: primary ? 32 : 26
     implicitHeight: implicitWidth
     padding: primary ? 9 : 6
-    color: primary ? tokens.background : tokens.foreground
+    color: primary ? tokens.onFill : tokens.foreground
     scale: down ? 0.94 : hovered ? 1.04 : 1
 
     background: Rectangle {
@@ -17,7 +17,7 @@ IconButton {
         color: button.primary ? button.tokens.foreground : button.tokens.alpha(button.tokens.foreground, button.hovered ? 0.14 : 0.07)
         opacity: button.enabled ? 1 : 0.35
         border.width: button.visualFocus ? 1 : 0
-        border.color: button.tokens.muted
+        border.color: button.tokens.focusColor
     }
 
     Behavior on scale {

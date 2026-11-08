@@ -21,6 +21,8 @@ installer::_source cli.sh
 installer::_source packages.sh
 installer::_source hardware.sh
 installer::_source package-manager.sh
+installer::_source bootstrap.sh
+installer::_source system.sh
 installer::_source configs.sh
 installer::_source scripts.sh
 installer::_source watcher.sh

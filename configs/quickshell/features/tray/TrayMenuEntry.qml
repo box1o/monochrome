@@ -19,9 +19,9 @@ AbstractButton {
 
     background: Rectangle {
         radius: row.tokens.radius_small + 3
-        color: row.tokens.alpha(row.tokens.foreground, row.down ? 0.1 : row.hovered ? 0.06 : 0)
+        color: row.down ? row.tokens.pressedBackground : row.hovered ? row.tokens.hoverBackground : "transparent"
         border.width: row.visualFocus ? 1 : 0
-        border.color: row.tokens.muted
+        border.color: row.tokens.focusColor
     }
 
     contentItem: RowLayout {
@@ -50,7 +50,7 @@ AbstractButton {
             elide: Text.ElideRight
             color: row.enabled ? row.tokens.foreground : row.tokens.muted
             font.family: row.tokens.fontFamily
-            font.pixelSize: row.tokens.fontSize - 3
+            font.pixelSize: row.tokens.labelSize
         }
 
         Text {

@@ -1,0 +1,333 @@
+# Plain snippets. Ctrl+V adds clipboard text; the pencil opens Neovim.
+snippets:
+  - id: import-x86
+    title: GW import · x86 production
+    language: bash
+    body: gw recipe import --variant x86-prod --source azure
+  - id: package-x86
+    title: GW package · x86 production
+    language: bash
+    body: gw ug recipe package --variant x86-prod --device c65 --scope full
+  - id: import-arm64
+    title: GW import · ARM64 production
+    language: bash
+    body: gw recipe import --variant apk-arm64-prod --source azure
+  - id: package-arm64
+    title: GW package APK · ARM64 production
+    language: bash
+    body: gw ug recipe package --variant apk-arm64-prod --device c65 --scope full --bundle --apk
+  - id: environment
+    title: Device environment
+    language: bash
+    body: |-
+      export UGWS__DEVICE_SECRET="super_secret"
+      export UGWS__DEVICE_MODEL="C65"
+      export UGWS__DEVICE_SERIAL="AR0001"
+  - id: cpp-main
+    title: C++ · include and main
+    language: cpp
+    body: |-
+      #include <iostream>
+      #include <string>
+      #include <vector>
+
+      int main() {
+          std::cout << "Hello, world!\n";
+          return 0;
+      }
+  - id: cpp-binary
+    title: C++ · binary search index
+    language: cpp
+    body: |-
+      #include <cstddef>
+      #include <optional>
+      #include <span>
+
+      // Input must be sorted in ascending order.
+      std::optional<std::size_t> binary_search_index(std::span<const int> values, int target) {
+          std::size_t first = 0;
+          std::size_t last = values.size();
+          while (first < last) {
+              const auto middle = first + (last - first) / 2;
+              if (values[middle] < target)
+                  first = middle + 1;
+              else
+                  last = middle;
+          }
+          if (first < values.size() && values[first] == target)
+              return first;
+          return std::nullopt;
+      }
+  - id: cpp-lower
+    title: C++ · standard binary search
+    language: cpp
+    body: |-
+      #include <algorithm>
+      #include <vector>
+
+      std::vector<int> values{1, 3, 5, 7};
+      const int target = 5;
+      const auto found = std::lower_bound(values.begin(), values.end(), target);
+      const bool exists = found != values.end() && *found == target;
+  - id: cpp-unique
+    title: C++ · sort and remove duplicates
+    language: cpp
+    body: |-
+      #include <algorithm>
+      #include <vector>
+
+      std::vector<int> values{3, 1, 3, 2};
+      std::ranges::sort(values);
+      const auto duplicates = std::ranges::unique(values);
+      values.erase(duplicates.begin(), duplicates.end());
+  - id: cpp-lines
+    title: C++ · read file line by line
+    language: cpp
+    body: |-
+      #include <fstream>
+      #include <iostream>
+      #include <string>
+
+      int main() {
+          std::ifstream input{"input.txt"};
+          if (!input) {
+              std::cerr << "Cannot open input.txt\n";
+              return 1;
+          }
+          for (std::string line; std::getline(input, line);)
+              std::cout << line << '\n';
+          return input.bad() ? 1 : 0;
+      }
+  - id: git-status
+    title: Git · status
+    language: bash
+    body: git status --short --branch
+  - id: git-diff
+    title: Git · review changes
+    language: bash
+    body: |-
+      git diff
+      git diff --staged
+  - id: git-log
+    title: Git · recent history
+    language: bash
+    body: git log --oneline --graph --decorate -20
+  - id: git-branch
+    title: Git · create branch
+    language: bash
+    body: git switch -c feature/my-change
+  - id: git-fetch
+    title: Git · fetch remotes
+    language: bash
+    body: git fetch --all --prune
+  - id: git-pull
+    title: Git · fast-forward update
+    language: bash
+    body: git pull --ff-only
+  - id: git-stash
+    title: Git · stash including untracked
+    language: bash
+    body: git stash push --include-untracked -m "work in progress"
+  - id: git-stashes
+    title: Git · list saved stashes
+    language: bash
+    body: git stash list
+  - id: docker-list
+    title: Docker · list containers
+    language: bash
+    body: docker ps --all
+  - id: docker-images
+    title: Docker · list images
+    language: bash
+    body: docker image ls
+  - id: docker-logs
+    title: Docker · follow container logs
+    language: bash
+    body: docker logs --follow --tail 100 ug-ide-v50
+  - id: docker-shell
+    title: Docker · container shell
+    language: bash
+    body: docker exec -it ug-ide-v50 bash
+  - id: docker-stats
+    title: Docker · resource usage
+    language: bash
+    body: docker stats --no-stream
+  - id: docker-compose
+    title: Docker · start Compose services
+    language: bash
+    body: docker compose up -d
+  - id: docker-compose-logs
+    title: Docker · Compose logs
+    language: bash
+    body: docker compose logs --follow --tail 100
+  - id: cpp-parse
+    title: C++ · parse integer safely
+    language: cpp
+    body: |-
+      #include <charconv>
+      #include <expected>
+      #include <string_view>
+      #include <system_error>
+
+      std::expected<int, std::errc> parse_int(std::string_view text) {
+          if (text.empty())
+              return std::unexpected(std::errc::invalid_argument);
+          int value = 0;
+          const auto [end, error] = std::from_chars(text.data(), text.data() + text.size(), value);
+          if (error != std::errc{})
+              return std::unexpected(error);
+          if (end != text.data() + text.size())
+              return std::unexpected(std::errc::invalid_argument);
+          return value;
+      }
+  - id: cpp-frequency
+    title: C++ · count element frequency
+    language: cpp
+    body: |-
+      #include <span>
+      #include <unordered_map>
+
+      std::unordered_map<int, std::size_t> frequencies(std::span<const int> values) {
+          std::unordered_map<int, std::size_t> counts;
+          for (const int value : values)
+              ++counts[value];
+          return counts;
+      }
+  - id: cpp-erase
+    title: C++ · remove matching elements
+    language: cpp
+    body: |-
+      #include <vector>
+
+      int main() {
+          std::vector<int> values{1, 2, 3, 4, 5};
+          std::erase_if(values, [](int value) { return value % 2 == 0; });
+      }
+  - id: cpp-time
+    title: C++ · measure elapsed time
+    language: cpp
+    body: |-
+      #include <chrono>
+      #include <iostream>
+
+      int main() {
+          const auto start = std::chrono::steady_clock::now();
+          // Run the work to measure here.
+          const auto elapsed = std::chrono::steady_clock::now() - start;
+          std::cout << std::chrono::duration<double, std::milli>(elapsed).count() << " ms\n";
+      }
+  - id: cpp-file
+    title: C++ · read entire text file
+    language: cpp
+    body: |-
+      #include <fstream>
+      #include <iterator>
+      #include <optional>
+      #include <string>
+
+      std::optional<std::string> read_file(const std::string& path) {
+          std::ifstream input{path, std::ios::binary};
+          if (!input)
+              return std::nullopt;
+          std::string text{std::istreambuf_iterator<char>{input}, std::istreambuf_iterator<char>{}};
+          if (input.bad())
+              return std::nullopt;
+          return text;
+      }
+  - id: python-json
+    title: Python · read and write JSON
+    language: python
+    body: |-
+      import json
+      from pathlib import Path
+
+      path = Path("data.json")
+      data = json.loads(path.read_text(encoding="utf-8"))
+      Path("output.json").write_text(
+          json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+          encoding="utf-8",
+      )
+  - id: python-cli
+    title: Python · simple CLI arguments
+    language: python
+    body: |-
+      import argparse
+      from pathlib import Path
+
+      parser = argparse.ArgumentParser(description="Process a file")
+      parser.add_argument("file", type=Path)
+      parser.add_argument("--verbose", action="store_true")
+      args = parser.parse_args()
+      print(args.file.read_text(encoding="utf-8"))
+  - id: ts-fetch
+    title: TypeScript · fetch JSON
+    language: typescript
+    body: |-
+      async function fetchJson(url: string): Promise<unknown> {
+          const response = await fetch(url);
+          if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+          }
+          return response.json();
+      }
+  - id: ts-debounce
+    title: TypeScript · debounce callback
+    language: typescript
+    body: |-
+      function debounce<Args extends unknown[]>(callback: (...args: Args) => void, delayMs = 200) {
+          let timer: ReturnType<typeof setTimeout> | undefined;
+          return (...args: Args) => {
+              clearTimeout(timer);
+              timer = setTimeout(() => callback(...args), delayMs);
+          };
+      }
+  - id: go-json
+    title: Go · decode JSON file
+    language: go
+    body: |-
+      package main
+
+      import (
+          "encoding/json"
+          "fmt"
+          "log"
+          "os"
+      )
+
+      func main() {
+          file, err := os.Open("data.json")
+          if err != nil {
+              log.Fatal(err)
+          }
+          defer file.Close()
+
+          var data map[string]any
+          if err := json.NewDecoder(file).Decode(&data); err != nil {
+              log.Fatal(err)
+          }
+          fmt.Println(data)
+      }
+  - id: git-commit
+    title: Git · inspect last commit
+    language: bash
+    body: git show --stat --oneline HEAD
+  - id: git-remotes
+    title: Git · show remotes
+    language: bash
+    body: git remote -v
+  - id: git-branches
+    title: Git · branches by recent activity
+    language: bash
+    body: git branch --sort=-committerdate
+  - id: docker-network
+    title: Docker · list networks
+    language: bash
+    body: docker network ls
+  - id: docker-volumes
+    title: Docker · list volumes
+    language: bash
+    body: docker volume ls
+  - id: docker-config
+    title: Docker · validate Compose config
+    language: bash
+    body: docker compose config --quiet

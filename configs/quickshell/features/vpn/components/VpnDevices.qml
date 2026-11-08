@@ -1,13 +1,15 @@
 import QtQuick
+import "../../../components/layout"
 import QtQuick.Layouts
 import "../../../components/controls"
 
 Item {
     id: list
-    implicitHeight: source.tailscale.connected ? devices.implicitHeight : 36
 
     required property QtObject source
     required property QtObject tokens
+
+    implicitHeight: source.tailscale.connected ? devices.implicitHeight : 36
 
     Text {
         anchors.centerIn: parent
@@ -15,7 +17,7 @@ Item {
         text: "Connect Tailscale to see your devices"
         color: list.tokens.muted
         font.family: list.tokens.fontFamily
-        font.pixelSize: list.tokens.fontSize - 3
+        font.pixelSize: list.tokens.labelSize
     }
 
     Flickable {
@@ -24,6 +26,10 @@ Item {
         contentHeight: devices.implicitHeight
         clip: true
         boundsBehavior: Flickable.StopAtBounds
+
+        ScrollMotion {
+            motionEnabled: list.tokens.motionEnabled
+        }
 
         ColumnLayout {
             id: devices

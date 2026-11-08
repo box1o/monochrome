@@ -29,7 +29,7 @@ QtObject {
             if (code !== 0 || status !== 0)
                 recording.error = "Could not change screen recording";
 
-            recording.refresh();
+            Qt.callLater(recording.refresh);
         }
     }
 
@@ -39,11 +39,20 @@ QtObject {
     }
 
     function toggle() {
+        request(active ? "record-stop" : "record-start");
+    }
+
+    function stop() {
+        if (active)
+            request("record-stop");
+    }
+
+    function request(command) {
         if (busy)
             return;
 
         error = "";
-        action.command = [helper, active ? "record-stop" : "record-start"];
+        action.command = [helper, command];
         action.running = true;
     }
 

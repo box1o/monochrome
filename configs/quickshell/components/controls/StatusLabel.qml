@@ -8,6 +8,6 @@ Text {
     visible: text.length > 0
     color: error ? tokens.red : tokens.muted
     font.family: tokens.fontFamily
-    font.pixelSize: tokens.fontSize - 3
+    font.pixelSize: tokens.labelSize
     wrapMode: Text.Wrap
 }

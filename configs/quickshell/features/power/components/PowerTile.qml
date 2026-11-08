@@ -9,7 +9,7 @@ AbstractButton {
     required property QtObject source
     required property QtObject tokens
 
-    signal openRequested
+    signal openRequested()
 
     implicitWidth: 78
     implicitHeight: 86
@@ -26,10 +26,10 @@ AbstractButton {
     }
 
     background: Rectangle {
-        radius: tile.tokens.radius + 5
+        radius: tile.tokens.cardRadius
         color: tile.down ? Qt.darker(tile.tokens.foreground, 1.06) : tile.tokens.foreground
         border.width: tile.visualFocus ? 1 : 0
-        border.color: tile.tokens.muted
+        border.color: tile.tokens.focusColor
     }
 
     contentItem: Item {
@@ -43,11 +43,11 @@ AbstractButton {
                 width: 30
                 height: width
                 radius: width / 2
-                color: tile.tokens.background
+                color: tile.tokens.onFill
 
                 GlyphIcon {
                     anchors.fill: parent
-                    glyph: String.fromCodePoint(tile.source.connected ? 0xF0241 : 0xF0079)
+                    glyph: String.fromCodePoint(tile.source.connected ? 983617 : 983161)
                     fontFamily: tile.tokens.monoFamily
                     pixelSize: 18
                     color: tile.tokens.foreground
@@ -58,9 +58,9 @@ AbstractButton {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: tile.source.ready ? tile.source.percentage + "%" : "--"
                 textFormat: Text.PlainText
-                color: tile.tokens.background
+                color: tile.tokens.onFill
                 font.family: tile.tokens.monoFamily
-                font.pixelSize: tile.tokens.fontSize - 2
+                font.pixelSize: tile.tokens.bodySize
                 font.bold: true
             }
         }

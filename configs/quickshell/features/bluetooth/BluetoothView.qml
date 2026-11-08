@@ -9,7 +9,7 @@ MenuPage {
 
     required property QtObject model
 
-    signal backRequested
+    signal backRequested()
 
     contentItem: content
 
@@ -17,7 +17,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: page.tokens.spacing
 
         ConnectionHeader {
             Layout.fillWidth: true
@@ -45,6 +45,7 @@ MenuPage {
         MenuList {
             id: devices
 
+            motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
             spacing: 2

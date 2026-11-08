@@ -22,7 +22,6 @@ QtObject {
         if (active)
             reset();
     }
-
     onSourceChanged: {
         if (active)
             reset();

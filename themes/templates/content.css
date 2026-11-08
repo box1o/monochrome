@@ -1,0 +1,12 @@
+/* Generated from themes/mono.yaml. Do not edit. */
+@-moz-document url("about:newtab"), url("about:home"), url("about:blank") {
+    :root {
+        color-scheme: dark;
+        --newtab-background-color: #{{colors.background}} !important;
+        --newtab-background-color-secondary: #{{colors.surface}} !important;
+        --newtab-text-primary-color: #{{colors.foreground}} !important;
+        --newtab-text-secondary-color: #{{colors.muted}} !important;
+        --newtab-primary-action-background: #{{colors.accent}} !important;
+    }
+    body { background: #{{colors.background}} !important; color: #{{colors.foreground}} !important; }
+}

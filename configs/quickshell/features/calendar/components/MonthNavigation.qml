@@ -8,9 +8,9 @@ Item {
     required property QtObject tokens
     required property string title
 
-    signal previousRequested
-    signal nextRequested
-    signal todayRequested
+    signal previousRequested()
+    signal nextRequested()
+    signal todayRequested()
 
     implicitHeight: 26
 
@@ -28,7 +28,7 @@ Item {
         anchors.centerIn: parent
         text: navigation.title
         color: navigation.tokens.foreground
-        font.pixelSize: navigation.tokens.fontSize - 2
+        font.pixelSize: navigation.tokens.bodySize
     }
 
     RowLayout {

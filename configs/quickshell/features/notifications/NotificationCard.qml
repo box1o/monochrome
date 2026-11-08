@@ -12,9 +12,10 @@ AbstractButton {
     required property QtObject tokens
     property string imageSource: ""
     readonly property bool urgent: notification.urgency === NotificationUrgency.Critical
-    signal activated
 
-    implicitHeight: content.implicitHeight + 20
+    signal activated()
+
+    implicitHeight: content.implicitHeight + 2 * tokens.sectionSpacing
     padding: 0
     hoverEnabled: true
     Accessible.name: notification.appName + ": " + notification.summary
@@ -22,29 +23,33 @@ AbstractButton {
 
     background: Rectangle {
         radius: card.tokens.radius
-        color: card.tokens.alpha(card.tokens.foreground, card.hovered ? 0.055 : 0.025)
-        border.width: card.visualFocus || card.urgent ? 1 : 0
-        border.color: card.urgent ? card.tokens.alpha(card.tokens.red, 0.35) : card.tokens.muted
+        color: card.hovered ? card.tokens.hoverBackground : card.tokens.cardBackground
+        border.width: 1
+        border.color: card.visualFocus ? card.tokens.focusColor : card.urgent ? card.tokens.alpha(card.tokens.red, 0.35) : card.tokens.cardBorder
     }
 
     contentItem: RowLayout {
         id: content
+
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: card.tokens.sectionSpacing
         spacing: 10
 
         Item {
             Layout.preferredWidth: 20
             Layout.preferredHeight: 20
             Layout.alignment: Qt.AlignTop
+
             Image {
                 id: icon
+
                 anchors.fill: parent
                 source: card.imageSource
                 sourceSize.width: 40
                 sourceSize.height: 40
                 fillMode: Image.PreserveAspectFit
             }
+
             AssetIcon {
                 anchors.fill: parent
                 name: "bell"
@@ -56,6 +61,7 @@ AbstractButton {
         ColumnLayout {
             Layout.fillWidth: true
             spacing: 3
+
             Text {
                 Layout.fillWidth: true
                 text: card.notification.summary
@@ -63,9 +69,10 @@ AbstractButton {
                 elide: Text.ElideRight
                 color: card.tokens.foreground
                 font.family: card.tokens.fontFamily
-                font.pixelSize: card.tokens.fontSize - 2
+                font.pixelSize: card.tokens.bodySize
                 font.weight: Font.Medium
             }
+
             Text {
                 Layout.fillWidth: true
                 visible: text.length > 0
@@ -76,22 +83,24 @@ AbstractButton {
                 elide: Text.ElideRight
                 color: card.tokens.muted
                 font.family: card.tokens.fontFamily
-                font.pixelSize: card.tokens.fontSize - 4
+                font.pixelSize: card.tokens.detailSize
             }
+
             Text {
                 Layout.fillWidth: true
                 visible: text.length > 0
                 text: card.notification.appName
                 textFormat: Text.PlainText
                 elide: Text.ElideRight
-                color: card.tokens.alpha(card.tokens.foreground, 0.35)
+                color: card.tokens.muted
                 font.family: card.tokens.fontFamily
-                font.pixelSize: card.tokens.fontSize - 5
+                font.pixelSize: card.tokens.captionSize
             }
         }
 
         IconButton {
             id: dismiss
+
             Layout.alignment: Qt.AlignTop
             tokens: card.tokens
             implicitWidth: 24
@@ -100,7 +109,10 @@ AbstractButton {
             iconName: ""
             description: "Dismiss notification"
             onClicked: card.notification.dismiss()
-            background: Item {}
+
+            background: Item {
+            }
+
             contentItem: Text {
                 text: "×"
                 horizontalAlignment: Text.AlignHCenter

@@ -1,4 +1,5 @@
 import QtQuick
+import "../../components/layout"
 import QtQuick.Layouts
 import "../clock"
 import "../calendar"
@@ -12,7 +13,6 @@ FocusScope {
     id: overview
 
     property bool active: false
-
     required property QtObject recording
     required property QtObject coffee
     required property QtObject notifications
@@ -30,23 +30,21 @@ FocusScope {
     required property QtObject metrics
     required property real clockWidth
     required property QtObject tokens
-    required property QtObject style
+    readonly property real overviewHeight: metrics.padding * 2 + metrics.headerHeight + metrics.sectionSpacing + overviewContent.implicitHeight
 
     signal trayRequested(var item)
-    signal phoneRequested
-    signal sessionRequested
-    signal notificationsRequested
-    signal powerRequested
-    signal vpnRequested
-    signal brightnessRequested
-    signal soundRequested
-    signal wifiRequested
-    signal bluetoothRequested
-    signal closeRequested
+    signal phoneRequested()
+    signal sessionRequested()
+    signal notificationsRequested()
+    signal powerRequested()
+    signal vpnRequested()
+    signal brightnessRequested()
+    signal soundRequested()
+    signal wifiRequested()
+    signal bluetoothRequested()
+    signal closeRequested()
 
-    readonly property real overviewHeight: metrics.padding * 2 + metrics.headerHeight + 8 + overviewContent.implicitHeight
-
-    implicitHeight: navigation.calendarOpen ? metrics.padding * 2 + metrics.headerHeight + 8 + calendarPage.implicitHeight : overviewHeight
+    implicitHeight: navigation.calendarOpen ? metrics.padding * 2 + metrics.headerHeight + metrics.sectionSpacing + calendarPage.implicitHeight : overviewHeight
     Keys.onEscapePressed: closeRequested()
     Keys.onLeftPressed: {
         if (overview.navigation.calendarOpen)
@@ -59,6 +57,7 @@ FocusScope {
 
     ActivityDeckModel {
         id: deckModel
+
         media: overview.media
         active: overview.active
     }
@@ -66,17 +65,27 @@ FocusScope {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: overview.metrics.padding
-        spacing: 8
+        spacing: overview.tokens.spacing
 
         ClockHeader {
             Layout.fillWidth: true
             clock: overview.clock
             tokens: overview.tokens
-            style: overview.style
             calendarOpen: overview.navigation.calendarOpen
             clockWidth: overview.clockWidth
             metrics: overview.metrics
             onClicked: overview.navigation.toggleCalendar()
+            accessoryVisible: overview.pomodoro.active || overview.recording.active
+            accessory: ActivityControls {
+                tokens: overview.tokens
+                timerActive: overview.pomodoro.active
+                timerRunning: overview.pomodoro.running
+                timerText: overview.pomodoro.text
+                recordingActive: overview.recording.active
+                recordingBusy: overview.recording.busy
+                onTimerToggleRequested: overview.pomodoro.toggle()
+                onRecordingStopRequested: overview.recording.stop()
+            }
         }
 
         Item {
@@ -93,11 +102,15 @@ FocusScope {
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds
 
+                ScrollMotion {
+                    motionEnabled: overview.tokens.motionEnabled
+                }
+
                 Column {
                     id: overviewContent
 
                     width: parent.width
-                    spacing: 8
+                    spacing: overview.tokens.spacing
 
                     ConnectivityTiles {
                         id: connectivity

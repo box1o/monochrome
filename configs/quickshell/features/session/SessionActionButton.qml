@@ -14,7 +14,7 @@ QuickActionButton {
     color: active || current ? tokens.foreground : tokens.muted
 
     contentItem: ColumnLayout {
-        spacing: 8
+        spacing: button.tokens.spacing
 
         AssetIcon {
             Layout.alignment: Qt.AlignHCenter
@@ -30,7 +30,7 @@ QuickActionButton {
             horizontalAlignment: Text.AlignHCenter
             color: button.color
             font.family: button.tokens.fontFamily
-            font.pixelSize: button.tokens.fontSize - 4
+            font.pixelSize: button.tokens.detailSize
         }
     }
 }

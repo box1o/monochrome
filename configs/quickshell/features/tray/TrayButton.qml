@@ -40,7 +40,7 @@ AbstractButton {
     }
 
     WheelHandler {
-        onWheel: event => {
+        onWheel: (event) => {
             const horizontal = event.angleDelta.y === 0;
             button.trayItem.scroll(horizontal ? event.angleDelta.x : event.angleDelta.y, horizontal);
             event.accepted = true;
@@ -56,9 +56,9 @@ AbstractButton {
 
     background: Rectangle {
         radius: button.tokens.radius_small + 3
-        color: button.tokens.alpha(button.tokens.foreground, button.down ? 0.12 : button.hovered ? 0.09 : 0.035)
-        border.width: button.visualFocus ? 1 : 0
-        border.color: button.tokens.muted
+        color: button.down ? button.tokens.pressedBackground : button.hovered ? button.tokens.hoverBackground : button.tokens.cardBackground
+        border.width: 1
+        border.color: button.visualFocus ? button.tokens.focusColor : button.tokens.cardBorder
     }
 
     contentItem: Item {
@@ -79,7 +79,7 @@ AbstractButton {
             text: button.title.charAt(0).toUpperCase()
             color: button.tokens.foreground
             font.family: button.tokens.fontFamily
-            font.pixelSize: button.tokens.fontSize - 2
+            font.pixelSize: button.tokens.bodySize
         }
     }
 }

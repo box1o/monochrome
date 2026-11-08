@@ -63,6 +63,25 @@ package_manager::install_pacman() {
     SHELL_LIB_DRY_RUN=${__dry_run__} exec::run -- sudo pacman "${__arguments__[@]}"
 }
 
+# Isolate cleanup from the installer's traps and build as the desktop user.
+package_manager::bootstrap_aur() (
+    local dry_run=${1:-false} target_user work
+    validate::boolean dry-run "$dry_run" || return
+    if proc::exists yay; then
+        return 0
+    fi
+    if [[ $dry_run == true ]]; then
+        log::info 'DRY-RUN install yay-bin from the AUR as the desktop user'
+        return 0
+    fi
+    proc::require git makepkg || return
+    target_user=$(deploy::target_user) || return
+    work=$(deploy::run "$target_user" false temp::dir mono-aur) || return
+    trap 'fs::remove_tree "$work"' EXIT
+    deploy::run "$target_user" false git clone --depth 1 https://aur.archlinux.org/yay-bin.git "$work/yay-bin" || return
+    deploy::run "$target_user" false makepkg --dir "$work/yay-bin" --syncdeps --install --needed --noconfirm
+)
+
 package_manager::install_aur() {
     local __packages_reference__=${1:-}
     local __assume_yes__=${2:-false}
@@ -77,7 +96,7 @@ package_manager::install_aur() {
 
     ((${#_packages_[@]} > 0)) || return 0
 
-    proc::require yay || return
+    package_manager::bootstrap_aur "$__dry_run__" || return
 
     local -a __arguments__=(-S --needed)
 

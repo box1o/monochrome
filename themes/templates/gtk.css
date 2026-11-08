@@ -10,6 +10,32 @@
 @define-color error_color #{{colors.red}};
 @define-color success_color #{{colors.green}};
 
+@define-color window_bg_color #{{colors.background}};
+@define-color window_fg_color #{{colors.foreground}};
+@define-color view_bg_color #{{colors.surface}};
+@define-color view_fg_color #{{colors.foreground}};
+@define-color headerbar_bg_color #{{colors.surface}};
+@define-color headerbar_fg_color #{{colors.foreground}};
+@define-color headerbar_backdrop_color #{{colors.surface}};
+@define-color card_bg_color #{{colors.surface_bright}};
+@define-color card_fg_color #{{colors.foreground}};
+@define-color dialog_bg_color #{{colors.surface}};
+@define-color dialog_fg_color #{{colors.foreground}};
+@define-color popover_bg_color #{{colors.surface}};
+@define-color popover_fg_color #{{colors.foreground}};
+@define-color sidebar_bg_color #{{colors.background}};
+@define-color sidebar_fg_color #{{colors.foreground}};
+@define-color sidebar_backdrop_color #{{colors.background}};
+@define-color secondary_sidebar_bg_color #{{colors.surface}};
+@define-color secondary_sidebar_fg_color #{{colors.foreground}};
+@define-color secondary_sidebar_backdrop_color #{{colors.surface}};
+@define-color accent_bg_color #{{colors.accent}};
+@define-color accent_fg_color #{{colors.on_accent}};
+@define-color accent_color #{{colors.accent}};
+@define-color destructive_bg_color #{{colors.red}};
+@define-color destructive_fg_color #{{colors.on_accent}};
+@define-color destructive_color #{{colors.red}};
+
 image { -gtk-icon-transform: scale({{computed.icon_scale}}); }
 
 button, entry, spinbutton {

@@ -4,7 +4,7 @@ Canvas {
     id: corner
 
     property bool rightSide: false
-    property color color: "#000000"
+    required property color color
     property real radius: 12
 
     width: radius

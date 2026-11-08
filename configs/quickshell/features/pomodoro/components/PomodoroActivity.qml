@@ -8,6 +8,7 @@ RowLayout {
     required property QtObject source
     required property QtObject tokens
     readonly property real contentWidth: implicitWidth + 24
+
     spacing: 7
 
     AssetIcon {
@@ -21,7 +22,7 @@ RowLayout {
         text: activity.source.title
         color: activity.tokens.muted
         font.family: activity.tokens.fontFamily
-        font.pixelSize: activity.tokens.fontSize - 3
+        font.pixelSize: activity.tokens.labelSize
     }
 
     Text {

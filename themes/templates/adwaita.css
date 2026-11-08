@@ -1,5 +1,46 @@
 /* Generated from themes/mono.yaml. */
+@define-color window_bg_color #{{colors.background}};
+@define-color window_fg_color #{{colors.foreground}};
+@define-color view_bg_color #{{colors.surface}};
+@define-color view_fg_color #{{colors.foreground}};
+@define-color headerbar_bg_color #{{colors.surface}};
+@define-color headerbar_fg_color #{{colors.foreground}};
+@define-color headerbar_backdrop_color #{{colors.surface}};
+@define-color card_bg_color #{{colors.surface_bright}};
+@define-color card_fg_color #{{colors.foreground}};
+@define-color dialog_bg_color #{{colors.surface}};
+@define-color dialog_fg_color #{{colors.foreground}};
+@define-color popover_bg_color #{{colors.surface}};
+@define-color popover_fg_color #{{colors.foreground}};
+@define-color sidebar_bg_color #{{colors.background}};
+@define-color sidebar_fg_color #{{colors.foreground}};
+@define-color sidebar_backdrop_color #{{colors.background}};
+@define-color secondary_sidebar_bg_color #{{colors.surface}};
+@define-color secondary_sidebar_fg_color #{{colors.foreground}};
+@define-color secondary_sidebar_backdrop_color #{{colors.surface}};
+@define-color accent_bg_color #{{colors.accent}};
+@define-color accent_fg_color #{{colors.on_accent}};
+@define-color accent_color #{{colors.accent}};
+@define-color destructive_bg_color #{{colors.red}};
+@define-color destructive_fg_color #{{colors.on_accent}};
+@define-color destructive_color #{{colors.red}};
+@define-color success_color #{{colors.green}};
+@define-color warning_color #{{colors.yellow}};
+@define-color error_color #{{colors.red}};
+
 :root {
+    --sidebar-bg-color: #{{colors.background}};
+    --sidebar-fg-color: #{{colors.foreground}};
+    --sidebar-backdrop-color: #{{colors.background}};
+    --sidebar-border-color: rgba(0, 0, 0, 0.25);
+    --sidebar-shade-color: rgba(0, 0, 0, 0.25);
+    --secondary-sidebar-bg-color: #{{colors.surface}};
+    --secondary-sidebar-fg-color: #{{colors.foreground}};
+    --secondary-sidebar-backdrop-color: #{{colors.surface}};
+    --secondary-sidebar-border-color: rgba(0, 0, 0, 0.25);
+    --secondary-sidebar-shade-color: rgba(0, 0, 0, 0.25);
+    --headerbar-backdrop-color: #{{colors.surface}};
+    --headerbar-border-color: #{{colors.border}};
     --window-bg-color: #{{colors.background}};
     --window-fg-color: #{{colors.foreground}};
     --view-bg-color: #{{colors.surface}};

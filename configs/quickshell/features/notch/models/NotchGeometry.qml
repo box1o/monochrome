@@ -9,8 +9,10 @@ QtObject {
     property real contentHeight: 0
     property real maximumHeight: style.expandedHeight
     readonly property real widthLimit: Math.max(0, availableWidth - 2 * style.shoulder)
-    readonly property real expandedWidth: Math.min(style.expandedWidth, widthLimit)
-    property real expandedHeight: Math.min(Math.max(style.compactHeight, contentHeight), maximumHeight, Math.max(0, availableHeight))
+    property real preferredWidth: style.expandedWidth
+    readonly property real expandedWidth: Math.min(preferredWidth, widthLimit)
+    readonly property real targetHeight: Math.min(Math.max(style.compactHeight, contentHeight), maximumHeight, Math.max(0, availableHeight))
+    property real expandedHeight: targetHeight
     readonly property real compactHeight: Math.min(style.compactHeight, expandedHeight)
     property real compactWidth: Math.min(expandedWidth, Math.max(style.compactWidth, contentWidth))
     // Clamp animated values as well as targets: the width spring can overshoot.

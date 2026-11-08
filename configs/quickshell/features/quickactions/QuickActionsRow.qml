@@ -10,11 +10,11 @@ RowLayout {
     required property QtObject notifications
     required property QtObject tokens
 
-    signal phoneRequested
-    signal sessionRequested
-    signal notificationsRequested
+    signal phoneRequested()
+    signal sessionRequested()
+    signal notificationsRequested()
 
-    spacing: 8
+    spacing: row.tokens.spacing
 
     CoffeeButton {
         Layout.fillWidth: true
@@ -60,7 +60,6 @@ RowLayout {
         tokens: row.tokens
         iconName: "bell"
         description: row.notifications.count > 0 ? row.notifications.count + " notifications" : "Notifications"
-
         active: row.notifications.count > 0
         onClicked: row.notificationsRequested()
     }

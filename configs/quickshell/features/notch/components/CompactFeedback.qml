@@ -13,6 +13,46 @@ Item {
     required property QtObject tokens
     required property QtObject style
     required property QtObject geometry
+    readonly property string activityKey: presentation.kind === "connection" ? presentation.kind + ":" + feedback.revision : presentation.kind
+    property real arrival: 1
+
+    onActivityKeyChanged: {
+        if (presentation.activityVisible && tokens.motionEnabled)
+            entrance.restart();
+    }
+
+    SequentialAnimation {
+        id: entrance
+
+        PropertyAction {
+            target: compact
+            property: "arrival"
+            value: 0
+        }
+        NumberAnimation {
+            target: compact
+            property: "arrival"
+            to: 1
+            duration: compact.tokens.normalDuration
+            easing.type: Easing.OutCubic
+        }
+    }
+
+    Connections {
+        target: compact.tokens
+        function onMotionEnabledChanged() {
+            if (!compact.tokens.motionEnabled) {
+                entrance.stop();
+                compact.arrival = 1;
+            }
+        }
+    }
+
+    opacity: arrival * Math.max(0, 1 - geometry.progress * 3)
+    transform: Translate {
+        y: (1 - compact.arrival) * 4
+    }
+
     readonly property real contentWidth: {
         switch (presentation.kind) {
         case "connection":

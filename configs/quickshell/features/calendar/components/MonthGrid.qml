@@ -40,7 +40,7 @@ GridLayout {
                 color: day.modelData.isToday ? grid.tokens.background : day.modelData.inMonth ? grid.tokens.foreground : grid.tokens.muted
                 opacity: day.modelData.inMonth ? 1 : 0.45
                 font.family: grid.tokens.monoFamily
-                font.pixelSize: grid.tokens.fontSize - 3
+                font.pixelSize: grid.tokens.labelSize
                 font.bold: day.modelData.isToday
             }
         }

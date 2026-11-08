@@ -1,0 +1,2 @@
+/* Generated from themes/mono.yaml. Do not edit. */
+:root { --spice-main: #{{colors.background}}; --spice-sidebar: #{{colors.background}}; --spice-player: #{{colors.surface}}; --spice-text: #{{colors.foreground}}; --spice-subtext: #{{colors.muted}}; }

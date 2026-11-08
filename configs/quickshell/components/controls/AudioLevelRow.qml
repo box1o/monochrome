@@ -14,10 +14,12 @@ ColumnLayout {
     property real volume: 0
     property bool muted: false
     property bool available: true
+
     signal volumeRequested(real value)
-    signal muteRequested
+    signal muteRequested()
 
     spacing: 4
+
     RowLayout {
         Layout.fillWidth: true
         visible: !row.titleInside
@@ -30,7 +32,7 @@ ColumnLayout {
             textFormat: Text.PlainText
             color: row.tokens.foreground
             font.family: row.tokens.fontFamily
-            font.pixelSize: row.tokens.fontSize - 3
+            font.pixelSize: row.tokens.labelSize
         }
 
         Text {
@@ -42,7 +44,7 @@ ColumnLayout {
             elide: Text.ElideRight
             color: row.tokens.muted
             font.family: row.tokens.fontFamily
-            font.pixelSize: row.tokens.fontSize - 4
+            font.pixelSize: row.tokens.detailSize
         }
     }
 

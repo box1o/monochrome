@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from themes/mono.yaml. -->
+<style-scheme id="mono" name="Mono" version="1.0">
+  <author>Mono</author>
+  <description>Shared Mono system palette</description>
+  <style name="text" foreground="#{{colors.foreground}}" background="#{{colors.background}}"/>
+  <style name="selection" foreground="#{{colors.on_accent}}" background="#{{colors.accent}}"/>
+  <style name="cursor" foreground="#{{colors.accent}}"/>
+  <style name="current-line" background="#{{colors.surface}}"/>
+  <style name="line-numbers" foreground="#{{colors.muted}}" background="#{{colors.background}}"/>
+  <style name="search-match" foreground="#{{colors.background}}" background="#{{colors.yellow}}"/>
+  <style name="def:comment" foreground="#{{colors.muted}}" italic="true"/>
+  <style name="def:string" foreground="#{{colors.green}}"/>
+  <style name="def:constant" foreground="#{{colors.yellow}}"/>
+  <style name="def:number" foreground="#{{colors.yellow}}"/>
+  <style name="def:keyword" foreground="#{{colors.accent}}"/>
+  <style name="def:type" foreground="#{{colors.cyan}}"/>
+  <style name="def:function" foreground="#{{colors.blue}}"/>
+  <style name="def:preprocessor" foreground="#{{colors.magenta}}"/>
+  <style name="def:error" foreground="#{{colors.red}}"/>
+</style-scheme>

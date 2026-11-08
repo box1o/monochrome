@@ -8,7 +8,7 @@ MenuPage {
 
     required property QtObject model
 
-    signal backRequested
+    signal backRequested()
 
     Keys.onLeftPressed: model.moveSelection(-1)
     Keys.onRightPressed: model.moveSelection(1)
@@ -33,7 +33,7 @@ MenuPage {
             id: actions
 
             Layout.fillWidth: true
-            spacing: 8
+            spacing: page.tokens.spacing
 
             Repeater {
                 model: page.model.actions

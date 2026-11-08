@@ -11,11 +11,12 @@ AbstractButton {
     property color color: tokens.muted
     property bool spinning: false
 
-    implicitWidth: 30
-    implicitHeight: 30
+    implicitWidth: tokens.buttonSize
+    implicitHeight: tokens.buttonSize
     padding: 7
     hoverEnabled: true
     Accessible.name: description
+
     ButtonTooltip {
         parent: button
         tokens: button.tokens
@@ -27,7 +28,7 @@ AbstractButton {
         radius: width / 2
         color: button.tokens.alpha(button.color, button.down ? 0.18 : button.hovered ? 0.1 : 0)
         border.width: button.visualFocus ? 1 : 0
-        border.color: button.tokens.border
+        border.color: button.tokens.focusColor
 
         Behavior on color {
             ColorAnimation {

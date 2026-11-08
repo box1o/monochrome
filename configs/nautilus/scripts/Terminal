@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# shellcheck source=/dev/null
+source "$HOME/.local/libexec/mono/.init.sh" || exit $?
+exec::run --quiet -- bash "$MONO_HELPER_DIR/desktop/files.sh" terminal "$@"

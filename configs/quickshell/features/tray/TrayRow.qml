@@ -17,7 +17,7 @@ Flow {
         verticalAlignment: Text.AlignVCenter
         color: tray.tokens.muted
         font.family: tray.tokens.monoFamily
-        font.pixelSize: tray.tokens.fontSize - 5
+        font.pixelSize: tray.tokens.captionSize
         font.letterSpacing: 1
     }
 

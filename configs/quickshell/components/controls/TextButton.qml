@@ -7,11 +7,13 @@ Button {
     required property QtObject tokens
     property string description: text
     property color textColor: tokens.foreground
+    property bool selected: false
 
     implicitWidth: Math.max(32, label.implicitWidth + 20)
-    implicitHeight: 26
+    implicitHeight: tokens.buttonSize
     hoverEnabled: true
     Accessible.name: description
+
     ButtonTooltip {
         parent: button
         tokens: button.tokens
@@ -21,9 +23,9 @@ Button {
 
     background: Rectangle {
         radius: button.tokens.radius_small
-        color: button.down ? Qt.rgba(1, 1, 1, 0.16) : button.hovered ? Qt.rgba(1, 1, 1, 0.08) : "transparent"
+        color: button.down ? button.tokens.pressedBackground : button.selected ? button.tokens.selectionBackground : button.hovered ? button.tokens.hoverBackground : "transparent"
         border.width: button.visualFocus ? 1 : 0
-        border.color: button.textColor
+        border.color: button.tokens.focusColor
     }
 
     contentItem: Text {
@@ -33,7 +35,7 @@ Button {
         textFormat: Text.PlainText
         color: button.textColor
         font.family: button.tokens.fontFamily
-        font.pixelSize: button.tokens.fontSize - 3
+        font.pixelSize: button.tokens.labelSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

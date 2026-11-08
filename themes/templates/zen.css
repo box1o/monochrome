@@ -1,0 +1,69 @@
+/* Generated from themes/mono.yaml. Do not edit. */
+:root,
+:root[lwt-sidebar] {
+    color-scheme: dark !important;
+    --zen-primary-color: #{{colors.accent}} !important;
+    --zen-colors-primary: #{{colors.surface}} !important;
+    --zen-colors-secondary: #{{colors.surface_bright}} !important;
+    --zen-colors-tertiary: #{{colors.background}} !important;
+    --zen-colors-border: #{{colors.surface_bright}} !important;
+    --zen-colors-input-bg: #{{colors.surface}} !important;
+    --zen-main-browser-background: #{{colors.background}} !important;
+    --zen-main-browser-background-toolbar: #{{colors.background}} !important;
+    --zen-dialog-background: #{{colors.surface}} !important;
+    --zen-colors-hover-bg: #{{colors.surface_bright}} !important;
+    --zen-colors-text: #{{colors.foreground}} !important;
+    --zen-colors-text-muted: #{{colors.muted}} !important;
+    --toolbar-bgcolor: #{{colors.background}} !important;
+    --toolbar-color: #{{colors.foreground}} !important;
+    --toolbar-field-background-color: #{{colors.surface}} !important;
+    --toolbar-field-color: #{{colors.foreground}} !important;
+    --toolbar-field-focus-background-color: #{{colors.surface}} !important;
+    --toolbar-field-focus-color: #{{colors.foreground}} !important;
+    --toolbar-field-focus-border-color: #{{colors.border}} !important;
+    --lwt-accent-color: #{{colors.background}} !important;
+    --lwt-text-color: #{{colors.foreground}} !important;
+    --lwt-sidebar-background-color: #{{colors.background}} !important;
+    --lwt-sidebar-text-color: #{{colors.foreground}} !important;
+    --tab-selected-bgcolor: #{{colors.surface_bright}} !important;
+    --tab-selected-textcolor: #{{colors.foreground}} !important;
+    --tab-hover-background-color: #{{colors.surface}} !important;
+    --arrowpanel-background: #{{colors.surface}} !important;
+    --arrowpanel-color: #{{colors.foreground}} !important;
+    --arrowpanel-border-color: #{{colors.surface_bright}} !important;
+    --arrowpanel-dimmed: #{{colors.surface_bright}} !important;
+    --panel-background: #{{colors.surface}} !important;
+    --panel-color: #{{colors.foreground}} !important;
+    --input-bgcolor: #{{colors.surface}} !important;
+    --input-color: #{{colors.foreground}} !important;
+    --input-border-color: #{{colors.border}} !important;
+    --button-background-color: #{{colors.surface_bright}} !important;
+    --button-color: #{{colors.foreground}} !important;
+    --button-background-color-primary: #{{colors.accent}} !important;
+    --button-text-color-primary: #{{colors.on_accent}} !important;
+    --color-accent-primary: #{{colors.accent}} !important;
+    --color-accent-primary-hover: #{{colors.accent}} !important;
+    --color-accent-primary-active: #{{colors.accent}} !important;
+    --color-accent-primary-contrast: #{{colors.on_accent}} !important;
+    --link-color: #{{colors.blue}} !important;
+    --focus-outline-color: #{{colors.border}} !important;
+}
+
+#main-window,
+#browser,
+#zen-main-app-wrapper,
+#navigator-toolbox {
+    background: #{{colors.background}} !important;
+    color: #{{colors.foreground}} !important;
+}
+
+#urlbar-background,
+#searchbar {
+    background: #{{colors.surface}} !important;
+    border-color: #{{colors.surface_bright}} !important;
+}
+
+::selection {
+    background: #{{colors.accent}}66 !important;
+    color: #{{colors.foreground}} !important;
+}

@@ -42,7 +42,7 @@ QuickActionButton {
             text: "Coffee mode"
             color: button.color
             font.family: button.tokens.monoFamily
-            font.pixelSize: button.tokens.fontSize - 3
+            font.pixelSize: button.tokens.labelSize
         }
 
         Rectangle {

@@ -21,7 +21,17 @@ QtObject {
         volume: 0.25
     }
 
+    readonly property SoundEffect notification: SoundEffect {
+        source: sounds.directory + "screenshot.wav"
+        volume: 0.125
+    }
+
     function play(name) {
+        if (name === "notification") {
+            notification.stop();
+            notification.play();
+            return;
+        }
         const effects = {
             "charge": charge,
             "connect": connected,

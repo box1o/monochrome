@@ -64,18 +64,25 @@ function score(query, candidate) {
     return distance <= limit ? 450 - distance * 60 : -1;
 }
 
-// Candidates and terms are normalized by their search adapter.
-function textScore(term, text) {
+// Normalize once in the feature's adapter, then prepare reusable word data.
+function prepare(text) {
     const words = text.split(/[\s._:+\/()\-]+/).filter(Boolean);
-    const fullMatch = score(term, text);
+    return {text: text, words: words, initials: words.map(word => word[0]).join("")};
+}
+
+function preparedScore(term, candidate) {
+    const fullMatch = score(term, candidate.text);
     let best = fullMatch < 0 ? -1 : fullMatch + 50;
-    for (const word of words) {
+    for (const word of candidate.words) {
         const wordMatch = score(term, word);
         if (wordMatch >= 0)
             best = Math.max(best, wordMatch - 50);
     }
-    const initials = words.map(word => word[0]).join("");
-    if (term.length >= 2 && initials.startsWith(term))
+    if (term.length >= 2 && candidate.initials.startsWith(term))
         best = Math.max(best, 800);
     return best;
+}
+
+function textScore(term, text) {
+    return preparedScore(term, prepare(text));
 }

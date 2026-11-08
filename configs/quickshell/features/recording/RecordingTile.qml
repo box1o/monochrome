@@ -28,7 +28,7 @@ AbstractButton {
     }
 
     contentItem: RowLayout {
-        spacing: 8
+        spacing: tile.tokens.spacing
 
         Rectangle {
             width: 16
@@ -36,23 +36,23 @@ AbstractButton {
             radius: 8
             color: "transparent"
             border.width: 1
-            border.color: tile.source.active ? "#ef6b73" : tile.tokens.muted
+            border.color: tile.source.active ? tile.tokens.red : tile.tokens.muted
 
             Rectangle {
                 anchors.centerIn: parent
                 width: 7
                 height: 7
                 radius: tile.source.active ? 2 : 5
-                color: tile.source.active ? "#ef6b73" : tile.tokens.foreground
+                color: tile.source.active ? tile.tokens.red : tile.tokens.foreground
             }
         }
 
         Text {
             Layout.fillWidth: true
             text: tile.source.active ? "Stop recording" : "Screen recording"
-            color: tile.source.active ? "#ef6b73" : tile.tokens.muted
+            color: tile.source.active ? tile.tokens.red : tile.tokens.muted
             font.family: tile.tokens.fontFamily
-            font.pixelSize: tile.tokens.fontSize - 4
+            font.pixelSize: tile.tokens.detailSize
         }
     }
 }

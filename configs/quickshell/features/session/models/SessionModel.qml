@@ -10,6 +10,10 @@ QtObject {
     readonly property var actions: source.actions
     readonly property bool busy: source.busy
     readonly property string error: source.error
+    readonly property Timer confirmation: Timer {
+        interval: 2600
+        onTriggered: model.resetConfirmation()
+    }
 
     function resetConfirmation() {
         pending = "";
@@ -29,6 +33,7 @@ QtObject {
         const index = actions.findIndex(item => item.id === id);
         if (!active || busy || index < 0)
             return;
+
         current = index;
         if (id !== "lock" && pending !== id) {
             pending = id;
@@ -40,9 +45,4 @@ QtObject {
     }
 
     onActiveChanged: resetConfirmation()
-
-    readonly property Timer confirmation: Timer {
-        interval: 2600
-        onTriggered: model.resetConfirmation()
-    }
 }

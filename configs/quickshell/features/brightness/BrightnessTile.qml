@@ -6,7 +6,8 @@ OverviewCard {
     id: tile
 
     required property QtObject source
-    signal openRequested
+
+    signal openRequested()
 
     TapHandler {
         acceptedButtons: Qt.LeftButton
@@ -19,7 +20,7 @@ OverviewCard {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 7
+        anchors.margins: tile.tokens.cardInset
         spacing: 2
 
         RowLayout {
@@ -30,7 +31,7 @@ OverviewCard {
                 text: "Brightness"
                 color: tile.tokens.foreground
                 font.family: tile.tokens.fontFamily
-                font.pixelSize: tile.tokens.fontSize - 3
+                font.pixelSize: tile.tokens.labelSize
                 font.bold: true
             }
 
@@ -42,7 +43,7 @@ OverviewCard {
                 elide: Text.ElideRight
                 color: tile.source.error ? tile.tokens.red : tile.tokens.muted
                 font.family: tile.tokens.fontFamily
-                font.pixelSize: tile.tokens.fontSize - 5
+                font.pixelSize: tile.tokens.captionSize
             }
         }
 

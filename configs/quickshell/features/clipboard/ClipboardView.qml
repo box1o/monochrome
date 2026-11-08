@@ -8,7 +8,7 @@ MenuPage {
 
     required property QtObject model
 
-    signal backRequested
+    signal backRequested()
 
     initialFocusItem: search
     contentItem: content
@@ -17,7 +17,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 8
+        spacing: page.tokens.spacing
 
         MenuHeader {
             Layout.fillWidth: true
@@ -57,6 +57,7 @@ MenuPage {
         MenuList {
             id: history
 
+            motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
             model: page.model.results

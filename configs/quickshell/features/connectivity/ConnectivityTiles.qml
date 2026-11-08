@@ -14,7 +14,7 @@ RowLayout {
     signal wifiRequested
     signal bluetoothRequested
 
-    spacing: 8
+    spacing: tiles.tokens.spacing
     ConnectionTile {
         Layout.fillWidth: true
         Layout.preferredWidth: 1
