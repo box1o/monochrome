@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# shellcheck source=d-log.lib.sh
+. "$(gbl log)"
+
+# shellcheck disable=SC2034 # Metadata read dynamically by d.
+gblcmd_descr_help='show project commands'
+
+gblcmd_help() { d help; }

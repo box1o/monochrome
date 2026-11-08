@@ -1,0 +1,21 @@
+{
+  "font.conf": "fontconfig/60-mono-font.conf",
+  "kitty.conf": "kitty/theme.conf",
+  "nvim.lua": "nvim/lua/mono/palette.lua",
+  "tmux.conf": "tmux/theme.conf",
+  "wallpaper.conf": "hypr/hyprpaper.conf",
+  "lock.conf": "hypr/hyprlock.conf",
+  "hypr.lua": "hypr/theme.lua",
+  "toolkit.conf": "hypr/hyprtoolkit.conf",
+  "style.conf": "hypr/application-style.conf",
+  "tokens.qml": "quickshell/MonoTokens.qml",
+  "notch.qml": "quickshell/theme/NotchStyle.qml",
+  "engine.conf": "hypr/hyprqt6engine.conf",
+  "palette.conf": "qt/mono.conf",
+  "qt.conf": "qt5ct/qt5ct.conf",
+  "appearance.json": "appearance/settings.json",
+  "gtk.ini": "gtk-3.0/settings.ini",
+  "adwaita.ini": "gtk-4.0/settings.ini",
+  "gtk.css": "gtk-3.0/gtk.css",
+  "adwaita.css": "gtk-4.0/gtk.css"
+}

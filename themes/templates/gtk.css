@@ -1,0 +1,18 @@
+/* Generated from themes/mono.yaml. */
+@define-color theme_bg_color #{{colors.background}};
+@define-color theme_fg_color #{{colors.foreground}};
+@define-color theme_base_color #{{colors.surface}};
+@define-color theme_text_color #{{colors.foreground}};
+@define-color theme_selected_bg_color #{{colors.accent}};
+@define-color theme_selected_fg_color #{{colors.on_accent}};
+@define-color borders #{{colors.border}};
+@define-color warning_color #{{colors.yellow}};
+@define-color error_color #{{colors.red}};
+@define-color success_color #{{colors.green}};
+
+image { -gtk-icon-transform: scale({{computed.icon_scale}}); }
+
+button, entry, spinbutton {
+    border-radius: {{geometry.radius_small}}px;
+    transition-duration: {{duration.fast_ms}}ms;
+}

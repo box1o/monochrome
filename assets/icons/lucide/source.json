@@ -1,0 +1,359 @@
+{
+  "project": "Lucide",
+  "license": "ISC",
+  "files": [
+    {
+      "file": "search.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/search.svg",
+      "upstream_sha256": "283d371c2e433817bb9c0c8310caa6c77fa4177c0f4f1168d9c83b97af7389dc",
+      "sha256": "eddc2cb44a44ce4876cc24865a87ffadd2769831126726dcb4a9cb06b27d61b6",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "arrow-up-right.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/arrow-up-right.svg",
+      "upstream_sha256": "50b2503b9d11881142255466b7e3461d022b919735841c321d72003ac9959fe1",
+      "sha256": "0cc29d4f3d0129dfa7c9725c19d10dd0a10ae267e1e8d957b139ed4810fd43ab",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "LICENSE",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
+      "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "file": "wifi.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/wifi.svg",
+      "upstream_sha256": "5c4c795d014fa95d1e1038362df44a0f0f32ded9cb08c833ae72419ebadc9a91",
+      "sha256": "6d776c49bfa7a0d569c6a3b75a8b9c1f4847650386bb1ff31669580ec721fff3",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "bluetooth.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/bluetooth.svg",
+      "upstream_sha256": "f2bf3d88cf608834dc389f01b1ee41fdb7bf3656dabef69632c60d5498f3bf29",
+      "sha256": "609dc41fc52fab368d711f7adbd883f221be3c9bf8cc2cdce1d3eb5b7c36fb08",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "rotate-cw.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/rotate-cw.svg",
+      "upstream_sha256": "ddcfe6d87240475946935e77411cd4d15a06f3d28a9b921bafed224ebe953668",
+      "sha256": "6dda367ef50650b9cb0142fab68477acbe4287d84201a26553698f75b259878c",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "chevron-left.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/chevron-left.svg",
+      "upstream_sha256": "83b0681aa38bf55e9d52a1e4b4cced624abe1fe7678ecafda133a574f1161d93",
+      "sha256": "ed154c553a94bb7d731637466f19f6394d4a7a7b14b773be3475e6621cc61d3c",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "wifi-off.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/wifi-off.svg",
+      "upstream_sha256": "318b290106e55c3505933f434d3663524206c7a44165a89508774fba4fdbaadd",
+      "sha256": "3e408eb882b366c1f2d452a02d65b26c07260fd97543a15af3e146ec7127b929",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "bluetooth-off.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/bluetooth-off.svg",
+      "upstream_sha256": "61d26b013859d73ddf585d7b6e460ab2a6f02ca3ec2faf4b646cf9054224c22c",
+      "sha256": "5029f5ca15c7761981950eae942d9233046456051a574b52041b167c709470ab",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "headphones.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/headphones.svg",
+      "upstream_sha256": "7719585dafa921805aefc21fc3262bbcc621507610a653b84e1632236650b35a",
+      "sha256": "0eaa6cde0b820d25667ee2623b5afdd20142aea6fb71f759a452272f7e4df6fa",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "mouse.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/mouse.svg",
+      "upstream_sha256": "e4238ad7b69d3c3d713fdc2284c8fb20c04781afe0be445539ce4f904c0a0e47",
+      "sha256": "81947879bf6d8c9a3867144ce9f1da04801f4b1664d5f551be5528dee108d894",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "keyboard.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/keyboard.svg",
+      "upstream_sha256": "f509925ca81964ed06251ad4702e989bb81a566ffc74d15c2226b4f07ded67be",
+      "sha256": "e9d7e0695bfd1fcfd8f964be48feff4404312c2d08f28b6aba9fd35a0193b840",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "smartphone.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/smartphone.svg",
+      "upstream_sha256": "f9fdb700b50feb5fc6436f53eb9813e9eb56a9071ac4cdcba69c7f7c1c13877d",
+      "sha256": "0051b292f2dfb6e384c5d1d7cbc8f438f3a34325524296474299c14b23a19362",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "speaker.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/speaker.svg",
+      "upstream_sha256": "89b12199bd24d0a1eac77bfcefc300625262016060ecdfc0092324cbf7eda7ce",
+      "sha256": "e49283d864f5e66cad5c1bd7d6e61656882ce59c779deb3432ea6faf9f3b6ace",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "gamepad-2.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/gamepad-2.svg",
+      "upstream_sha256": "b0671de7afbebdafc4d655d867d9851947170b906fb187e749410039df867509",
+      "sha256": "44dadd47a6db35b04979c4e0a910abb20e283782f16d9a9ff2db2ae70626c81b",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "laptop.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/laptop.svg",
+      "upstream_sha256": "b8389056d3b7125670b60a4bd03e6d4ecc440e228f4140e7b66c4e97dcb0dc70",
+      "sha256": "ca985eb20d9f663878e4ee7a69869b1411e777675c29419b3b37308ce5211fca",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "pencil.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/pencil.svg",
+      "upstream_sha256": "7e1ca7a6f5c1eb949671df762f2baadd32f5bd841d43153c3a15279af7d78d0c",
+      "sha256": "1c2d0388ee90c25395e1055c48af9e38d4010590799e402114c6cb6eca716b99",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "eye.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/eye.svg",
+      "upstream_sha256": "5bf90197dd7629cad64a2e48d1186a71559deb6121207d10e3dc5b19ebaffdcf",
+      "sha256": "1d348b071ee2e6d74c24f1c7633e831479600e3b937662eecab3ddc1a8543c3f",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "volume-2.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/volume-2.svg",
+      "upstream_sha256": "fb404f9c128a0579de67b399177631e5edb3502fdc247ceb30e8b15754b46071",
+      "sha256": "74f9f16db29b24d13ed7440bc70940ef6112398939c16e866559f5c0aad03448",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "volume-x.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/volume-x.svg",
+      "upstream_sha256": "f382e421b7aae01172989f2b749ee87e44c0c82c16970b13a9ad5a323b613be0",
+      "sha256": "8930bd03bec5e3886b003938b20a7055e9a9b2de46d721016e828c4a4040aa36",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "volume-2-bold.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/volume-2.svg",
+      "upstream_sha256": "fb404f9c128a0579de67b399177631e5edb3502fdc247ceb30e8b15754b46071",
+      "sha256": "c858e127adedf9e9c7472562d694215a8e6bb9384b730964694f317aae1af789",
+      "modification": "White base stroke and 2.6 stroke width for the compact volume control"
+    },
+    {
+      "file": "volume-x-bold.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/volume-x.svg",
+      "upstream_sha256": "f382e421b7aae01172989f2b749ee87e44c0c82c16970b13a9ad5a323b613be0",
+      "sha256": "9d69bc7c023abd7fbd9aefade9b881aebda8db54d1e41b0c6ca9a55014989158",
+      "modification": "White base stroke and 2.6 stroke width for the compact volume control"
+    },
+    {
+      "file": "mic.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/mic.svg",
+      "upstream_sha256": "9b940cd735d1ffa270ba670c4e677d9a09400f3fa81d6b3f405b12a3b67a59a8",
+      "sha256": "72b8e35a537c99881c212f64b0b186ae0a6567d1f5e8ad7a7f450cf6ec98134a",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "mic-off.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/mic-off.svg",
+      "upstream_sha256": "bcb5a033b4ecd182ec8d0d0945810ccc5147219b1a21c017b47fd4d5ae3a8320",
+      "sha256": "3a06a89ecaf8ee0a161052f0937fe4d8a964caee68dbc134ce6a0975f4718d0a",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "sun.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/sun.svg",
+      "upstream_sha256": "a3955c8b0425fcc5c9ba12d2bdd77fe53b2cd5dd05e7742a56f342e996fb2ef8",
+      "sha256": "49f0b6648cdf7243a074c22e43007e9b253a6213c887ac58a92e24b311cf8f30",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "brightness.svg",
+      "source": "https://raw.githubusercontent.com/google/material-design-icons/master/src/image/brightness_6/materialicons/24px.svg",
+      "license": "Apache-2.0",
+      "upstream_sha256": "eaa6d8593ee163458a4adcfe9a95da4f48e553d9af89dc18136cfba706cbc3ec",
+      "sha256": "dc3d86ff290e6744842718cd539d28dc0fc560d4c17776108549ba7e9c3e464e",
+      "modification": "White base fill for runtime theme tinting"
+    },
+    {
+      "file": "LICENSE-material",
+      "source": "https://raw.githubusercontent.com/google/material-design-icons/master/LICENSE",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "file": "tailscale.svg",
+      "source": "https://raw.githubusercontent.com/tailscale/tailscale/main/client/web/src/assets/icons/tailscale-logo.svg",
+      "upstream_sha256": "0312054e9a574dd82b1451e8a246eb55bdb5bc2b552ddbe08629583c3ce3276e",
+      "sha256": "cc408d3eb83b2ea99f855d11e1d45851824284211398f478b492783fcc2c4a6b",
+      "modification": "Official mark only; white fill for runtime tinting",
+      "license": "BSD-3-Clause; Tailscale trademark"
+    },
+    {
+      "file": "shield.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg",
+      "sha256": "71430cfc25abc5725e45d6139f131a68b56bd81341e7e842d09de250f0828261",
+      "upstream_sha256": "be32f6a86df7cbe43a83c439dd8849e5bcf5145e484d23420c20d8b98a78e82b",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "LICENSE-tailscale",
+      "source": "https://raw.githubusercontent.com/tailscale/tailscale/main/LICENSE",
+      "sha256": "a7ca6186a7963a0a60740f6047760eecd7a0234e8c38bd7e1e0bbcb324bda45b"
+    },
+    {
+      "file": "copy.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/copy.svg",
+      "upstream_sha256": "ea80e566c7a12628a447cb53179b19aea4f60b9143e2becd0d0f20bf260e5718",
+      "sha256": "ca48749c8d2eeb778e6afdfebc1d020cc9e9d610b9245dd88b0d231d6cdd1f27",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "activity.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/activity.svg",
+      "upstream_sha256": "050fbcda05e13c2051cf857683645e19c6b180861ef4d0cc28a6f09ba1ea1666",
+      "sha256": "e29489fda7db43c17763f123551877f601222573b537184a8e907f2a1f5a3746",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "play.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/play.svg",
+      "upstream_sha256": "d7c34786135922a92b6896f6c2384ceeb0346afbf6041dc79982011411409833",
+      "sha256": "a7a0c67ca97be73378f9cd7f89535aba10459a447ca17f6a47adf2b7e507b670",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "pause.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/pause.svg",
+      "upstream_sha256": "f122ec4ea7f5693a0b1baafa9c708b53980dc87b4aacb297c6e6f71c1a4c115c",
+      "sha256": "c0eaefadd9387f15c1ff0146b55b909b07a1e90dfbabfe5890e66887d6e4100c",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "skip-back.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/skip-back.svg",
+      "upstream_sha256": "901579624a7d28036a39b3b8bd9e6da0e8cf771a79c67836d8a52b3e2287c031",
+      "sha256": "e14a8410c2cb471edbd56027380cc3309d1bb21fb9f879cab1fd7b528342c4ea",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "skip-forward.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/skip-forward.svg",
+      "upstream_sha256": "f6bdc4b8d453332bafcf1366a48d5ece4bd4f15eced97c85c3676bd22c5cadf9",
+      "sha256": "6c0d69c54892e346de1e5066445dec2afecc90a2f7701b34893d2d7056aeea02",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "music.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/music.svg",
+      "upstream_sha256": "8721b8a3594219c1313c4083049e5a5c049f49c47b1cd93fdb61d52a0803e42b",
+      "sha256": "6aafa9db29e828390623457ef973e71f3c17bbede041b9178cfeb10395c7cfdf",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "battery.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/battery.svg",
+      "upstream_sha256": "b45b15b383dc8db5cc269e012990939b4520baa8e94068adca2b9786aec9c5cb",
+      "sha256": "a1b248a72360972919859134d86b5dc1f0ef379af24e525b63f7c1e36811cca7",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "battery-charging.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/battery-charging.svg",
+      "upstream_sha256": "e82992b504682d1611da1bd5f77ef3c56231d883aff6bb906883919e785388d2",
+      "sha256": "6910dfb65fb51a299050c6ca2498d11f5aff119d0d04e686b92417d2be7e8677",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "timer.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/timer.svg",
+      "upstream_sha256": "6771297be65225d462c930865b6f9ee1617aa453885be4c8116a7512a77ac2b6",
+      "sha256": "ca31a578bc37f4524d1c5669f02a748b31b35f8ebc4a24358c3a842f7fe2a291",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "rotate-ccw.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/rotate-ccw.svg",
+      "upstream_sha256": "622685386ab4017eabfde01cd74550a20b1924df233b353f73b6b155371f2afd",
+      "sha256": "86a21c6888f55e7b00a9f24f0c116666f44aa5d7a75a635321832038fe0a0559",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "leaf.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/leaf.svg",
+      "upstream_sha256": "a6cd15ecfaed579da29311eedc19302209e82515be83bfeca114183b0318a56f",
+      "sha256": "ec9ee4b2d9b56b75caed81b7c1bd462912309ae085590477bb1b9d7616453f19",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "gauge.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/gauge.svg",
+      "upstream_sha256": "d7710543a5085c5a61d0bbac1da8b89ef28e541b38ed739357991dff33d475b5",
+      "sha256": "1cba2a67bf00ab2da63fb01a4c9c4c7f09cf086fd9b4cb5b91ceead4b5c5d9fd",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "zap.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/0.468.0/icons/zap.svg",
+      "upstream_sha256": "6dd11565c1b7dfd277840499505ec96c2cc9201aa2a003beacb25225602b6831",
+      "sha256": "6f78c3c9f26cd82e2168d4579bbbb00c07a3bec2d7a3ffb4b61a83a621ba80c3",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "coffee.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/coffee.svg",
+      "upstream_sha256": "970595bdafac0df42c00b847d53fd00c2283ecc3b83881274de2aa7dbce2bbc8",
+      "sha256": "3293e6f2bf0b6d960b03ad817d39f457fa2e5c44faef2999f3149b4f0d5a137a",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "power.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/power.svg",
+      "upstream_sha256": "1e6b84a659aa43f826cdd8df0a63d349720004e2ccb10c33e415a990a311aa05",
+      "sha256": "30bf6ee87ebaa99e5084385555d11338065355e78f1ebbbad5dcf17abb79e52a",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "bell.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/bell.svg",
+      "upstream_sha256": "394889e9631fe3a9a63be9a479a95b451b708e432d895978d21d9130b5ee5dbe",
+      "sha256": "8b77c3a772ea639beecce8d072054d39856b6b5a5d6aa7830e24a1e32498da1b",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "bell-off.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/bell-off.svg",
+      "upstream_sha256": "14ad2775c3a594f09a79c195531778ae51302f847a9c558f720340d1e450bd6a",
+      "sha256": "f5f743b66b628c8731f2f35fb1626a22f2c54f6edb5fc459a4b6f7d1684dfa05",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "lock-keyhole.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/lock-keyhole.svg",
+      "upstream_sha256": "fc0b8b7590d1d9e9bb0112c5c2e15a78ade0bfeca6d6f8c79fbbe149236d74be",
+      "sha256": "efa0ad67da0bd3b09d87a1f509ddd22494223ccbf173d8b7f568c6597427f225",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "log-out.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/log-out.svg",
+      "upstream_sha256": "f24b5b45c05a3acc346af8095408f6ba197ff58ea1641a4f2cb25a9702d2c0ac",
+      "sha256": "93b1a486dd2d4e75b39c04fc4bc802fe4c58151644c49bca60cc227eb8bcd828",
+      "modification": "White base stroke for runtime theme tinting"
+    },
+    {
+      "file": "moon.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/moon.svg",
+      "upstream_sha256": "205b959e940d5841f0ce1d09c933153da9d9c94130a54d5cc0c68c2af1d403da",
+      "sha256": "085785edf1439c09c65e34987bb0219a0dc8c0cebc3cb83c77626d17f77d8a79",
+      "modification": "White base stroke for runtime theme tinting"
+    }
+  ]
+}

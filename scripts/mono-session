@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+# shellcheck source=/dev/null
+source "${BASH_SOURCE[0]%/*}/.init.sh" || exit $?
+
+script::init
+script::parse_command "$@"
+
+if args::has help; then
+    script::usage 'start|appearance|lock|logout|suspend|qt5 COMMAND [ARGUMENTS...]|run COMMAND [ARGUMENTS...]'
+    exit 0
+fi
+
+script::require_count 1 128
+set -- "${SCRIPT_ARGS[@]}"
+
+action=$1
+shift
+
+case "$action" in
+    start)
+        script::require_count 1 1
+        proc::require hyprpaper hypridle wl-paste cliphist systemd-run dbus-update-activation-environment
+        exec::run dbus-update-activation-environment --systemd \
+            WAYLAND_DISPLAY DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP \
+            QT_QPA_PLATFORM QT_QPA_PLATFORMTHEME XCURSOR_THEME XCURSOR_SIZE
+        if fs::is_file "${XDG_CONFIG_HOME:-$HOME/.config}/mono/appearance/settings.json"; then
+            exec::run bash "${HOME}/.local/bin/mono-session" appearance
+        fi
+        if fs::is_file "${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/shell.qml" && proc::exists qs; then
+            exec::run qs --no-duplicate --daemonize
+        fi
+        # Fixed unit names prevent duplicate background services within a login.
+        for service in hyprpaper hypridle; do
+            if ! exec::query systemctl --user is-active --quiet "mono-${service}.service"; then
+                exec::run systemd-run --user --collect --unit "mono-${service}" "$service"
+            fi
+        done
+        for kind in text image; do
+            if ! exec::query systemctl --user is-active --quiet "mono-clipboard-${kind}.service"; then
+                exec::run systemd-run --user --collect --unit "mono-clipboard-${kind}" \
+                    wl-paste --type "$kind" --watch cliphist store
+            fi
+        done
+        if proc::exists udiskie && ! exec::query pgrep -x udiskie >/dev/null; then
+            exec::run systemd-run --user --collect --unit mono-udiskie udiskie --no-notify
+        fi
+        if proc::exists systemctl; then
+            exec::run systemctl --user start hyprpolkitagent.service
+        fi
+        ;;
+    appearance)
+        script::require_count 1 1
+        if [[ ${SHELL_LIB_DRY_RUN:-false} == true ]]; then
+            exec::query bash "${MONO_HELPER_DIR}/tools/appearance.sh" --dry-run
+        else
+            exec::run --quiet -- bash "${MONO_HELPER_DIR}/tools/appearance.sh"
+        fi
+        ;;
+    lock)
+        script::require_count 1 1
+        proc::require hyprlock
+        exec::run hyprlock --config "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprlock.conf"
+        ;;
+    logout)
+        script::require_count 1 1
+        exec::run hyprctl dispatch 'hl.dsp.exit()'
+        ;;
+    suspend)
+        script::require_count 1 1
+        exec::run systemctl suspend
+        ;;
+    qt5)
+        (($#)) || {
+            log::error 'qt5 requires a command'
+            exit 2
+        }
+        exec::run env QT_QPA_PLATFORMTHEME=qt5ct "$@"
+        ;;
+    run)
+        (($#)) || {
+            log::error 'run requires a command'
+            exit 2
+        }
+        exec::run "$@"
+        ;;
+    *)
+        log::error "Unknown session action: $action"
+        exit 2
+        ;;
+esac

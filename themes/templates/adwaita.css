@@ -1,0 +1,31 @@
+/* Generated from themes/mono.yaml. */
+:root {
+    --window-bg-color: #{{colors.background}};
+    --window-fg-color: #{{colors.foreground}};
+    --view-bg-color: #{{colors.surface}};
+    --view-fg-color: #{{colors.foreground}};
+    --headerbar-bg-color: #{{colors.surface}};
+    --headerbar-fg-color: #{{colors.foreground}};
+    --card-bg-color: #{{colors.surface_bright}};
+    --card-fg-color: #{{colors.foreground}};
+    --dialog-bg-color: #{{colors.surface}};
+    --dialog-fg-color: #{{colors.foreground}};
+    --popover-bg-color: #{{colors.surface}};
+    --popover-fg-color: #{{colors.foreground}};
+    --accent-bg-color: #{{colors.accent}};
+    --accent-fg-color: #{{colors.on_accent}};
+    --accent-color: #{{colors.accent}};
+    --destructive-bg-color: #{{colors.red}};
+    --destructive-fg-color: #{{colors.on_accent}};
+    --destructive-color: #{{colors.red}};
+    --success-color: #{{colors.green}};
+    --warning-color: #{{colors.yellow}};
+}
+
+image, .normal-icons { -gtk-icon-size: {{fonts.icon_size}}px; }
+.large-icons { -gtk-icon-size: {{computed.icon_double}}px; }
+
+button, entry, spinbutton {
+    border-radius: {{geometry.radius_small}}px;
+    transition-duration: {{duration.fast_ms}}ms;
+}

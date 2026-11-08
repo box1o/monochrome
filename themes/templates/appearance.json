@@ -1,0 +1,10 @@
+{
+  "gtk-theme": "{{appearance.gtk_theme}}",
+  "icon-theme": "{{appearance.icons}}",
+  "cursor-theme": "{{appearance.cursor}}",
+  "cursor-size": {{appearance.cursor_size}},
+  "font-name": "{{fonts.family}} {{fonts.size}}",
+  "monospace-font-name": "{{fonts.mono_family}} {{fonts.size}}",
+  "color-scheme": "prefer-dark",
+  "enable-animations": {{motion.enabled}}
+}

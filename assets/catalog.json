@@ -1,0 +1,793 @@
+{
+  "source_images": 45,
+  "distinct_images": 36,
+  "duplicates": 9,
+  "default_wallpaper": "ember_stripes.jpg",
+  "images": [
+    {
+      "source": "/home/woki/monochrome/configs/hypr/wallpapers/ember_stripes.jpg",
+      "sha256": "6f41cc8dc6e653e12f5e6a7fd2405e865c4a20925c39a2e4ba66081cd89952fe",
+      "bytes": 4292009,
+      "pixels": 75853037,
+      "width": 10667,
+      "height": 7111,
+      "asset": "bg/ember_stripes.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/monochrome/configs/hypr/wallpapers/ember_stripes.jpg",
+          "sha256": "6f41cc8dc6e653e12f5e6a7fd2405e865c4a20925c39a2e4ba66081cd89952fe",
+          "bytes": 4292009,
+          "pixels": 75853037,
+          "width": 10667,
+          "height": 7111
+        },
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/ember_stripes.jpg",
+          "sha256": "6f41cc8dc6e653e12f5e6a7fd2405e865c4a20925c39a2e4ba66081cd89952fe",
+          "bytes": 4292009,
+          "pixels": 75853037,
+          "width": 10667,
+          "height": 7111
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/misty_peaks.jpg",
+      "sha256": "2181e6ad3e6498475bf614b289660edb1f8e117d25f382e586a0cd59cc2807ce",
+      "bytes": 4131326,
+      "pixels": 21701800,
+      "width": 5711,
+      "height": 3800,
+      "asset": "bg/misty_peaks.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/misty_peaks.jpg",
+          "sha256": "2181e6ad3e6498475bf614b289660edb1f8e117d25f382e586a0cd59cc2807ce",
+          "bytes": 4131326,
+          "pixels": 21701800,
+          "width": 5711,
+          "height": 3800
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Documents/wallhaven-8g8v11.png",
+      "sha256": "eec0059b352459c17413e1eb468c631298a0d2298da3fdd8e5d1ca1088566ce3",
+      "bytes": 16698589,
+      "pixels": 20382208,
+      "width": 6016,
+      "height": 3388,
+      "asset": "bg/wallhaven-8g8v11.png",
+      "sources": [
+        {
+          "source": "/home/woki/Documents/wallhaven-8g8v11.png",
+          "sha256": "eec0059b352459c17413e1eb468c631298a0d2298da3fdd8e5d1ca1088566ce3",
+          "bytes": 16698589,
+          "pixels": 20382208,
+          "width": 6016,
+          "height": 3388
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/japan.jpg",
+      "sha256": "5d45aedc74624ccf6ef09e8cf8306e7cac0aedc61c7e42e58910dbb1e2a479c0",
+      "bytes": 10257144,
+      "pixels": 14745600,
+      "width": 5120,
+      "height": 2880,
+      "asset": "bg/japan.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/japan.jpg",
+          "sha256": "5d45aedc74624ccf6ef09e8cf8306e7cac0aedc61c7e42e58910dbb1e2a479c0",
+          "bytes": 10257144,
+          "pixels": 14745600,
+          "width": 5120,
+          "height": 2880
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(10).jpg",
+      "sha256": "4e845c183d955648bed3a946500d7cc7d9e2ab5e8c9b9db0f7edf886b7f2b461",
+      "bytes": 95412,
+      "pixels": 14745600,
+      "width": 5120,
+      "height": 2880,
+      "asset": "bg/wallpaperflare.com_wallpaper_10.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(10).jpg",
+          "sha256": "4e845c183d955648bed3a946500d7cc7d9e2ab5e8c9b9db0f7edf886b7f2b461",
+          "bytes": 95412,
+          "pixels": 14745600,
+          "width": 5120,
+          "height": 2880
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mico.png",
+      "sha256": "8c5d0684dbda7a0bd707b9cc05fe22b233f6238b8905fc1c6958594073ae5e57",
+      "bytes": 1268697,
+      "pixels": 13734400,
+      "width": 4640,
+      "height": 2960,
+      "asset": "bg/mico.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mico.png",
+          "sha256": "8c5d0684dbda7a0bd707b9cc05fe22b233f6238b8905fc1c6958594073ae5e57",
+          "bytes": 1268697,
+          "pixels": 13734400,
+          "width": 4640,
+          "height": 2960
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/cls-window.jpg",
+      "sha256": "3dc13d4d1f3622ea5197fcea019d36f0632e011024d8241a5345d435fc388242",
+      "bytes": 1509008,
+      "pixels": 13536000,
+      "width": 5640,
+      "height": 2400,
+      "asset": "bg/cls-window.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/cls-window.jpg",
+          "sha256": "3dc13d4d1f3622ea5197fcea019d36f0632e011024d8241a5345d435fc388242",
+          "bytes": 1509008,
+          "pixels": 13536000,
+          "width": 5640,
+          "height": 2400
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/wave.jpg",
+      "sha256": "5af1dfe22a04275d480108f4b94e2337551587599e9d9fcce74660ec253939c6",
+      "bytes": 876938,
+      "pixels": 12961650,
+      "width": 4335,
+      "height": 2990,
+      "asset": "bg/wave.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/wave.jpg",
+          "sha256": "5af1dfe22a04275d480108f4b94e2337551587599e9d9fcce74660ec253939c6",
+          "bytes": 876938,
+          "pixels": 12961650,
+          "width": 4335,
+          "height": 2990
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/petals.jpg",
+      "sha256": "cc27d9a0427e891a36b1dbc7577c3d6da6e28324f68719539aa27bbe2ea93836",
+      "bytes": 350692,
+      "pixels": 10108800,
+      "width": 4680,
+      "height": 2160,
+      "asset": "bg/petals.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/petals.jpg",
+          "sha256": "cc27d9a0427e891a36b1dbc7577c3d6da6e28324f68719539aa27bbe2ea93836",
+          "bytes": 350692,
+          "pixels": 10108800,
+          "width": 4680,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/cloudsnight.jpg",
+      "sha256": "8c1bfd88a05541b81dd5c9affae6e22501fbab27512594d2866c331222497030",
+      "bytes": 8149781,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/cloudsnight.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/cloudsnight.jpg",
+          "sha256": "8c1bfd88a05541b81dd5c9affae6e22501fbab27512594d2866c331222497030",
+          "bytes": 8149781,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/sword-draw.jpg",
+      "sha256": "dd3b3400b200626d1c1c666af0aff5143ffbe00442e7329200521a4f514d1b41",
+      "bytes": 2026739,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/sword-draw.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/sword-draw.jpg",
+          "sha256": "dd3b3400b200626d1c1c666af0aff5143ffbe00442e7329200521a4f514d1b41",
+          "bytes": 2026739,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/green.jpeg",
+      "sha256": "e0263be0dab8bf88b03fc8268840559de6295c24961881c7ceecd2fd842be824",
+      "bytes": 1554264,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/green.jpeg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/green.jpeg",
+          "sha256": "e0263be0dab8bf88b03fc8268840559de6295c24961881c7ceecd2fd842be824",
+          "bytes": 1554264,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mountain.jpg",
+      "sha256": "958eb89c34f15e6f3a30428c85267415a65298a43bdad9486fef1c465e80782f",
+      "bytes": 766801,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/mountain.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mountain.jpg",
+          "sha256": "958eb89c34f15e6f3a30428c85267415a65298a43bdad9486fef1c465e80782f",
+          "bytes": 766801,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/kanablue.jpg",
+      "sha256": "0fc78c94f6e4532367a404ecb699e5b9f7a4ede3dc9347458134fd3185e1ce25",
+      "bytes": 393116,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/kanablue.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/kanablue.jpg",
+          "sha256": "0fc78c94f6e4532367a404ecb699e5b9f7a4ede3dc9347458134fd3185e1ce25",
+          "bytes": 393116,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(9).jpg",
+      "sha256": "cdec392caabee9a11ec9ffdabb9ae9c1c4cfd44d1bc8a7d25bb6dfc9ec133318",
+      "bytes": 150645,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/wallpaperflare.com_wallpaper_9.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(9).jpg",
+          "sha256": "cdec392caabee9a11ec9ffdabb9ae9c1c4cfd44d1bc8a7d25bb6dfc9ec133318",
+          "bytes": 150645,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/linux.png",
+      "sha256": "c72328d0f8717bceace0ae36eac95f21c9c65afd2624a42b5f97d488b06dd067",
+      "bytes": 110807,
+      "pixels": 8294400,
+      "width": 3840,
+      "height": 2160,
+      "asset": "bg/linux.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/linux.png",
+          "sha256": "c72328d0f8717bceace0ae36eac95f21c9c65afd2624a42b5f97d488b06dd067",
+          "bytes": 110807,
+          "pixels": 8294400,
+          "width": 3840,
+          "height": 2160
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/windows-error.jpg",
+      "sha256": "62bdf59ca592d722e4c6ce86c5843a8c7c0a809f9bf62a8f7196c1634b2e18b8",
+      "bytes": 234184,
+      "pixels": 5184000,
+      "width": 2880,
+      "height": 1800,
+      "asset": "bg/windows-error.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/windows-error.jpg",
+          "sha256": "62bdf59ca592d722e4c6ce86c5843a8c7c0a809f9bf62a8f7196c1634b2e18b8",
+          "bytes": 234184,
+          "pixels": 5184000,
+          "width": 2880,
+          "height": 1800
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mandalorian.jpg",
+      "sha256": "ad09347484df9c230b9fd6f33fa58e2e4aa9e8930e63e7860b6b0451d6684ad3",
+      "bytes": 1558287,
+      "pixels": 4752384,
+      "width": 2912,
+      "height": 1632,
+      "asset": "bg/mandalorian.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mandalorian.jpg",
+          "sha256": "ad09347484df9c230b9fd6f33fa58e2e4aa9e8930e63e7860b6b0451d6684ad3",
+          "bytes": 1558287,
+          "pixels": 4752384,
+          "width": 2912,
+          "height": 1632
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/sater.jpg",
+      "sha256": "05d3491e1fffd44ad3836787780a600c7e9a52186eeac2b94df825340f97366d",
+      "bytes": 828493,
+      "pixels": 4194304,
+      "width": 2048,
+      "height": 2048,
+      "asset": "bg/sater.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/sater.jpg",
+          "sha256": "05d3491e1fffd44ad3836787780a600c7e9a52186eeac2b94df825340f97366d",
+          "bytes": 828493,
+          "pixels": 4194304,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(11).jpg",
+      "sha256": "1c54fb04d25e75020dec7bb5952ff37b369c656dc0a350318f62e63cc1b972b1",
+      "bytes": 111799,
+      "pixels": 4096000,
+      "width": 2560,
+      "height": 1600,
+      "asset": "bg/wallpaperflare.com_wallpaper_11.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(11).jpg",
+          "sha256": "1c54fb04d25e75020dec7bb5952ff37b369c656dc0a350318f62e63cc1b972b1",
+          "bytes": 111799,
+          "pixels": 4096000,
+          "width": 2560,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(12).jpg",
+      "sha256": "f2ad5ac15a0fcc2f780cc205d98c70175f0c5f698713b3d93779164e290face5",
+      "bytes": 57806,
+      "pixels": 4096000,
+      "width": 2560,
+      "height": 1600,
+      "asset": "bg/wallpaperflare.com_wallpaper_12.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(12).jpg",
+          "sha256": "f2ad5ac15a0fcc2f780cc205d98c70175f0c5f698713b3d93779164e290face5",
+          "bytes": 57806,
+          "pixels": 4096000,
+          "width": 2560,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/dominik-mayer.jpg",
+      "sha256": "91c7827de05f39a679823e5a8e54bce87db4ce8df89cde33c8484c99578de209",
+      "bytes": 459346,
+      "pixels": 3880000,
+      "width": 2500,
+      "height": 1552,
+      "asset": "bg/dominik-mayer.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/dominik-mayer.jpg",
+          "sha256": "91c7827de05f39a679823e5a8e54bce87db4ce8df89cde33c8484c99578de209",
+          "bytes": 459346,
+          "pixels": 3880000,
+          "width": 2500,
+          "height": 1552
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Documents/wallhaven-og7m19.jpg",
+      "sha256": "e062cd32aff60bd600d7e74d9a2c081f0400db86abb217bda617c7bd0040a960",
+      "bytes": 199335,
+      "pixels": 3686400,
+      "width": 2560,
+      "height": 1440,
+      "asset": "bg/wallhaven-og7m19.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Documents/wallhaven-og7m19.jpg",
+          "sha256": "e062cd32aff60bd600d7e74d9a2c081f0400db86abb217bda617c7bd0040a960",
+          "bytes": 199335,
+          "pixels": 3686400,
+          "width": 2560,
+          "height": 1440
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/ninja.png",
+      "sha256": "b54c28e1f0c8f79e366558eaa94eba9b7b0029db0f4fc58b0baf2c85233fe6b6",
+      "bytes": 4032255,
+      "pixels": 3682401,
+      "width": 2559,
+      "height": 1439,
+      "asset": "bg/ninja.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/ninja.png",
+          "sha256": "b54c28e1f0c8f79e366558eaa94eba9b7b0029db0f4fc58b0baf2c85233fe6b6",
+          "bytes": 4032255,
+          "pixels": 3682401,
+          "width": 2559,
+          "height": 1439
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/law.jpg",
+      "sha256": "39aa75f24d2d672c0b3c5a5232b83ac9683b1dce87518b00aeb95b82fb153360",
+      "bytes": 172016,
+      "pixels": 3135408,
+      "width": 2361,
+      "height": 1328,
+      "asset": "bg/law.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/law.jpg",
+          "sha256": "39aa75f24d2d672c0b3c5a5232b83ac9683b1dce87518b00aeb95b82fb153360",
+          "bytes": 172016,
+          "pixels": 3135408,
+          "width": 2361,
+          "height": 1328
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/anime-back.jpg",
+      "sha256": "606894a86a3e1f50901d9d8fbe36d2ac8a0a9edd5da4654238d095625ea08289",
+      "bytes": 229638,
+      "pixels": 2354946,
+      "width": 2046,
+      "height": 1151,
+      "asset": "bg/anime-back.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/anime-back.jpg",
+          "sha256": "606894a86a3e1f50901d9d8fbe36d2ac8a0a9edd5da4654238d095625ea08289",
+          "bytes": 229638,
+          "pixels": 2354946,
+          "width": 2046,
+          "height": 1151
+        },
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/girl.webp",
+          "sha256": "d6af83d7abeb63ed37d44d3cbc3e58fb3d854ade0f0f8e1db2fe237fa531beda",
+          "bytes": 66138,
+          "pixels": 655560,
+          "width": 1080,
+          "height": 607
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/kyjumnt.png",
+      "sha256": "a6c208c81734c77d7588a610c25639815131f3db37a8945ad30c2daf5b3fe40c",
+      "bytes": 2052830,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/kyjumnt.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/kyjumnt.png",
+          "sha256": "a6c208c81734c77d7588a610c25639815131f3db37a8945ad30c2daf5b3fe40c",
+          "bytes": 2052830,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/girl-with-cat.png",
+      "sha256": "f898788223ef6002e8b585f2b89d2aa02a433996329ff8112398b8211bead8b7",
+      "bytes": 1892736,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/girl-with-cat.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/girl-with-cat.png",
+          "sha256": "f898788223ef6002e8b585f2b89d2aa02a433996329ff8112398b8211bead8b7",
+          "bytes": 1892736,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mico_fixed.png",
+      "sha256": "a0a2890f208b485dab273b102c0dfafd63cf1cfe65b842df4223d1a2f1610ed0",
+      "bytes": 373304,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/mico_fixed.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/mico_fixed.png",
+          "sha256": "a0a2890f208b485dab273b102c0dfafd63cf1cfe65b842df4223d1a2f1610ed0",
+          "bytes": 373304,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/lady.png",
+      "sha256": "e81b117e0874fb70dad683c3d47830ef8abee82b4b54c7e8c5ad635fd2bba4ea",
+      "bytes": 164330,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/lady.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/lady.png",
+          "sha256": "e81b117e0874fb70dad683c3d47830ef8abee82b4b54c7e8c5ad635fd2bba4ea",
+          "bytes": 164330,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/life.jpg",
+      "sha256": "a6ef17f09247b9314ea282d7af72aa8ea43774b80928c2007e626d4d2f2985a4",
+      "bytes": 140614,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/life.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/life.jpg",
+          "sha256": "a6ef17f09247b9314ea282d7af72aa8ea43774b80928c2007e626d4d2f2985a4",
+          "bytes": 140614,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(1).jpg",
+      "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+      "bytes": 69020,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/wallpaperflare.com_wallpaper_1.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(1).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(2).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(3).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(4).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(5).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(6).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(7).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper(8).jpg",
+          "sha256": "b938532d5667d77b5c9daea2ac30b3c5206075b0a5a5d848d8426572ba771d2b",
+          "bytes": 69020,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper.jpg",
+      "sha256": "5676e902cf1e2349a6f7c51f41f802ded768ba9ecdc63db12034c242a559bf4c",
+      "bytes": 42470,
+      "pixels": 2073600,
+      "width": 1920,
+      "height": 1080,
+      "asset": "bg/wallpaperflare.com_wallpaper.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Downloads/wallpaperflare.com_wallpaper.jpg",
+          "sha256": "5676e902cf1e2349a6f7c51f41f802ded768ba9ecdc63db12034c242a559bf4c",
+          "bytes": 42470,
+          "pixels": 2073600,
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/NothingWall.png",
+      "sha256": "2fdf347c1b9a22d3f9c728259940b7286d0a995400e498965aff663c7e5be75b",
+      "bytes": 1551980,
+      "pixels": 1573352,
+      "width": 1672,
+      "height": 941,
+      "asset": "bg/nothingwall.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/NothingWall.png",
+          "sha256": "2fdf347c1b9a22d3f9c728259940b7286d0a995400e498965aff663c7e5be75b",
+          "bytes": 1551980,
+          "pixels": 1573352,
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/lianimgrl.png",
+      "sha256": "119d95e241388165e68c402575e849eff6251b50963cff3d1c5570e5d7dbc06b",
+      "bytes": 1903239,
+      "pixels": 1188096,
+      "width": 1456,
+      "height": 816,
+      "asset": "bg/lianimgrl.png",
+      "sources": [
+        {
+          "source": "/home/woki/tmp/backup/monochrome-20261107-140304/configs/hypr/wallpapers/lianimgrl.png",
+          "sha256": "119d95e241388165e68c402575e849eff6251b50963cff3d1c5570e5d7dbc06b",
+          "bytes": 1903239,
+          "pixels": 1188096,
+          "width": 1456,
+          "height": 816
+        }
+      ]
+    },
+    {
+      "source": "/home/woki/Documents/macos-mojave-night-wallpaper-preview.jpg",
+      "sha256": "46a1210a81756ff0d923b7006c4e4da4cab696b28185d0663fe887684164d86c",
+      "bytes": 15882,
+      "pixels": 295568,
+      "width": 728,
+      "height": 406,
+      "asset": "bg/macos-mojave-night-wallpaper-preview.jpg",
+      "sources": [
+        {
+          "source": "/home/woki/Documents/macos-mojave-night-wallpaper-preview.jpg",
+          "sha256": "46a1210a81756ff0d923b7006c4e4da4cab696b28185d0663fe887684164d86c",
+          "bytes": 15882,
+          "pixels": 295568,
+          "width": 728,
+          "height": 406
+        }
+      ]
+    }
+  ],
+  "read_errors": [],
+  "policy": "Original bytes; exact hash or aspect within 0.5%, dHash within 4 bits and thumbnail color RMS <=4. Highest pixel count wins; then original byte size.",
+  "sounds": [
+    {
+      "asset": "sounds/charge.wav",
+      "sha256": "7401b7c3b97fbc4567839e662e96966b4d2cac3179c3b39ce65f2b3d719a3451",
+      "seconds": 0.952,
+      "source": "examples/quickshell/sounds/charge.wav"
+    },
+    {
+      "asset": "sounds/connect.wav",
+      "sha256": "8b5b7a898deb39f59229239c7173b12a94e2f43c6db13de8ca425dd39b013117",
+      "seconds": 0.372,
+      "source": "examples/quickshell/sounds/connect.wav"
+    },
+    {
+      "asset": "sounds/disconnect.wav",
+      "sha256": "b91624830c53138b4c7dabecbdfaee6c129c0d9cb0772074b52c1e7b7897e3e5",
+      "seconds": 0.372,
+      "source": "examples/quickshell/sounds/disconnect.wav"
+    },
+    {
+      "asset": "sounds/screenshot.wav",
+      "sha256": "d83b0c8b758a106f98a1a246d7f3b3bc13cc94b1a7bffa3c251c85809923d6e8",
+      "seconds": 0.264,
+      "source": "examples/quickshell/sounds/screenshot.wav"
+    }
+  ],
+  "scope": "Visually reviewed wallpapers from top-level Documents and Downloads and the original wallpaper collection. Excludes desktop screenshots, generated artwork and unrelated project images."
+}
