@@ -1,0 +1,79 @@
+/* Generated from the Mono system palette. Keep Teams layouts and status colors. */
+:root,
+body,
+.fui-FluentProvider {
+    color-scheme: dark;
+    --colorNeutralBackground1: #{{colors.background}} !important;
+    --colorNeutralBackground1Hover: #{{colors.surface}} !important;
+    --colorNeutralBackground1Pressed: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground1Selected: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground2: #{{colors.surface}} !important;
+    --colorNeutralBackground2Hover: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground2Pressed: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground2Selected: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground3: #{{colors.background}} !important;
+    --colorNeutralBackground3Hover: #{{colors.surface}} !important;
+    --colorNeutralBackground3Pressed: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground3Selected: #{{colors.surface_bright}} !important;
+    --colorNeutralBackground4: #{{colors.background}} !important;
+    --colorNeutralBackground5: #{{colors.surface}} !important;
+    --colorNeutralBackground6: #{{colors.surface_bright}} !important;
+    --colorNeutralBackgroundStatic: #{{colors.background}} !important;
+    --colorNeutralBackgroundInverted: #{{colors.foreground}} !important;
+    --colorNeutralBackgroundDisabled: #{{colors.surface}} !important;
+    --colorNeutralForeground1: #{{colors.foreground}} !important;
+    --colorNeutralForeground1Hover: #{{colors.foreground}} !important;
+    --colorNeutralForeground1Pressed: #{{colors.foreground}} !important;
+    --colorNeutralForeground1Selected: #{{colors.foreground}} !important;
+    --colorNeutralForeground2: #{{colors.muted}} !important;
+    --colorNeutralForeground2Hover: #{{colors.foreground}} !important;
+    --colorNeutralForeground2Pressed: #{{colors.foreground}} !important;
+    --colorNeutralForeground2Selected: #{{colors.foreground}} !important;
+    --colorNeutralForeground3: #{{colors.muted}} !important;
+    --colorNeutralForeground4: #{{colors.border}} !important;
+    --colorNeutralForegroundDisabled: #{{colors.border}} !important;
+    --colorNeutralForegroundOnBrand: #{{colors.on_accent}} !important;
+    --colorNeutralForegroundInverted: #{{colors.background}} !important;
+    --colorNeutralStroke1: #{{colors.border}} !important;
+    --colorNeutralStroke1Hover: #{{colors.muted}} !important;
+    --colorNeutralStroke2: #{{colors.surface_bright}} !important;
+    --colorNeutralStrokeAccessible: #{{colors.border}} !important;
+    --colorNeutralStrokeDisabled: #{{colors.surface_bright}} !important;
+    --colorStrokeFocus1: #{{colors.background}} !important;
+    --colorStrokeFocus2: #{{colors.blue}} !important;
+    --colorBrandBackground: #{{colors.accent}} !important;
+    --colorBrandBackgroundHover: #{{colors.red}} !important;
+    --colorBrandBackgroundPressed: #{{colors.red}} !important;
+    --colorBrandBackgroundSelected: #{{colors.accent}} !important;
+    --colorBrandBackground2: #{{colors.surface_bright}} !important;
+    --colorBrandForeground1: #{{colors.accent}} !important;
+    --colorBrandForeground2: #{{colors.accent}} !important;
+    --colorBrandForegroundLink: #{{colors.blue}} !important;
+    --colorBrandForegroundLinkHover: #{{colors.cyan}} !important;
+    --colorBrandForegroundLinkPressed: #{{colors.blue}} !important;
+    --colorBrandForegroundLinkSelected: #{{colors.blue}} !important;
+    --colorBrandStroke1: #{{colors.accent}} !important;
+    --colorBrandStroke2: #{{colors.border}} !important;
+    --colorCompoundBrandBackground: #{{colors.accent}} !important;
+    --colorCompoundBrandBackgroundHover: #{{colors.red}} !important;
+    --colorCompoundBrandBackgroundPressed: #{{colors.red}} !important;
+    --colorCompoundBrandForeground1: #{{colors.accent}} !important;
+    --colorCompoundBrandStroke: #{{colors.accent}} !important;
+    --colorPaletteRedForeground1: #{{colors.red}} !important;
+    --colorPaletteGreenForeground1: #{{colors.green}} !important;
+    --colorPaletteYellowForeground1: #{{colors.yellow}} !important;
+    --fontFamilyBase: "{{fonts.family}}", sans-serif !important;
+    --fontFamilyMonospace: "{{fonts.mono_family}}", monospace !important;
+}
+
+html,
+body {
+    background-color: #{{colors.background}} !important;
+    color: #{{colors.foreground}};
+    scrollbar-color: #{{colors.border}} #{{colors.background}};
+}
+
+::selection {
+    background-color: #{{colors.surface_bright}};
+    color: #{{colors.foreground}};
+}

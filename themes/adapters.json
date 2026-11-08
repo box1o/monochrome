@@ -36,5 +36,6 @@
   "obs.ovt": "applications/obs/Mono.ovt",
   "buds.json": "applications/buds/colors.json",
   "chromium.json": "applications/chromium/manifest.json",
-  "editor.xml": "applications/gtksourceview/mono.xml"
+  "editor.xml": "applications/gtksourceview/mono.xml",
+  "teams.css": "applications/teams/mono.css"
 }

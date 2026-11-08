@@ -15,6 +15,16 @@ style::desktop() {
     if [[ -d "$config/BetterDiscord/themes" ]]; then
         style::link "$themes/discord/mono.theme.css" "$config/BetterDiscord/themes/mono.theme.css"
     fi
+    if proc::exists teams-for-linux || [[ -d "$config/teams-for-linux" ]]; then
+        style::json "$config/teams-for-linux/config.json" '
+            del(.customCSSName, .customCSSLocation, .followSystemTheme)
+            | .appearance = ((.appearance // {}) + {
+                cssName: "", cssLocation: $stylesheet, followSystemTheme: true
+            })
+        ' --arg stylesheet "$themes/teams/mono.css"
+        log::info 'Teams system colors configured; restart Teams to load the stylesheet'
+    fi
+
     if proc::exists spicetify; then
         directory="$config/spicetify"
         style::link "$themes/spotify" "$directory/Themes/Mono"

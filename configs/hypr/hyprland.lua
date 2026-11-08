@@ -14,9 +14,7 @@ hl.env("XCURSOR_THEME", appearance.cursor)
 hl.env("XCURSOR_SIZE", tostring(appearance.cursor_size))
 hl.env("HYPRCURSOR_SIZE", tostring(appearance.cursor_size))
 
-for _, monitor in ipairs(require("settings.monitors")) do
-    hl.monitor(monitor)
-end
+require("settings.displays")
 
 require("settings.workspaces")
 require("settings.options")
