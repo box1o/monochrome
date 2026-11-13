@@ -11,6 +11,7 @@ def luminance:
     | .[0] * 0.2126 + .[1] * 0.7152 + .[2] * 0.0722;
 def contrast($a; $b): [($a | luminance), ($b | luminance)] | (max + 0.05) / (min + 0.05);
 def schema: {
+    quickshell: "scale",
     notch: "compact_width compact_height expanded_width expanded_height compact_radius expanded_radius shoulder close_delay background foreground clock_spacing clock_dot_spacing clock_row_spacing clock_weight clock_size_offset activity_color",
     colors: "background surface surface_bright foreground muted border accent on_accent red green yellow blue magenta cyan white black",
     fonts: "family mono_family size terminal_size shell_size icon_size",
@@ -23,6 +24,7 @@ require(exact(["version", "name"] + (schema | keys)); "Unexpected theme sections
 | . as $t
 | reduce (schema | to_entries[]) as $section (.;
     require($t[$section.key] | exact($section.value | split(" ")); "Unexpected keys in " + $section.key))
+| require(.quickshell.scale | number(0.5;1.5;false); "QuickShell scale must be between 0.5 and 1.5")
 | require(all(.colors[]; color); "Colors must be quoted #RRGGBB values")
 | require(all(.notch | .background, .foreground, .activity_color; color); "Invalid notch colors")
 | require(all(.notch | .compact_width, .compact_height, .expanded_width, .expanded_height; number(16;4096;true)); "Invalid notch dimensions")

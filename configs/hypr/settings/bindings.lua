@@ -79,3 +79,4 @@ hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd(helpers .. "/shot.sh"))
 hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 hl.bind("SUPER + C", hl.dsp.exec_cmd("qs ipc call snippets toggle"))
+hl.bind("SUPER + E", hl.dsp.exec_cmd("qs ipc call dps toggle"))

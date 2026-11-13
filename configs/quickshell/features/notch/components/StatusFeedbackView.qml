@@ -35,7 +35,7 @@ Item {
         id: status
 
         anchors.centerIn: parent
-        width: Math.min(implicitWidth, Math.max(0, parent.width - 24))
+        width: Math.min(implicitWidth, Math.max(0, parent.width - tokens.px(24)))
         accentColor: feedback.accentColor
         model: feedback.model
         tokens: feedback.tokens

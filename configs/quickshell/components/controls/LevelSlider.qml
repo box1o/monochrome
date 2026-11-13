@@ -13,8 +13,8 @@ Slider {
     from: 0
     to: 1
     stepSize: 0.01
-    implicitHeight: 22
-    implicitWidth: 100
+    implicitHeight: tokens.px(22)
+    implicitWidth: tokens.px(100)
     padding: 0
     wheelEnabled: true
     Accessible.name: description
@@ -25,7 +25,7 @@ Slider {
         x: slider.leftPadding
         y: (slider.height - height) / 2
         width: slider.availableWidth
-        height: 20
+        height: tokens.px(20)
         radius: height / 2
         color: slider.trackColor
         border.width: slider.focusOutline && slider.visualFocus ? 1 : 0

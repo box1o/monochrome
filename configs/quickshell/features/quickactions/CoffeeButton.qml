@@ -11,11 +11,11 @@ QuickActionButton {
     active: source.enabled
     iconName: "coffee"
     description: source.enabled ? "Allow display sleep" : "Keep display awake"
-    padding: 10
+    padding: tokens.px(10)
     onClicked: source.toggle()
 
     background: Rectangle {
-        radius: button.tokens.radius_small + 6
+        radius: button.tokens.radius_small + tokens.px(6)
         color: button.tokens.alpha(button.tokens.foreground, button.active ? 0.16 : button.hovered ? 0.1 : 0.05)
         border.width: 1
         border.color: button.visualFocus ? button.tokens.muted : button.active ? button.tokens.alpha(button.tokens.foreground, 0.4) : button.tokens.border
@@ -28,11 +28,11 @@ QuickActionButton {
     }
 
     contentItem: RowLayout {
-        spacing: 9
+        spacing: tokens.px(9)
 
         AssetIcon {
-            Layout.preferredWidth: 16
-            Layout.preferredHeight: 16
+            Layout.preferredWidth: tokens.px(16)
+            Layout.preferredHeight: tokens.px(16)
             name: "coffee"
             color: button.color
         }
@@ -46,17 +46,22 @@ QuickActionButton {
         }
 
         Rectangle {
-            Layout.preferredWidth: 30
-            Layout.preferredHeight: 16
-            radius: 8
+            id: track
+
+            readonly property real inset: button.tokens.px(2)
+
+            Layout.alignment: Qt.AlignVCenter
+            Layout.preferredWidth: tokens.px(30)
+            Layout.preferredHeight: tokens.px(16)
+            radius: height / 2
             color: button.source.enabled ? button.tokens.foreground : button.tokens.alpha(button.tokens.foreground, 0.14)
 
             Rectangle {
-                x: button.source.enabled ? parent.width - width - 2 : 2
-                y: 2
-                width: 12
-                height: 12
-                radius: 6
+                anchors.verticalCenter: parent.verticalCenter
+                x: button.source.enabled ? track.width - width - track.inset : track.inset
+                width: track.height - 2 * track.inset
+                height: width
+                radius: width / 2
                 color: button.source.enabled ? button.tokens.background : button.tokens.foreground
 
                 Behavior on x {

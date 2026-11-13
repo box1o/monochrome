@@ -25,7 +25,7 @@ FocusScope {
     Keys.onEscapePressed: closeRequested()
 
     transform: Translate {
-        y: (1 - page.reveal) * -8
+        y: (1 - page.reveal) * -page.tokens.px(8)
     }
 
     Behavior on reveal {

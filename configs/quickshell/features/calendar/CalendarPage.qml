@@ -4,7 +4,7 @@ CalendarView {
     id: page
 
     property bool active: false
-    property real offset: active ? 0 : 24
+    property real offset: active ? 0 : tokens.px(24)
 
     enabled: active
     opacity: active ? 1 : 0

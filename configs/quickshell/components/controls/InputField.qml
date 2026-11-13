@@ -14,8 +14,8 @@ TextField {
     selectedTextColor: tokens.on_accent
     font.family: tokens.fontFamily
     font.pixelSize: tokens.bodySize
-    leftPadding: 14
-    rightPadding: 14
+    leftPadding: tokens.px(14)
+    rightPadding: tokens.px(14)
     Accessible.name: placeholderText
 
     background: Rectangle {

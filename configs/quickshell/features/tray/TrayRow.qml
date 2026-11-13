@@ -8,17 +8,17 @@ Flow {
 
     signal menuRequested(var item)
 
-    spacing: 6
+    spacing: tokens.px(6)
 
     Text {
-        width: implicitWidth + 4
-        height: 32
+        width: implicitWidth + tokens.px(4)
+        height: tokens.px(32)
         text: "TRAY"
         verticalAlignment: Text.AlignVCenter
         color: tray.tokens.muted
         font.family: tray.tokens.monoFamily
         font.pixelSize: tray.tokens.captionSize
-        font.letterSpacing: 1
+        font.letterSpacing: tokens.px(1)
     }
 
     Repeater {

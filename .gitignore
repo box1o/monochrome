@@ -11,3 +11,6 @@ __pycache__/
 
 # Local project and AI working guide.
 /monochrom.md
+
+# Native power-supply build output.
+/ps/build/

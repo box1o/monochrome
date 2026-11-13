@@ -39,5 +39,7 @@ scripts::deploy() {
     # Remove only the obsolete project-owned Python runtime after migration.
     deploy::run "$target_user" "$dry_run" fs::remove_tree "$home/.local/libexec/mono/python" || return
 
+    mps::deploy "$target_user" "$dry_run" "$home" || return
+
     log::info "Processed $count public commands and their helper folders for $target_user"
 }

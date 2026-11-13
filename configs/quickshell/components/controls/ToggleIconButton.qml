@@ -9,7 +9,7 @@ IconButton {
     iconName: ""
     implicitWidth: tokens.buttonSize * controlScale
     implicitHeight: tokens.buttonSize * controlScale
-    padding: 4 * controlScale
+    padding: tokens.px(4) * controlScale
     color: active ? tokens.green : tokens.alpha(tokens.red, 0.75)
 
     Behavior on color {
@@ -24,8 +24,8 @@ IconButton {
             id: track
 
             anchors.centerIn: parent
-            width: 22 * toggle.controlScale
-            height: 12 * toggle.controlScale
+            width: tokens.px(22) * toggle.controlScale
+            height: tokens.px(12) * toggle.controlScale
             radius: height / 2
             color: "transparent"
             border.width: 1.4 * toggle.controlScale
@@ -33,10 +33,10 @@ IconButton {
 
             Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
-                width: 6 * toggle.controlScale
+                width: tokens.px(6) * toggle.controlScale
                 height: width
                 radius: width / 2
-                x: toggle.active ? track.width - width - 3 * toggle.controlScale : 3 * toggle.controlScale
+                x: toggle.active ? track.width - width - toggle.tokens.px(3) * toggle.controlScale : toggle.tokens.px(3) * toggle.controlScale
                 color: track.border.color
 
                 Behavior on x {

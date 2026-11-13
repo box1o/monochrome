@@ -18,12 +18,12 @@ ColumnLayout {
     signal volumeRequested(real value)
     signal muteRequested()
 
-    spacing: 4
+    spacing: tokens.px(4)
 
     RowLayout {
         Layout.fillWidth: true
         visible: !row.titleInside
-        spacing: 10
+        spacing: tokens.px(10)
 
         Text {
             Layout.fillWidth: row.detail.length === 0

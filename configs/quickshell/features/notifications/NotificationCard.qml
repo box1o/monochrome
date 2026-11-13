@@ -33,11 +33,11 @@ AbstractButton {
 
         anchors.fill: parent
         anchors.margins: card.tokens.sectionSpacing
-        spacing: 10
+        spacing: tokens.px(10)
 
         Item {
-            Layout.preferredWidth: 20
-            Layout.preferredHeight: 20
+            Layout.preferredWidth: tokens.px(20)
+            Layout.preferredHeight: tokens.px(20)
             Layout.alignment: Qt.AlignTop
 
             Image {
@@ -60,7 +60,7 @@ AbstractButton {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: 3
+            spacing: tokens.px(3)
 
             Text {
                 Layout.fillWidth: true
@@ -103,8 +103,8 @@ AbstractButton {
 
             Layout.alignment: Qt.AlignTop
             tokens: card.tokens
-            implicitWidth: 24
-            implicitHeight: 24
+            implicitWidth: tokens.px(24)
+            implicitHeight: tokens.px(24)
             padding: 0
             iconName: ""
             description: "Dismiss notification"

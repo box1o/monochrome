@@ -17,9 +17,9 @@ AbstractButton {
             menuRequested(trayItem);
     }
 
-    width: 32
-    height: 32
-    padding: 7
+    width: tokens.px(32)
+    height: tokens.px(32)
+    padding: tokens.px(7)
     hoverEnabled: true
     Accessible.name: title
     onClicked: {
@@ -55,7 +55,7 @@ AbstractButton {
     }
 
     background: Rectangle {
-        radius: button.tokens.radius_small + 3
+        radius: button.tokens.radius_small + tokens.px(3)
         color: button.down ? button.tokens.pressedBackground : button.hovered ? button.tokens.hoverBackground : button.tokens.cardBackground
         border.width: 1
         border.color: button.visualFocus ? button.tokens.focusColor : button.tokens.cardBorder

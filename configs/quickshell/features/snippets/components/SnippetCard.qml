@@ -41,8 +41,8 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 12
-        spacing: 5
+        anchors.margins: tokens.px(12)
+        spacing: tokens.px(5)
 
         RowLayout {
             Layout.fillWidth: true
@@ -62,9 +62,9 @@ Rectangle {
                 objectName: "editSnippet"
                 iconName: "pencil"
                 description: "Edit snippet"
-                implicitWidth: 24
-                implicitHeight: 24
-                padding: 5
+                implicitWidth: tokens.px(24)
+                implicitHeight: tokens.px(24)
+                padding: tokens.px(5)
                 opacity: hover.hovered || visualFocus ? 1 : 0
                 enabled: opacity > 0 && !card.busy
                 onClicked: card.editRequested()
@@ -81,9 +81,9 @@ Rectangle {
                 objectName: "deleteSnippet"
                 iconName: "trash"
                 description: "Delete snippet"
-                implicitWidth: 24
-                implicitHeight: 24
-                padding: 5
+                implicitWidth: tokens.px(24)
+                implicitHeight: tokens.px(24)
+                padding: tokens.px(5)
                 opacity: hover.hovered || visualFocus ? 1 : 0
                 enabled: opacity > 0 && !card.busy
                 onClicked: card.deleteRequested()

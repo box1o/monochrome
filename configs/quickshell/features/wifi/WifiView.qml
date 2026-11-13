@@ -53,7 +53,7 @@ MenuPage {
             id: networks
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 2
+            spacing: tokens.px(2)
             model: page.model.source.enabled ? page.model.source.networks : []
             delegate: SelectableMenuItem {
                 required property var modelData
@@ -80,7 +80,7 @@ MenuPage {
         ColumnLayout {
             Layout.fillWidth: true
             visible: page.model.selected !== null
-            spacing: 6
+            spacing: tokens.px(6)
 
             InputField {
                 id: password

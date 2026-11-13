@@ -3,6 +3,7 @@ distribution: arch
 packages:
   default:
     - base-devel
+    - cmake
     - git
     - curl
     - wget
@@ -61,6 +62,7 @@ packages:
     - ttf-jetbrains-mono-nerd
     - ttc-iosevka
     - adwaita-fonts
+    - qt6-serialport
     - qt6-declarative
     - qt6-multimedia
     - qt6-wayland
@@ -122,7 +124,6 @@ packages:
     - lldb
     - gdb
     - valgrind
-    - cmake
     - ninja
     - ccache
     - bear

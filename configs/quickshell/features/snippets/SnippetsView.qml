@@ -8,7 +8,7 @@ MenuPage {
     id: page
 
     required property QtObject model
-    readonly property int columns: width >= 600 ? 3 : 2
+    readonly property int columns: width >= tokens.px(600) ? 3 : 2
 
     signal backRequested()
 
@@ -84,13 +84,13 @@ MenuPage {
 
             objectName: "snippetGrid"
             Layout.fillWidth: true
-            Layout.preferredHeight: page.model.source.loaded ? Math.min(3 * cellHeight, Math.max(48, Math.ceil(count / page.columns) * cellHeight)) : 3 * cellHeight
+            Layout.preferredHeight: page.model.source.loaded ? Math.min(3 * cellHeight, Math.max(tokens.px(48), Math.ceil(count / page.columns) * cellHeight)) : 3 * cellHeight
             implicitHeight: Layout.preferredHeight
             clip: true
             reuseItems: true
             boundsBehavior: Flickable.StopAtBounds
             cellWidth: width / page.columns
-            cellHeight: (cellWidth - 8) / 1.8 + 8
+            cellHeight: (cellWidth - tokens.px(8)) / 1.8 + tokens.px(8)
             model: page.model.results
             currentIndex: page.model.selectedIndex
             onCurrentIndexChanged: positionViewAtIndex(currentIndex, GridView.Contain)
@@ -115,9 +115,9 @@ MenuPage {
 
                 SnippetCard {
                     anchors.fill: parent
-                    anchors.rightMargin: index % page.columns < page.columns - 1 ? 4 : 0
-                    anchors.leftMargin: index % page.columns > 0 ? 4 : 0
-                    anchors.bottomMargin: 8
+                    anchors.rightMargin: index % page.columns < page.columns - 1 ? tokens.px(4) : 0
+                    anchors.leftMargin: index % page.columns > 0 ? tokens.px(4) : 0
+                    anchors.bottomMargin: tokens.px(8)
                     tokens: page.tokens
                     entry: modelData
                     selected: index === page.model.selectedIndex

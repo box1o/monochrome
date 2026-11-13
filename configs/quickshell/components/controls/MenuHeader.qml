@@ -7,12 +7,14 @@ RowLayout {
     required property QtObject tokens
     required property string title
     property Component action: null
+    property bool showBackButton: true
 
     signal backRequested()
 
     spacing: header.tokens.spacing
 
     IconButton {
+        visible: header.showBackButton
         tokens: header.tokens
         iconName: "chevron-left"
         description: "Back"

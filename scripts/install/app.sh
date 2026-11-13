@@ -129,6 +129,7 @@ installer::_interactive() {
         packages) installer::install_packages default "${__dry_run__}" true true ;;
         configs) configs::deploy all "${__dry_run__}" ;;
         scripts) scripts::deploy "${__dry_run__}" ;;
+        mps) mps::install "${__dry_run__}" ;;
         setup) setup::apply "${__dry_run__}" ;;
         watch) watcher::configs all "${__dry_run__}" ;;
         full) installer::full_install default all "${__dry_run__}" true true ;;
@@ -173,6 +174,9 @@ installer::main() {
             ;;
         scripts)
             scripts::deploy "${INSTALLER_DRY_RUN}"
+            ;;
+        mps)
+            mps::install "${INSTALLER_DRY_RUN}"
             ;;
         setup)
             setup::apply "${INSTALLER_DRY_RUN}"

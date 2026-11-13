@@ -17,7 +17,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 12
+        spacing: tokens.px(12)
 
         MenuHeader {
             Layout.fillWidth: true
@@ -27,7 +27,7 @@ MenuPage {
         }
 
         Flickable {
-            implicitHeight: Math.max(36, contentHeight)
+            implicitHeight: Math.max(tokens.px(36), contentHeight)
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentHeight: displays.implicitHeight
@@ -42,7 +42,7 @@ MenuPage {
                 id: displays
 
                 width: parent.width
-                spacing: 6
+                spacing: tokens.px(6)
 
                 Repeater {
                     model: page.source.devices

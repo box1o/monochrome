@@ -56,6 +56,10 @@ appearance:
   blur: false
   shadow: true
 
+# QuickShell-only density. Dimensions snap to a 2 px grid.
+quickshell:
+  scale: 0.75
+
 # QuickShell notch styling; generated QML must not be edited by hand.
 notch:
   compact_width: 96

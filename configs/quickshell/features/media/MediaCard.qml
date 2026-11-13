@@ -11,7 +11,7 @@ OverviewCard {
     property bool active: false
     property real contentTopPadding: 0
 
-    implicitHeight: 124
+    implicitHeight: tokens.px(124)
 
     MediaSpectrum {
         id: spectrum
@@ -21,17 +21,17 @@ OverviewCard {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 6
-        anchors.topMargin: 6 + card.contentTopPadding
-        spacing: 2
+        anchors.margins: tokens.px(6)
+        anchors.topMargin: card.tokens.px(6) + card.contentTopPadding
+        spacing: tokens.px(2)
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 10
+            spacing: tokens.px(10)
 
             MediaArtwork {
-                Layout.preferredWidth: 32
-                Layout.preferredHeight: 32
+                Layout.preferredWidth: tokens.px(32)
+                Layout.preferredHeight: tokens.px(32)
                 description: card.source.playing ? "Pause" : "Play"
                 enabled: card.source.canToggle
                 onClicked: card.source.toggle()
@@ -41,7 +41,7 @@ OverviewCard {
 
             ColumnLayout {
                 Layout.fillWidth: true
-                spacing: 2
+                spacing: tokens.px(2)
 
                 Text {
                     Layout.fillWidth: true

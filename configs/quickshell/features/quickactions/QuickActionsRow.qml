@@ -23,7 +23,7 @@ RowLayout {
     }
 
     QuickActionButton {
-        cornerRadius: row.tokens.radius_small + 6
+        cornerRadius: row.tokens.radius_small + tokens.px(6)
         tokens: row.tokens
         iconName: "smartphone"
         description: "ADB · scrcpy"
@@ -31,7 +31,7 @@ RowLayout {
     }
 
     QuickActionButton {
-        cornerRadius: row.tokens.radius_small + 6
+        cornerRadius: row.tokens.radius_small + tokens.px(6)
         tokens: row.tokens
         iconName: "video"
         description: row.recording.error || (row.recording.active ? "Stop recording" : "Start recording")
@@ -48,7 +48,7 @@ RowLayout {
     }
 
     QuickActionButton {
-        cornerRadius: row.tokens.radius_small + 6
+        cornerRadius: row.tokens.radius_small + tokens.px(6)
         tokens: row.tokens
         iconName: "power"
         description: "Power"
@@ -56,7 +56,7 @@ RowLayout {
     }
 
     QuickActionButton {
-        cornerRadius: row.tokens.radius_small + 6
+        cornerRadius: row.tokens.radius_small + tokens.px(6)
         tokens: row.tokens
         iconName: "bell"
         description: row.notifications.count > 0 ? row.notifications.count + " notifications" : "Notifications"

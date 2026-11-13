@@ -48,7 +48,7 @@ MenuPage {
             motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 2
+            spacing: tokens.px(2)
             model: page.model.source.enabled ? page.model.source.devices : []
             focus: page.active
             onCurrentIndexChanged: {

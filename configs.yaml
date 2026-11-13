@@ -1,4 +1,7 @@
 configs:
+  audio:
+    source: generated/wireplumber/wireplumber.conf.d/audio.conf
+    target: .config/wireplumber/wireplumber.conf.d/50-mono.conf
   nautilus:
     source: generated/nautilus/scripts
     target: .local/share/nautilus/scripts/Mono

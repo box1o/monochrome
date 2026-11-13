@@ -7,7 +7,7 @@ Item {
     required property var levels
     property real progress: 0
     property int barCount: 46
-    readonly property real gap: 3
+    readonly property real gap: tokens.px(3)
     readonly property real barWidth: Math.max(1, (width - gap * (barCount - 1)) / barCount)
 
     Repeater {
@@ -19,7 +19,7 @@ Item {
             x: index * (waveform.barWidth + waveform.gap)
             anchors.verticalCenter: parent.verticalCenter
             width: waveform.barWidth
-            height: Math.max(2, Math.pow(waveform.levels[index] || 0, 0.6) * waveform.height)
+            height: Math.max(tokens.px(2), Math.pow(waveform.levels[index] || 0, 0.6) * waveform.height)
             radius: width / 2
             color: waveform.tokens.alpha(waveform.tokens.foreground, 0.22)
 

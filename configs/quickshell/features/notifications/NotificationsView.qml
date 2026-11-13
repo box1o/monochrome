@@ -38,12 +38,12 @@ MenuPage {
             motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 9
+            spacing: tokens.px(9)
             model: page.source.entries
 
             Text {
                 anchors.top: parent.top
-                anchors.topMargin: 10
+                anchors.topMargin: tokens.px(10)
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: page.source.count === 0
                 text: "Nothing yet"

@@ -16,10 +16,12 @@ import "../sound/models"
 import "../clipboard/models"
 import "../snippets/models"
 import "../vpn/models"
+import "../dps/models"
 
 ShellWindow {
     id: notch
 
+    required property QtObject supply
     required property QtObject snippets
     required property QtObject clipboard
     required property QtObject coffee
@@ -159,6 +161,12 @@ ShellWindow {
         }
     }
 
+    SupplyModel {
+        id: supplyModel
+        source: notch.supply
+        active: state.expanded && navigationModel.dpsOpen
+    }
+
     SnippetsModel {
         id: snippetsModel
         source: notch.snippets
@@ -184,6 +192,33 @@ ShellWindow {
         }
         function open(): void {
             notch.openMenu("snippets");
+        }
+    }
+
+    IpcHandler {
+        target: "dps"
+
+        function status(): string {
+            return JSON.stringify({connected: notch.supply.connected, state: notch.supply.state,
+                pending: notch.supply.pending, queued: notch.supply.queue.length, error: notch.supply.error});
+        }
+
+        function section(name: string): void {
+            if (supplyModel.sections.includes(name)) {
+                notch.openMenu("dps");
+                supplyModel.section = name;
+            }
+        }
+
+        function open(): void {
+            notch.openMenu("dps");
+        }
+
+        function toggle(): void {
+            if (notch.expanded && navigationModel.dpsOpen)
+                state.close();
+            else
+                notch.openMenu("dps");
         }
     }
 
@@ -268,11 +303,19 @@ ShellWindow {
 
     CompactPresentation {
         id: compactPresentation
+        supply: notch.supply
         recording: notch.recording
         pomodoro: notch.pomodoro
         feedback: notch.feedback
         month: notch.month
         expanded: state.expanded
+    }
+
+    Connections {
+        target: notch.supply
+        function onLastOutputOnChanged() {
+            compactPresentation.activityDismissed = false;
+        }
     }
 
     Connections {
@@ -311,10 +354,10 @@ ShellWindow {
         id: layout
         style: notch.style
         tokens: notch.tokens
-        preferredWidth: notch.style.expandedWidth * (navigationModel.snippetsOpen ? 1.5 : 1)
+        preferredWidth: notch.style.expandedWidth * (navigationModel.dpsOpen ? 1.12 : navigationModel.widePage ? 1.5 : 1)
         availableWidth: notch.screen ? notch.screen.width : style.expandedWidth + 2 * style.shoulder
         availableHeight: notch.screen ? notch.screen.height : style.expandedHeight
-        maximumHeight: navigationModel.snippetsOpen ? Math.max(600, style.expandedHeight) : Math.max(style.expandedHeight, view.overviewHeight)
+        maximumHeight: navigationModel.widePage ? Math.max(notch.tokens.px(600), style.expandedHeight) : Math.max(style.expandedHeight, view.overviewHeight)
         contentHeight: view.contentHeight
         contentWidth: view.feedbackWidth
         expanded: state.expanded
@@ -348,6 +391,7 @@ ShellWindow {
         style: notch.style
         tokens: notch.tokens
         recording: notch.recording
+        supply: supplyModel
         snippets: snippetsModel
         clipboard: clipboardModel
         coffee: notch.coffee
@@ -378,6 +422,7 @@ ShellWindow {
         onPhoneRequested: notch.openMenu("phone")
         onSessionRequested: notch.openMenu("session")
         onNotificationsRequested: notch.openMenu("notifications")
+        onSupplyRequested: notch.openMenu("dps")
         onPowerRequested: notch.openMenu("power")
         onVpnRequested: notch.openMenu("vpn")
         onBrightnessRequested: notch.openMenu("brightness")

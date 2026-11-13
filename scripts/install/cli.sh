@@ -53,18 +53,20 @@ installer_cli::parse() {
 installer_cli::print_help() {
     printf '%s\n' \
         'Usage:' \
-        '  ./scripts/install/install.sh' \
-        '  ./scripts/install/install.sh packages [options]' \
-        '  ./scripts/install/install.sh configs [options]' \
-        '  ./scripts/install/install.sh scripts [options]' \
-        '  ./scripts/install/install.sh setup [options]' \
-        '  ./scripts/install/install.sh watch [options]' \
-        '  ./scripts/install/install.sh full [options]' \
+        '  ./install.sh' \
+        '  ./install.sh packages [options]' \
+        '  ./install.sh configs [options]' \
+        '  ./install.sh scripts [options]' \
+        '  ./install.sh mps [options]' \
+        '  ./install.sh setup [options]' \
+        '  ./install.sh watch [options]' \
+        '  ./install.sh full [options]' \
         '' \
         'Commands:' \
         '  packages              Install package groups from packages.yaml.' \
         '  configs               Replace installed configurations from configs.yaml.' \
         '  scripts               Deploy user scripts into ~/.local/bin.' \
+        '  mps                   Build and deploy the power-supply CLI and user service.' \
         '  setup                 Enable desktop services and configure shell/login.' \
         '  watch                 Redeploy changed configurations continuously.' \
         '  full                  Install packages, configs, scripts and system setup.' \
@@ -79,13 +81,14 @@ installer_cli::print_help() {
         '  -h, --help            Show this help text.' \
         '' \
         'Examples:' \
-        '  ./scripts/install/install.sh packages --dry-run' \
-        '  ./scripts/install/install.sh packages --groups default,development --dry-run' \
-        '  ./scripts/install/install.sh packages --groups default,development,nvidia-development --yes' \
-        '  ./scripts/install/install.sh packages --groups optional --aur' \
-        '  ./scripts/install/install.sh configs --dry-run' \
-        '  ./scripts/install/install.sh configs --configs hypr,kitty --dry-run' \
-        '  ./scripts/install/install.sh scripts --dry-run' \
-        '  ./scripts/install/install.sh watch --configs hypr,quickshell' \
-        '  ./scripts/install/install.sh full --dry-run'
+        '  ./install.sh packages --dry-run' \
+        '  ./install.sh packages --groups default,development --dry-run' \
+        '  ./install.sh packages --groups default,development,nvidia-development --yes' \
+        '  ./install.sh packages --groups optional --aur' \
+        '  ./install.sh configs --dry-run' \
+        '  ./install.sh configs --configs hypr,kitty --dry-run' \
+        '  ./install.sh scripts --dry-run' \
+        '  ./install.sh mps --dry-run' \
+        '  ./install.sh watch --configs hypr,quickshell' \
+        '  ./install.sh full --dry-run'
 }

@@ -11,9 +11,9 @@ AbstractButton {
 
     signal openRequested()
 
-    implicitWidth: 78
-    implicitHeight: 86
-    padding: 10
+    implicitWidth: tokens.px(78)
+    implicitHeight: tokens.px(86)
+    padding: tokens.px(10)
     hoverEnabled: true
     Accessible.name: (source.ready ? source.percentage + "% · " : "") + (source.connected ? "On AC" : "On battery") + " · " + source.profileName
     onClicked: openRequested()
@@ -35,12 +35,12 @@ AbstractButton {
     contentItem: Item {
         Column {
             anchors.centerIn: parent
-            anchors.verticalCenterOffset: 3
-            spacing: 6
+            anchors.verticalCenterOffset: tokens.px(3)
+            spacing: tokens.px(6)
 
             Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: 30
+                width: tokens.px(30)
                 height: width
                 radius: width / 2
                 color: tile.tokens.onFill
@@ -49,7 +49,7 @@ AbstractButton {
                     anchors.fill: parent
                     glyph: String.fromCodePoint(tile.source.connected ? 983617 : 983161)
                     fontFamily: tile.tokens.monoFamily
-                    pixelSize: 18
+                    pixelSize: tokens.textSize(18)
                     color: tile.tokens.foreground
                 }
             }

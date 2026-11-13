@@ -9,7 +9,7 @@ Flickable {
     required property QtObject source
     required property QtObject tokens
 
-    implicitHeight: Math.max(36, contentHeight)
+    implicitHeight: Math.max(tokens.px(36), contentHeight)
     contentHeight: content.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -22,7 +22,7 @@ Flickable {
         id: content
 
         width: profiles.width
-        spacing: 6
+        spacing: tokens.px(6)
 
         Repeater {
             model: profiles.source.cards
@@ -33,12 +33,12 @@ Flickable {
                 required property var modelData
 
                 Layout.fillWidth: true
-                spacing: 2
+                spacing: tokens.px(2)
 
                 RowLayout {
                     Layout.fillWidth: true
-                    Layout.bottomMargin: 4
-                    spacing: 10
+                    Layout.bottomMargin: tokens.px(4)
+                    spacing: tokens.px(10)
 
                     Text {
                         text: "Sound codec"

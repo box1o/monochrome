@@ -9,7 +9,7 @@ QuickActionButton {
     required property string title
     property bool current: false
 
-    padding: 10
+    padding: tokens.px(10)
     description: active ? "Confirm " + title.toLowerCase() : title
     color: active || current ? tokens.foreground : tokens.muted
 
@@ -18,8 +18,8 @@ QuickActionButton {
 
         AssetIcon {
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: 23
-            Layout.preferredHeight: 23
+            Layout.preferredWidth: tokens.px(23)
+            Layout.preferredHeight: tokens.px(23)
             name: button.iconName
             color: button.color
         }

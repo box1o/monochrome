@@ -43,7 +43,7 @@ RowLayout {
             spacing: header.tokens.spacing
 
             RowLayout {
-                spacing: 3
+                spacing: tokens.px(3)
 
                 Item {
                     Layout.preferredWidth: header.clockWidth
@@ -53,7 +53,7 @@ RowLayout {
                 DottedText {
                     Layout.alignment: Qt.AlignTop
                     text: header.clock.seconds
-                    pixelSize: header.tokens.fontSize - 6
+                    pixelSize: header.tokens.captionSize
                     color: header.tokens.muted
                 }
             }

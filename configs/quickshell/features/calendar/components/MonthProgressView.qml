@@ -8,7 +8,7 @@ RowLayout {
     required property QtObject model
     required property QtObject tokens
     required property QtObject style
-    readonly property real contentWidth: implicitWidth + 28
+    readonly property real contentWidth: implicitWidth + tokens.px(28)
 
     spacing: activity.tokens.spacing
     Accessible.role: Accessible.StaticText
@@ -22,6 +22,7 @@ RowLayout {
     }
 
     ProgressPill {
+        tokens: activity.tokens
         color: activity.style.activityColor
         progress: activity.visible ? activity.model.progress : 0
 
@@ -30,7 +31,7 @@ RowLayout {
             text: activity.model.day + "/" + activity.model.daysInMonth
             color: activity.style.activityColor
             font.family: activity.tokens.monoFamily
-            font.pixelSize: activity.tokens.fontSize - 6
+            font.pixelSize: activity.tokens.captionSize
             font.bold: true
         }
 

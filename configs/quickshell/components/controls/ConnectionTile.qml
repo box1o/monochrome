@@ -32,8 +32,8 @@ Rectangle {
         AbstractButton {
             id: toggle
 
-            Layout.preferredWidth: 34
-            Layout.preferredHeight: 34
+            Layout.preferredWidth: tokens.px(34)
+            Layout.preferredHeight: tokens.px(34)
             Layout.alignment: Qt.AlignVCenter
             enabled: tile.available
             hoverEnabled: true
@@ -51,8 +51,8 @@ Rectangle {
                 anchors.centerIn: parent
                 // The Wi-Fi artwork sits slightly below its SVG view-box center.
                 anchors.verticalCenterOffset: tile.icon === "wifi" ? -1 : 0
-                width: 18
-                height: 18
+                width: tokens.px(18)
+                height: tokens.px(18)
                 name: tile.icon
                 color: tile.radioEnabled ? tile.tokens.foreground : tile.tokens.muted
             }
@@ -79,7 +79,7 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
-                    spacing: 3
+                    spacing: tokens.px(3)
 
                     Text {
                         width: parent.width

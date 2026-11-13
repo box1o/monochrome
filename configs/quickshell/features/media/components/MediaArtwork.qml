@@ -11,8 +11,8 @@ AbstractButton {
     required property string source
     property string description: "Toggle playback"
 
-    implicitWidth: 42
-    implicitHeight: 42
+    implicitWidth: tokens.px(42)
+    implicitHeight: tokens.px(42)
     padding: 0
     hoverEnabled: true
     Accessible.name: description
@@ -46,8 +46,8 @@ AbstractButton {
 
         AssetIcon {
             anchors.centerIn: parent
-            width: 20
-            height: 20
+            width: tokens.px(20)
+            height: tokens.px(20)
             name: "music"
             color: artwork.tokens.muted
             visible: image.status !== Image.Ready

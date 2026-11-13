@@ -2,6 +2,8 @@
 import QtQuick
 
 QtObject {
+    readonly property real scale: {{quickshell.scale}}
+
     readonly property color background: "#{{colors.background}}"
     readonly property color surface: "#{{colors.surface}}"
     readonly property color surface_bright: "#{{colors.surface_bright}}"
@@ -18,16 +20,16 @@ QtObject {
     readonly property color cyan: "#{{colors.cyan}}"
     readonly property color white: "#{{colors.white}}"
     readonly property color black: "#{{colors.black}}"
-    readonly property real radius: {{geometry.radius}}
-    readonly property real radius_small: {{geometry.radius_small}}
+    readonly property real radius: px({{geometry.radius}})
+    readonly property real radius_small: px({{geometry.radius_small}})
     readonly property real border_width: {{geometry.border_width}}
-    readonly property real gap_inner: {{geometry.gap_inner}}
-    readonly property real gap_outer: {{geometry.gap_outer}}
-    readonly property real padding: {{geometry.padding}}
+    readonly property real gap_inner: px({{geometry.gap_inner}})
+    readonly property real gap_outer: px({{geometry.gap_outer}})
+    readonly property real padding: px({{geometry.padding}})
     readonly property string fontFamily: "{{fonts.family}}"
     readonly property string monoFamily: "{{fonts.mono_family}}"
-    readonly property real fontSize: {{fonts.shell_size}}
-    readonly property real iconSize: {{fonts.icon_size}}
+    readonly property real fontSize: textSize({{fonts.shell_size}})
+    readonly property real iconSize: px({{fonts.icon_size}})
     readonly property real fastDuration: {{duration.fast_ms}}
     readonly property real normalDuration: {{duration.normal_ms}}
     readonly property real slowDuration: {{duration.slow_ms}}
@@ -45,19 +47,27 @@ QtObject {
     readonly property color selectionBackground: alpha(blue, 0.13)
     readonly property color focusColor: blue
     readonly property color onFill: foregroundOn(foreground)
-    readonly property real spacing: padding + gap_inner
-    readonly property real sectionSpacing: padding * 2
+    readonly property real spacing: px({{geometry.padding}} + {{geometry.gap_inner}})
+    readonly property real sectionSpacing: px({{geometry.padding}} * 2)
     readonly property real cardInset: spacing
-    readonly property real cardRadius: radius + 5
-    readonly property real controlRadius: radius + 2
-    readonly property real cardHeight: 54
-    readonly property real buttonSize: 30
-    readonly property real rowHeight: 44
-    readonly property real fieldHeight: 36
-    readonly property real bodySize: Math.max(12, fontSize - 2)
-    readonly property real labelSize: Math.max(11, fontSize - 3)
-    readonly property real detailSize: Math.max(10, fontSize - 4)
-    readonly property real captionSize: Math.max(10, fontSize - 5)
+    readonly property real cardRadius: px({{geometry.radius}} + 5)
+    readonly property real controlRadius: px({{geometry.radius}} + 2)
+    readonly property real cardHeight: px(54)
+    readonly property real buttonSize: px(30)
+    readonly property real dialSize: px(72)
+    readonly property real rowHeight: px(44)
+    readonly property real fieldHeight: px(36)
+    readonly property real bodySize: textSize(Math.max(12, {{fonts.shell_size}} - 2))
+    readonly property real labelSize: textSize(Math.max(11, {{fonts.shell_size}} - 3))
+    readonly property real detailSize: textSize(Math.max(10, {{fonts.shell_size}} - 4))
+    readonly property real captionSize: textSize(Math.max(10, {{fonts.shell_size}} - 5))
+
+    readonly property real largeClockSize: Math.max(18, textSize({{fonts.shell_size}} + 7))
+
+    // Scale base dimensions once; layout ratios, strokes and timing stay independent.
+    function snap(value) { return Math.round(value / 2) * 2; }
+    function px(value) { return value === 0 ? 0 : Math.sign(value) * Math.max(2, snap(Math.abs(value) * scale)); }
+    function textSize(value) { return Math.max(8, px(value)); }
 
     function alpha(color, opacity) { return Qt.rgba(color.r, color.g, color.b, opacity); }
     function duration(milliseconds) { return motionEnabled ? Math.round(milliseconds * normalDuration / 160) : 0; }

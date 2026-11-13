@@ -14,10 +14,12 @@ import "../../session"
 import "../../notifications"
 import "../../clipboard"
 import "../../snippets"
+import "../../dps"
 
 Item {
     id: view
 
+    required property QtObject supply
     required property QtObject recording
     required property QtObject snippets
     required property QtObject clipboard
@@ -73,6 +75,8 @@ Item {
             return soundPage;
         case "snippets":
             return snippetsPage;
+        case "dps":
+            return dpsPage;
         case "clipboard":
             return clipboardPage;
         default:
@@ -98,6 +102,7 @@ Item {
     signal phoneRequested()
     signal sessionRequested()
     signal notificationsRequested()
+    signal supplyRequested()
     signal powerRequested()
     signal vpnRequested()
     signal brightnessRequested()
@@ -110,7 +115,7 @@ Item {
     OverviewMetrics {
         id: overviewMetrics
 
-        fontSize: view.tokens.fontSize
+        tokens: view.tokens
         contentPadding: view.tokens.sectionSpacing
         sectionSpacing: view.tokens.spacing
     }
@@ -157,6 +162,7 @@ Item {
 
         CompactFeedback {
             id: compactFeedback
+            onSupplyRequested: view.supplyRequested()
 
             anchors.fill: parent
             pomodoro: view.pomodoro
@@ -212,6 +218,18 @@ Item {
                 onSoundRequested: view.soundRequested()
                 onWifiRequested: view.wifiRequested()
                 onBluetoothRequested: view.bluetoothRequested()
+            }
+
+            DpsView {
+                id: dpsPage
+                model: view.supply
+
+                anchors.fill: parent
+                anchors.margins: overviewMetrics.padding
+                tokens: view.tokens
+                active: view.navigation.dpsOpen && view.expanded
+                opacity: view.menuOpacity
+                onCloseRequested: view.closeRequested()
             }
 
             SnippetsView {
@@ -386,7 +404,7 @@ Item {
             anchors.bottom: parent.bottom
             x: view.geometry.lowerRadius
             width: Math.max(0, parent.width - 2 * x)
-            height: Math.min(24, parent.height)
+            height: Math.min(tokens.px(24), parent.height)
             opacity: view.geometry.transitioning ? view.menuOpacity : 0
             visible: opacity > 0
 

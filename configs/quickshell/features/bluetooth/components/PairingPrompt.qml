@@ -12,7 +12,7 @@ ColumnLayout {
     readonly property bool needsInput: kind === "pin" || kind === "passkey"
     readonly property bool valid: kind === "pin" ? input.text.length >= 1 && input.text.length <= 16 : kind === "passkey" ? /^\d{1,6}$/.test(input.text) : true
     visible: kind.length > 0
-    spacing: 6
+    spacing: tokens.px(6)
     onKindChanged: input.clear()
 
     StatusLabel {

@@ -13,14 +13,14 @@ ColumnLayout {
     property int dragTrack: -1
     property real preview: 0
 
-    spacing: 2
+    spacing: tokens.px(2)
 
     Slider {
         id: seek
 
         objectName: "playback-position"
         Layout.fillWidth: true
-        implicitHeight: 12
+        implicitHeight: tokens.px(12)
         from: 0
         to: 1
         padding: 0
@@ -59,7 +59,7 @@ ColumnLayout {
 
         handle: Rectangle {
             x: Math.max(0, Math.min(seek.width - width, seek.visualPosition * seek.width - width / 2))
-            width: 2
+            width: tokens.px(2)
             height: seek.height
             radius: 1
             color: timeline.tokens.foreground
@@ -73,7 +73,7 @@ ColumnLayout {
         DottedText {
             text: timeline.source.formatTime(seek.pressed ? timeline.preview * timeline.source.duration : timeline.source.position)
             color: timeline.tokens.muted
-            pixelSize: 8
+            pixelSize: tokens.textSize(8)
             letterSpacing: 1
         }
 
@@ -84,7 +84,7 @@ ColumnLayout {
         DottedText {
             text: timeline.source.duration > 0 ? timeline.source.formatTime(timeline.source.duration) : "--:--"
             color: timeline.tokens.alpha(timeline.tokens.foreground, 0.3)
-            pixelSize: 8
+            pixelSize: tokens.textSize(8)
             letterSpacing: 1
         }
     }

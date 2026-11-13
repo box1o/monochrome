@@ -8,8 +8,8 @@ GridLayout {
     required property QtObject tokens
 
     columns: 7
-    columnSpacing: 2
-    rowSpacing: 2
+    columnSpacing: tokens.px(2)
+    rowSpacing: tokens.px(2)
 
     Repeater {
         model: grid.cells
@@ -21,15 +21,15 @@ GridLayout {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            implicitHeight: 25
+            implicitHeight: tokens.px(25)
             Accessible.role: Accessible.StaticText
             Accessible.name: Qt.formatDate(modelData.date, "dddd, d MMMM yyyy") + (modelData.isToday ? ", today" : "")
 
             Rectangle {
                 anchors.centerIn: parent
-                width: 22
-                height: 22
-                radius: 11
+                width: tokens.px(22)
+                height: tokens.px(22)
+                radius: width / 2
                 color: grid.tokens.foreground
                 visible: day.modelData.isToday
             }

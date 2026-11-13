@@ -8,7 +8,7 @@ IconButton {
     required property string radioIcon
 
     iconName: radioIcon
-    padding: 7
+    padding: tokens.px(7)
     color: active ? tokens.green : tokens.alpha(tokens.red, 0.75)
 
     Behavior on color {

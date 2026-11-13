@@ -16,15 +16,15 @@ Item {
 
     signal powerRequested()
 
-    implicitHeight: 86
+    implicitHeight: tokens.px(86)
 
     PageDots {
         id: selector
 
         anchors.top: parent.top
-        anchors.topMargin: 2
+        anchors.topMargin: tokens.px(2)
         anchors.right: parent.right
-        anchors.rightMargin: 7
+        anchors.rightMargin: tokens.px(7)
         z: 2
         tokens: deck.tokens
         labels: ["Media", "Power and Pomodoro"]
@@ -46,7 +46,7 @@ Item {
 
             MediaCard {
                 anchors.fill: parent
-                contentTopPadding: 14
+                contentTopPadding: tokens.px(14)
                 source: deck.media
                 tokens: deck.tokens
                 visible: deck.media.available
@@ -83,7 +83,7 @@ Item {
                 PomodoroTile {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    contentTopPadding: 14
+                    contentTopPadding: tokens.px(14)
                     source: deck.pomodoro
                     tokens: deck.tokens
                 }

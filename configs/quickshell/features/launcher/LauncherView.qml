@@ -37,7 +37,7 @@ MenuPage {
             motionEnabled: launcher.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 2
+            spacing: tokens.px(2)
             model: launcher.model.results
             currentIndex: launcher.model.selectedIndex
             onCurrentIndexChanged: positionViewAtIndex(currentIndex, ListView.Contain)

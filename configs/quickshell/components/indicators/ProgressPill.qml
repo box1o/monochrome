@@ -1,11 +1,12 @@
 import QtQuick
 
 Canvas {
+    required property QtObject tokens
     property real progress: 0
     property color color: "white"
 
-    implicitWidth: 44
-    implicitHeight: 18
+    implicitWidth: tokens.px(44)
+    implicitHeight: tokens.px(18)
     onProgressChanged: requestPaint()
     onColorChanged: requestPaint()
     onPaint: {

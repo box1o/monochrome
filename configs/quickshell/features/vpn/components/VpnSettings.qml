@@ -10,7 +10,7 @@ Flickable {
     required property QtObject tokens
     readonly property var preferences: source.tailscale.preferences
 
-    implicitHeight: Math.max(36, contentHeight)
+    implicitHeight: Math.max(tokens.px(36), contentHeight)
     contentHeight: content.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -23,7 +23,7 @@ Flickable {
         id: content
 
         width: parent.width
-        spacing: 9
+        spacing: tokens.px(9)
 
         Repeater {
             model: [{
@@ -65,7 +65,7 @@ Flickable {
         }
 
         Text {
-            Layout.topMargin: 8
+            Layout.topMargin: tokens.px(8)
             text: "Exit node"
             color: settings.tokens.muted
             font.family: settings.tokens.fontFamily

@@ -7,13 +7,13 @@ RowLayout {
 
     required property QtObject source
     required property QtObject tokens
-    readonly property real contentWidth: implicitWidth + 24
+    readonly property real contentWidth: implicitWidth + tokens.px(24)
 
-    spacing: 7
+    spacing: tokens.px(7)
 
     AssetIcon {
-        Layout.preferredWidth: 15
-        Layout.preferredHeight: 15
+        Layout.preferredWidth: tokens.px(15)
+        Layout.preferredHeight: tokens.px(15)
         name: activity.source.running ? "timer" : "pause"
         color: activity.tokens.magenta
     }
@@ -30,7 +30,7 @@ RowLayout {
         color: activity.tokens.foreground
         opacity: activity.source.running ? 1 : 0.6
         font.family: activity.tokens.monoFamily
-        font.pixelSize: activity.tokens.fontSize - 1
+        font.pixelSize: activity.tokens.bodySize
         font.bold: true
     }
 }

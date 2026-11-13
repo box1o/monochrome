@@ -50,7 +50,7 @@ ColumnLayout {
 
     Rectangle {
         Layout.fillWidth: true
-        Layout.preferredHeight: 360
+        Layout.preferredHeight: tokens.px(360)
         color: editor.tokens.cardBackground
         border.width: 1
         border.color: editor.tokens.cardBorder
@@ -61,7 +61,7 @@ ColumnLayout {
             id: scroll
 
             anchors.fill: parent
-            anchors.margins: 12
+            anchors.margins: tokens.px(12)
             contentWidth: width
             contentHeight: code.implicitHeight
             boundsBehavior: Flickable.StopAtBounds

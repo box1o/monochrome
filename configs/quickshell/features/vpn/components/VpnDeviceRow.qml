@@ -12,16 +12,16 @@ OverviewCard {
     signal copyRequested()
     signal pingRequested()
 
-    implicitHeight: 44
+    implicitHeight: tokens.px(44)
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 7
-        spacing: 10
+        anchors.margins: tokens.px(7)
+        spacing: tokens.px(10)
 
         AssetIcon {
-            Layout.preferredWidth: 18
-            Layout.preferredHeight: 18
+            Layout.preferredWidth: tokens.px(18)
+            Layout.preferredHeight: tokens.px(18)
             name: ["android", "iOS"].includes(row.device.os) ? "smartphone" : "laptop"
             color: row.device.online ? row.tokens.blue : row.tokens.muted
         }

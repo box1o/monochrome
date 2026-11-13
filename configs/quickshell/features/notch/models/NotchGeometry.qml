@@ -10,7 +10,7 @@ QtObject {
     property real maximumHeight: style.expandedHeight
     readonly property real widthLimit: Math.max(0, availableWidth - 2 * style.shoulder)
     property real preferredWidth: style.expandedWidth
-    readonly property real expandedWidth: Math.min(preferredWidth, widthLimit)
+    readonly property real expandedWidth: Math.min(style.tokens.snap(preferredWidth), widthLimit)
     readonly property real targetHeight: Math.min(Math.max(style.compactHeight, contentHeight), maximumHeight, Math.max(0, availableHeight))
     property real expandedHeight: targetHeight
     readonly property real compactHeight: Math.min(style.compactHeight, expandedHeight)

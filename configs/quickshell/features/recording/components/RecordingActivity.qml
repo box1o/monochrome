@@ -5,14 +5,14 @@ RowLayout {
     id: activity
 
     required property QtObject tokens
-    readonly property real contentWidth: implicitWidth + 24
+    readonly property real contentWidth: implicitWidth + tokens.px(24)
 
     spacing: activity.tokens.spacing
 
     Rectangle {
-        Layout.preferredWidth: 7
-        Layout.preferredHeight: 7
-        radius: 3.5
+        Layout.preferredWidth: tokens.px(7)
+        Layout.preferredHeight: tokens.px(7)
+        radius: width / 2
         color: activity.tokens.red
 
         SequentialAnimation on opacity {

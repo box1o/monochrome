@@ -10,7 +10,7 @@ Flickable {
     required property QtObject source
     required property QtObject tokens
 
-    implicitHeight: Math.max(36, contentHeight)
+    implicitHeight: Math.max(tokens.px(36), contentHeight)
     contentHeight: connections.implicitHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -45,19 +45,19 @@ Flickable {
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: 8
+                    anchors.margins: tokens.px(8)
                     spacing: list.tokens.spacing
 
                     AssetIcon {
-                        Layout.preferredWidth: 22
-                        Layout.preferredHeight: 22
+                        Layout.preferredWidth: tokens.px(22)
+                        Layout.preferredHeight: tokens.px(22)
                         name: modelData.icon
                         color: modelData.connected ? list.tokens.blue : list.tokens.muted
                     }
 
                     ColumnLayout {
                         Layout.fillWidth: true
-                        spacing: 2
+                        spacing: tokens.px(2)
 
                         Text {
                             Layout.fillWidth: true

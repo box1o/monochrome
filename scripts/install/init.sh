@@ -24,6 +24,7 @@ installer::_source package-manager.sh
 installer::_source bootstrap.sh
 installer::_source system.sh
 installer::_source configs.sh
+installer::_source mps.sh
 installer::_source scripts.sh
 installer::_source watcher.sh
 installer::_source menu.sh

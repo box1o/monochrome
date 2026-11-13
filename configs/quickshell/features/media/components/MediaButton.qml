@@ -6,9 +6,9 @@ IconButton {
 
     property bool primary: false
 
-    implicitWidth: primary ? 32 : 26
+    implicitWidth: primary ? tokens.px(32) : tokens.px(26)
     implicitHeight: implicitWidth
-    padding: primary ? 9 : 6
+    padding: primary ? tokens.px(9) : tokens.px(6)
     color: primary ? tokens.onFill : tokens.foreground
     scale: down ? 0.94 : hovered ? 1.04 : 1
 

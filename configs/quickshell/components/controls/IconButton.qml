@@ -13,7 +13,7 @@ AbstractButton {
 
     implicitWidth: tokens.buttonSize
     implicitHeight: tokens.buttonSize
-    padding: 7
+    padding: tokens.px(7)
     hoverEnabled: true
     Accessible.name: description
 

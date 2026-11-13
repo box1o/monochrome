@@ -12,7 +12,7 @@ Item {
     signal nextRequested()
     signal todayRequested()
 
-    implicitHeight: 26
+    implicitHeight: tokens.px(26)
 
     TextButton {
         anchors.left: parent.left
@@ -33,7 +33,7 @@ Item {
 
     RowLayout {
         anchors.right: parent.right
-        spacing: 6
+        spacing: tokens.px(6)
 
         TextButton {
             tokens: navigation.tokens

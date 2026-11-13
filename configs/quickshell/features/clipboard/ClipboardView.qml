@@ -63,7 +63,7 @@ MenuPage {
             model: page.model.results
             currentIndex: page.model.selectedIndex
             onCurrentIndexChanged: positionViewAtIndex(currentIndex, ListView.Contain)
-            spacing: 3
+            spacing: tokens.px(3)
 
             StatusLabel {
                 anchors.centerIn: parent
@@ -77,8 +77,8 @@ MenuPage {
                 required property int index
 
                 width: history.width
-                height: 40
-                spacing: 2
+                height: tokens.px(40)
+                spacing: tokens.px(2)
 
                 SelectableMenuItem {
                     Layout.fillWidth: true

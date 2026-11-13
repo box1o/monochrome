@@ -8,6 +8,7 @@ installer_menu::action() {
         "Install packages" \
         "Deploy configs" \
         "Deploy scripts" \
+        "Build and deploy MPS" \
         "System setup" \
         "Watch configs" \
         "Full install" \
@@ -17,6 +18,7 @@ installer_menu::action() {
         "Install packages") printf 'packages\n' ;;
         "Deploy configs") printf 'configs\n' ;;
         "Deploy scripts") printf 'scripts\n' ;;
+        "Build and deploy MPS") printf 'mps\n' ;;
         "System setup") printf 'setup\n' ;;
         "Watch configs") printf 'watch\n' ;;
         "Full install") printf 'full\n' ;;

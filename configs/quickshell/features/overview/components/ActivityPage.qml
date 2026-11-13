@@ -12,7 +12,7 @@ Item {
     enabled: active
 
     transform: Translate {
-        x: page.active ? 0 : page.direction * 12
+        x: page.active ? 0 : page.direction * page.tokens.px(12)
 
         Behavior on x {
             NumberAnimation {

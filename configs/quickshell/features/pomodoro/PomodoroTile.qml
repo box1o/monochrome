@@ -11,7 +11,7 @@ AbstractButton {
     required property QtObject tokens
     property real contentTopPadding: 0
 
-    implicitHeight: 64
+    implicitHeight: tokens.px(64)
     padding: 0
     hoverEnabled: true
     Accessible.name: (source.running ? "Pause " : "Start ") + source.title + " timer"
@@ -30,23 +30,23 @@ AbstractButton {
     }
 
     contentItem: ColumnLayout {
-        spacing: 3
+        spacing: tokens.px(3)
         anchors.fill: parent
-        anchors.leftMargin: 12
-        anchors.rightMargin: 12
-        anchors.topMargin: 6 + tile.contentTopPadding
-        anchors.bottomMargin: 6
+        anchors.leftMargin: tokens.px(12)
+        anchors.rightMargin: tokens.px(12)
+        anchors.topMargin: tile.tokens.px(6) + tile.contentTopPadding
+        anchors.bottomMargin: tokens.px(6)
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 7
+            spacing: tokens.px(7)
 
             GlyphIcon {
-                Layout.preferredWidth: 14
-                Layout.preferredHeight: 14
+                Layout.preferredWidth: tokens.px(14)
+                Layout.preferredHeight: tokens.px(14)
                 glyph: String.fromCodePoint(984347)
                 fontFamily: tile.tokens.monoFamily
-                pixelSize: 14
+                pixelSize: tokens.textSize(14)
                 color: tile.source.running ? tile.tokens.magenta : tile.tokens.muted
             }
 
@@ -71,8 +71,8 @@ AbstractButton {
                 id: reset
 
                 tokens: tile.tokens
-                implicitWidth: 22
-                implicitHeight: 22
+                implicitWidth: tokens.px(22)
+                implicitHeight: tokens.px(22)
                 padding: 0
                 iconName: ""
                 description: "Reset Pomodoro"
@@ -88,7 +88,7 @@ AbstractButton {
                 contentItem: GlyphIcon {
                     glyph: "↺"
                     fontFamily: tile.tokens.fontFamily
-                    pixelSize: 15
+                    pixelSize: tokens.textSize(15)
                     font.bold: true
                     color: tile.tokens.muted
                 }
@@ -103,14 +103,14 @@ AbstractButton {
                 text: tile.source.text
                 color: tile.tokens.foreground
                 font.family: tile.tokens.monoFamily
-                font.pixelSize: tile.tokens.fontSize + 5
+                font.pixelSize: tile.tokens.fontSize + tokens.px(5)
                 font.bold: true
             }
 
             Rectangle {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 4
-                radius: 2
+                Layout.preferredHeight: tokens.px(4)
+                radius: tokens.px(2)
                 color: tile.tokens.alpha(tile.tokens.foreground, 0.14)
 
                 Rectangle {

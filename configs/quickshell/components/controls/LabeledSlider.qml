@@ -37,10 +37,10 @@ LevelSlider {
         id: iconButton
 
         anchors.left: parent.left
-        anchors.leftMargin: 3
+        anchors.leftMargin: tokens.px(3)
         anchors.verticalCenter: parent.verticalCenter
-        width: 22
-        height: 22
+        width: tokens.px(22)
+        height: tokens.px(22)
         visible: slider.iconInteractive
         hoverEnabled: true
         Accessible.name: slider.actionDescription
@@ -71,10 +71,10 @@ LevelSlider {
 
         AssetIcon {
             anchors.left: parent.left
-            anchors.leftMargin: 6
+            anchors.leftMargin: tokens.px(6)
             anchors.verticalCenter: parent.verticalCenter
-            width: 16
-            height: 16
+            width: tokens.px(16)
+            height: tokens.px(16)
             name: slider.displayIconName
             color: readout.ink
         }
@@ -83,9 +83,9 @@ LevelSlider {
             id: deviceName
 
             anchors.left: parent.left
-            anchors.leftMargin: 30
+            anchors.leftMargin: tokens.px(30)
             anchors.verticalCenter: parent.verticalCenter
-            width: Math.min(implicitWidth, Math.max(0, parent.width - anchors.leftMargin - (percentage.visible ? percentage.implicitWidth + 19 : 7)))
+            width: Math.min(implicitWidth, Math.max(0, parent.width - anchors.leftMargin - (percentage.visible ? percentage.implicitWidth + tokens.px(19) : tokens.px(7))))
             text: slider.title
             textFormat: Text.PlainText
             elide: Text.ElideRight
@@ -100,7 +100,7 @@ LevelSlider {
 
             visible: slider.showPercentage
             anchors.right: parent.right
-            anchors.rightMargin: 7
+            anchors.rightMargin: tokens.px(7)
             anchors.verticalCenter: parent.verticalCenter
             text: slider.label
             color: readout.ink

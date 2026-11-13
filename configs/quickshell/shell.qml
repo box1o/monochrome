@@ -14,6 +14,11 @@ ShellRoot {
 
     NotchStyle {
         id: notchStyle
+        tokens: themeTokens
+    }
+
+    SupplyService {
+        id: supplySource
     }
 
     ClockService {
@@ -134,6 +139,7 @@ ShellRoot {
             required property var modelData
 
             screen: modelData
+            supply: supplySource
             snippets: snippetsSource
             clipboard: clipboardSource
             coffee: coffeeSource

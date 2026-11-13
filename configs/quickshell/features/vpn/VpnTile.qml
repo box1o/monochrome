@@ -31,7 +31,7 @@ OverviewCard {
             onClicked: tile.openRequested()
             background: Item {}
             contentItem: ColumnLayout {
-                spacing: 2
+                spacing: tokens.px(2)
 
                 Text {
                     Layout.fillWidth: true

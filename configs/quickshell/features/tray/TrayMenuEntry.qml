@@ -9,16 +9,16 @@ AbstractButton {
     required property QtObject entry
     required property QtObject tokens
 
-    implicitHeight: entry.isSeparator ? 0 : 36
+    implicitHeight: entry.isSeparator ? 0 : tokens.px(36)
     visible: !entry.isSeparator
     enabled: entry.enabled && !entry.isSeparator
     hoverEnabled: true
-    padding: 8
+    padding: tokens.px(8)
     Accessible.ignored: entry.isSeparator
     Accessible.name: entry.text.replace(/&&|&/g, marker => marker === "&&" ? "&" : "")
 
     background: Rectangle {
-        radius: row.tokens.radius_small + 3
+        radius: row.tokens.radius_small + tokens.px(3)
         color: row.down ? row.tokens.pressedBackground : row.hovered ? row.tokens.hoverBackground : "transparent"
         border.width: row.visualFocus ? 1 : 0
         border.color: row.tokens.focusColor
@@ -26,19 +26,19 @@ AbstractButton {
 
     contentItem: RowLayout {
         visible: !row.entry.isSeparator
-        spacing: 9
+        spacing: tokens.px(9)
 
         Text {
             visible: row.entry.buttonType !== QsMenuButtonType.None
             text: row.entry.checkState === Qt.Checked ? "✓" : "○"
             color: row.tokens.foreground
-            font.pixelSize: 12
+            font.pixelSize: tokens.textSize(12)
         }
 
         Image {
             visible: source.toString().length > 0
-            Layout.preferredWidth: 16
-            Layout.preferredHeight: 16
+            Layout.preferredWidth: tokens.px(16)
+            Layout.preferredHeight: tokens.px(16)
             source: row.entry.icon
             fillMode: Image.PreserveAspectFit
         }
@@ -57,7 +57,7 @@ AbstractButton {
             visible: row.entry.hasChildren
             text: "›"
             color: row.tokens.muted
-            font.pixelSize: 18
+            font.pixelSize: tokens.textSize(18)
         }
     }
 }

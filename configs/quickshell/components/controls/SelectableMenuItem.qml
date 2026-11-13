@@ -15,8 +15,8 @@ AbstractButton {
     property color iconColor: tokens.muted
 
     implicitHeight: tokens.rowHeight
-    padding: 8
-    rightPadding: 18
+    padding: tokens.px(8)
+    rightPadding: tokens.px(18)
     hoverEnabled: true
     Accessible.name: title
 
@@ -34,11 +34,11 @@ AbstractButton {
     }
 
     contentItem: RowLayout {
-        spacing: 10
+        spacing: tokens.px(10)
 
         Item {
-            Layout.preferredWidth: 24
-            Layout.preferredHeight: 24
+            Layout.preferredWidth: tokens.px(24)
+            Layout.preferredHeight: tokens.px(24)
 
             Image {
                 id: icon
@@ -53,8 +53,8 @@ AbstractButton {
 
             AssetIcon {
                 anchors.centerIn: parent
-                width: 20
-                height: 20
+                width: tokens.px(20)
+                height: tokens.px(20)
                 name: row.iconName
                 visible: row.iconName.length > 0
                 color: row.iconColor
@@ -73,7 +73,7 @@ AbstractButton {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: 2
+            spacing: tokens.px(2)
 
             Text {
                 textFormat: Text.PlainText
@@ -98,9 +98,9 @@ AbstractButton {
         }
 
         AssetIcon {
-            Layout.preferredWidth: 16
-            Layout.preferredHeight: 16
-            Layout.leftMargin: 12
+            Layout.preferredWidth: tokens.px(16)
+            Layout.preferredHeight: tokens.px(16)
+            Layout.leftMargin: tokens.px(12)
             Layout.alignment: Qt.AlignVCenter
             name: "arrow-up-right"
             color: row.tokens.muted

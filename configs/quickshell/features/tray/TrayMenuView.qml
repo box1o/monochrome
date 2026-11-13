@@ -15,7 +15,7 @@ MenuPage {
         id: content
 
         anchors.fill: parent
-        spacing: 6
+        spacing: tokens.px(6)
 
         MenuHeader {
             Layout.fillWidth: true

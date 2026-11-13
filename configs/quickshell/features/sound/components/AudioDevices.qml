@@ -11,7 +11,7 @@ ColumnLayout {
     required property QtObject tokens
     property bool input: false
     readonly property QtObject selected: input ? source.microphone : source.sink
-    spacing: 10
+    spacing: tokens.px(10)
 
     AudioLevelRow {
         Layout.fillWidth: true
@@ -31,7 +31,7 @@ ColumnLayout {
     ColumnLayout {
         Layout.fillWidth: true
         visible: devices.input
-        spacing: 5
+        spacing: tokens.px(5)
         StatusLabel {
             Layout.fillWidth: true
             tokens: devices.tokens
@@ -47,7 +47,7 @@ ColumnLayout {
 
     Text {
         Layout.fillWidth: true
-        Layout.topMargin: 4
+        Layout.topMargin: tokens.px(4)
         text: devices.input ? "Input device" : "Output device"
         color: devices.tokens.muted
         font.family: devices.tokens.fontFamily
@@ -58,7 +58,7 @@ ColumnLayout {
         motionEnabled: devices.tokens.motionEnabled
         Layout.fillWidth: true
         Layout.fillHeight: true
-        spacing: 2
+        spacing: tokens.px(2)
         model: devices.input ? devices.source.inputs : devices.source.outputs
         delegate: SelectableMenuItem {
             required property var modelData

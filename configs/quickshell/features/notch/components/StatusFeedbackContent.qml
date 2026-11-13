@@ -56,7 +56,7 @@ RowLayout {
     Item {
         id: symbol
 
-        Layout.preferredWidth: Math.min(status.style.compactHeight - 4, status.tokens.iconSize + 3)
+        Layout.preferredWidth: Math.min(status.style.compactHeight - tokens.px(4), status.tokens.iconSize + tokens.px(3))
         Layout.preferredHeight: Layout.preferredWidth
 
         AssetIcon {

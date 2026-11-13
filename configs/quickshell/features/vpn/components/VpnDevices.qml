@@ -9,7 +9,7 @@ Item {
     required property QtObject source
     required property QtObject tokens
 
-    implicitHeight: source.tailscale.connected ? devices.implicitHeight : 36
+    implicitHeight: source.tailscale.connected ? devices.implicitHeight : tokens.px(36)
 
     Text {
         anchors.centerIn: parent
@@ -35,7 +35,7 @@ Item {
             id: devices
 
             width: parent.width
-            spacing: 6
+            spacing: tokens.px(6)
 
             Repeater {
                 model: list.source.tailscale.devices

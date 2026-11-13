@@ -8,11 +8,11 @@ ToolTip {
 
     delay: 550
     timeout: 3000
-    margins: 6
-    padding: 7
-    leftPadding: 10
-    rightPadding: 10
-    contentWidth: Math.min(240, measurement.width)
+    margins: tokens.px(6)
+    padding: tokens.px(7)
+    leftPadding: tokens.px(10)
+    rightPadding: tokens.px(10)
+    contentWidth: Math.min(tokens.px(240), measurement.width)
 
     TextMetrics {
         id: measurement
@@ -31,7 +31,7 @@ ToolTip {
     }
 
     background: Rectangle {
-        radius: tooltip.tokens.radius_small + 2
+        radius: tooltip.tokens.radius_small + tokens.px(2)
         color: tooltip.tokens.surface
         border.width: 1
         border.color: tooltip.tokens.alpha(tooltip.tokens.foreground, 0.1)

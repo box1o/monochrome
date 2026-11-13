@@ -4,11 +4,11 @@ IconButton {
     id: button
 
     property bool active: false
-    property real cornerRadius: tokens.radius_small + 3
+    property real cornerRadius: tokens.radius_small + tokens.px(3)
 
-    implicitWidth: 40
+    implicitWidth: tokens.px(40)
     implicitHeight: implicitWidth
-    padding: 11
+    padding: tokens.px(11)
     color: active ? tokens.foreground : tokens.muted
 
     background: Rectangle {

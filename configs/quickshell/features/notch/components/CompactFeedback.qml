@@ -2,6 +2,7 @@ import QtQuick
 import "../../calendar/components"
 import "../../pomodoro/components"
 import "../../recording/components"
+import "../../dps/components"
 
 Item {
     id: compact
@@ -15,6 +16,7 @@ Item {
     required property QtObject geometry
     readonly property string activityKey: presentation.kind === "connection" ? presentation.kind + ":" + feedback.revision : presentation.kind
     property real arrival: 1
+    signal supplyRequested()
 
     onActivityKeyChanged: {
         if (presentation.activityVisible && tokens.motionEnabled)
@@ -50,7 +52,7 @@ Item {
 
     opacity: arrival * Math.max(0, 1 - geometry.progress * 3)
     transform: Translate {
-        y: (1 - compact.arrival) * 4
+        y: (1 - compact.arrival) * compact.tokens.px(4)
     }
 
     readonly property real contentWidth: {
@@ -61,6 +63,8 @@ Item {
             return monthView.contentWidth;
         case "pomodoro":
             return pomodoroView.contentWidth;
+        case "supply":
+            return supplyView.contentWidth;
         case "recording":
             return recordingView.contentWidth;
         default:
@@ -88,6 +92,15 @@ Item {
         model: compact.month
         tokens: compact.tokens
         style: compact.style
+    }
+
+    SupplyActivity {
+        id: supplyView
+        anchors.centerIn: parent
+        visible: compact.presentation.kind === "supply"
+        source: compact.presentation.supply
+        tokens: compact.tokens
+        onOpenRequested: compact.supplyRequested()
     }
 
     RecordingActivity {

@@ -5,7 +5,7 @@ ListView {
 
     property bool motionEnabled: true
 
-    implicitHeight: Math.max(36, contentHeight)
+    implicitHeight: Math.max(0, contentHeight)
     clip: true
     boundsBehavior: Flickable.StopAtBounds
 

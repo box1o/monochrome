@@ -1,0 +1,12 @@
+[Unit]
+Description=mps supply service and CLI
+
+[Service]
+ExecStart="@CMAKE_INSTALL_FULL_BINDIR@/mps" serve
+Restart=on-failure
+RestartSec=2
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

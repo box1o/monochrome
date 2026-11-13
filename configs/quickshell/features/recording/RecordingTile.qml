@@ -9,7 +9,7 @@ AbstractButton {
     required property QtObject source
     required property QtObject tokens
 
-    padding: 8
+    padding: tokens.px(8)
     enabled: !source.busy
     hoverEnabled: true
     Accessible.name: source.active ? "Stop screen recording" : "Start screen recording"
@@ -31,18 +31,18 @@ AbstractButton {
         spacing: tile.tokens.spacing
 
         Rectangle {
-            width: 16
-            height: 16
-            radius: 8
+            width: tokens.px(16)
+            height: tokens.px(16)
+            radius: tokens.px(8)
             color: "transparent"
             border.width: 1
             border.color: tile.source.active ? tile.tokens.red : tile.tokens.muted
 
             Rectangle {
                 anchors.centerIn: parent
-                width: 7
-                height: 7
-                radius: tile.source.active ? 2 : 5
+                width: tokens.px(7)
+                height: tokens.px(7)
+                radius: tile.source.active ? tokens.px(2) : tokens.px(5)
                 color: tile.source.active ? tile.tokens.red : tile.tokens.foreground
             }
         }

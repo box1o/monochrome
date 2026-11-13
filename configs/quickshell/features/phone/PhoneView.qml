@@ -37,7 +37,7 @@ MenuPage {
             motionEnabled: page.tokens.motionEnabled
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: 4
+            spacing: tokens.px(4)
             model: page.source.devices
 
             delegate: SelectableMenuItem {

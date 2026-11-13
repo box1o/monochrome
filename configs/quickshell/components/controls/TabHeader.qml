@@ -8,6 +8,7 @@ RowLayout {
     required property var sections
     required property string currentSection
     property Component action: null
+    property bool showBackButton: true
 
     signal backRequested()
     signal sectionRequested(string section)
@@ -16,6 +17,7 @@ RowLayout {
 
     IconButton {
         tokens: header.tokens
+        visible: header.showBackButton
         iconName: "chevron-left"
         description: "Back"
         onClicked: header.backRequested()
@@ -35,6 +37,7 @@ RowLayout {
             Accessible.selected: selected
             onClicked: header.sectionRequested(modelData)
         }
+
     }
 
     Item {
@@ -45,4 +48,5 @@ RowLayout {
         sourceComponent: header.action
         visible: item !== null
     }
+
 }

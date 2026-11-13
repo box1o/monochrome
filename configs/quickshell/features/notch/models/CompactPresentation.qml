@@ -3,6 +3,7 @@ import QtQml
 QtObject {
     required property QtObject feedback
     required property QtObject month
+    property QtObject supply: null
     property QtObject recording: null
     property QtObject pomodoro: null
     property bool activityDismissed: false
@@ -20,7 +21,10 @@ QtObject {
         if (month.active)
             return "month";
 
-        return pomodoro && pomodoro.active && !activityDismissed ? "pomodoro" : "clock";
+        if (pomodoro && pomodoro.active && !activityDismissed)
+            return "pomodoro";
+
+        return supply && supply.lastOutputOn && !activityDismissed ? "supply" : "clock";
     }
-    readonly property bool activityVisible: kind === "connection" || kind === "month" || kind === "pomodoro" || kind === "recording"
+    readonly property bool activityVisible: kind === "connection" || kind === "month" || kind === "pomodoro" || kind === "recording" || kind === "supply"
 }

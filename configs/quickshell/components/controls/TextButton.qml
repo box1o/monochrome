@@ -9,7 +9,7 @@ Button {
     property color textColor: tokens.foreground
     property bool selected: false
 
-    implicitWidth: Math.max(32, label.implicitWidth + 20)
+    implicitWidth: Math.max(tokens.px(32), label.implicitWidth + tokens.px(20))
     implicitHeight: tokens.buttonSize
     hoverEnabled: true
     Accessible.name: description

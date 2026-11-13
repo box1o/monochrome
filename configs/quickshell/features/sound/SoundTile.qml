@@ -21,11 +21,11 @@ OverviewCard {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: tile.tokens.cardInset
-        spacing: 2
+        spacing: tokens.px(2)
 
         RowLayout {
             Layout.fillWidth: true
-            spacing: 6
+            spacing: tokens.px(6)
 
             Text {
                 text: "Sound"
